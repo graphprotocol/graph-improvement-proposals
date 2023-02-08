@@ -23,11 +23,12 @@ The protocol must consistently enforce the minimum indexer stake whenever an ind
 These actions are ones such as:
 
 - Creating an allocation
-- Closing an allocation
 - Staking
 - Unstaking
 
-An indexer under the minimum stake will be considered INACTIVE and only able to perform any of the above actions once they top-up their stake. An indexer is ACTIVE as long as its commited stake, the amount of GRT not thawing for withdrawal, is above the minimum stake.
+The protocol is already checking that the stake is over the minimum whenever an indexer stakes. It is also checking that an indexer never unstakes under the minimum, and if doing so it will only work as long as the indexer is unstaking in full. The only remaining condition that is left to check is when an indexer creates an allocation.
+
+An indexer under the minimum stake will be considered INACTIVE and only able to allocate once they top-up their stake. An indexer is ACTIVE as long as its commited stake, the amount of GRT not thawing for withdrawal, is above the minimum stake.
 
 # Validation
 
