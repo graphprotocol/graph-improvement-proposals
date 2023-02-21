@@ -1,16 +1,10 @@
 ---
 GIP: 0039
-
 Title: Curation v1.x
-
 Authors: Howard Heaton, Anirudh Patel
-
 Created: 2022-09-29
-
 Updated: 2022-09-29
-
 Stage: Accepted
-
 Category: Protocol Economics
 ---
 

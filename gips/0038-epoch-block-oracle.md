@@ -1,13 +1,11 @@
-
+---
 GIP: 0038
 Title: Epoch Block Oracle
 Authors: Adam Fuller (adam@edgeandnode.com), Ariel Barmat (ariel@edgeandnode.com), Zachary Burns
 Created: 2022-02-11
 Updated: 2022-11-01
-
 Stage: Draft
 Category: Protocol Interfaces
-
 ---
 
 # Abstract
