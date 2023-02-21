@@ -4,7 +4,7 @@ Title: Arbitrum GRT bridge
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>
 Created: 2022-04-20
 Updated: 2022-09-29
-Stage: Candidate
+Stage: Accepted
 Discussions-To: https://forum.thegraph.com/t/gip-0031-arbitrum-grt-bridge/3305
 Category: Protocol Logic, Protocol Interfaces
 Implementations: Original implementation was https://github.com/graphprotocol/contracts/pull/552 - superseded by https://github.com/graphprotocol/contracts/pull/699

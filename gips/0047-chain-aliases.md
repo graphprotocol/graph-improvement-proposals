@@ -1,10 +1,10 @@
 ---
-GIP: <The number of this GIP. To be assigned by editors.>
+GIP: 0047
 Title: Chain identification & aliasing for The Graph Protocol
 Authors: Adam Fuller <adam@edgeandnode.com>
 Created: 2022-07-28
 Updated: 2022-08-12
-Stage: Draft
+Stage: Candidate
 ---
 
 # Abstract

@@ -3,7 +3,6 @@ GIP: 0005
 Title: Gas costing for handlers
 Authors: Leonardo Yvens<leo@edgeandnode.com> and Zac Burns <zac@edgeandnode.com>
 Created: 2021-05-04
-
 Stage: Candidate
 Implementations: https://github.com/graphprotocol/graph-node/pull/2414
 ---
