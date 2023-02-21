@@ -4,7 +4,7 @@ Title: L2 Bridge and Protocol Deployment
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2022-11-03
 Updated: 2022-11-03
-Stage: Draft
+Stage: Accepted
 Category: Protocol Operations
 ---
 

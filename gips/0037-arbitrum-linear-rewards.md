@@ -4,7 +4,7 @@ Title: The Graph Arbitrum deployment with linear rewards minted in L2
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2022-09-02
 Updated: 2022-09-06
-Stage: Drafts
+Stage: Candidate
 Discussions-To: https://forum.thegraph.com/t/gip-0037-the-graph-arbitrum-deployment-with-linear-rewards-minted-in-l2/3551
 Category: "Protocol Logic", "Protocol Interfaces", "Economic Parameters"
 Depends-On: GIP-0031
