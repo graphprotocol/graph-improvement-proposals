@@ -79,6 +79,7 @@ In case of a validation error as part of the `validate` phase, `graph-node` will
 # Backwards Compatibility
 
 The GraphQL execution layer will run in the same way, but due to the nature of the extra added validation checks, some users might experience a change in the way `graph-node` responds to end-users GraphQL operations.
+In addition, some GraphQL queries which returned successfully before, will now return errors in a newer version of `graph-node`, if they have validation issues.
 
 To address the potential breaking change for users, we applied the following measures:
 
@@ -88,7 +89,7 @@ To address the potential breaking change for users, we applied the following mea
 4. Run GraphQL validations as part of the Studio GraphiQL editor, to make sure users are aware of this change ahead of time (https://github.com/edgeandnode/graphiql-playground/pull/17).
 5. Announce GraphQL validations is coming, and provide enough time for consumers to adjust.
 
-Due to the nature of this change, only end-users and not Subgraph developers are effected. We are not able to find all effected users, but we can give users enough time to adjust and fix their invalid GraphQL operations.
+This change will affect developers querying Subgraphs, not developers solely deploying and publishing subgraphs. We are not able to definitively identify all affected users, but we can give users enough time and utilities to adjust and fix their invalid GraphQL operations.
 
 # Dependencies
 
@@ -96,7 +97,9 @@ A single dependency on an external package [`graphql-tools-rs`](https://github.c
 
 # Risks and Security Considerations
 
-A performance risk is in place, due to the nature of adding a new phase to the GraphQL execution pipeline. It was mitigated by code review by `graph-node` project leads. All changes were tested on standalone environments prior to rollout. In addition, the production environment is running the GraphQL validations phase in silent mode
+A performance risk is in place, due to the nature of adding a new phase to the GraphQL execution pipeline. It was mitigated by code review by `graph-node` project leads. All changes were tested on standalone environments prior to rollout.
+
+In addition, the production environment is running the GraphQL validations phase in silent mode today, which means that validations are effectively running today, just not acted upon in case of a validation error.
 
 # Validation
 
