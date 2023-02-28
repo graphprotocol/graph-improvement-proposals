@@ -13,7 +13,7 @@ Implementations: https://github.com/graphprotocol/graph-node/pull/3057
 # Abstract
 
 The Graph API layer for consumers is using GraphQL as a protocol to expose data. Graph Node is capable today of parsing and executing GraphQL operations and return spec-compliant results.
-The GraphQL specification also includes a validation phases, intended to remove all ambiguities, conflicts, or runtime errors.
+The GraphQL specification also includes a validation phase, intended to remove all ambiguities, conflicts, or runtime errors.
 
 # Motivation
 
@@ -23,7 +23,8 @@ In addition, the ability to validate GraphQL operations as a separate phase prio
 
 # Prior Art
 
-Today, we have ad-hoc solutions around specific cases and issues, but they are not covering all cases mention in the GraphQL specification.
+- [GraphQL (JS/TS) Reference Implementation](https://github.com/graphql/graphql-js/tree/main/src/validation/rules)
+- [Juniper (Rust) validations](https://github.com/graphql-rust/juniper/tree/master/juniper/src/validation/rules)
 
 # High Level Description
 
@@ -93,7 +94,7 @@ A single dependency on an external package [`graphql-tools-rs`](https://github.c
 
 # Risks and Security Considerations
 
-A performance risk is in place, due to the nature of adding a new phase to the GraphQL execution pipeline. It as mitigated by code review by `graph-node` project leads. All changes were tested on standalone environments prior to rollout. In In addition, the production environment is running the GraphQL validations phase in silent mode
+A performance risk is in place, due to the nature of adding a new phase to the GraphQL execution pipeline. It was mitigated by code review by `graph-node` project leads. All changes were tested on standalone environments prior to rollout. In addition, the production environment is running the GraphQL validations phase in silent mode
 
 # Validation
 
