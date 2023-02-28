@@ -1,5 +1,5 @@
 ---
-GIP: 0046
+GIP: 0048
 Title: GraphQL Validations
 Authors: Dotan Simha <dotan@the-guild.dev>
 Created: 2023-02-19
@@ -69,9 +69,9 @@ The following spec rules are not part of this implementation:
 
 In case of a validation error as part of the `validate` phase, `graph-node` will return a validation error, and will skip the GraphQL execution:
 
-![GraphQL Validation Error](../assets/gip-0046/graphql-validations-1.png)
+![GraphQL Validation Error](../assets/gip-0048/graphql-validations-1.png)
 
-![GraphQL Validation Error](../assets/gip-0046/graphql-validations-2.png)
+![GraphQL Validation Error](../assets/gip-0048/graphql-validations-2.png)
 
 # Backwards Compatibility
 
