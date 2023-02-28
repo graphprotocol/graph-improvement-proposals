@@ -12,8 +12,10 @@ Implementations: https://github.com/graphprotocol/graph-node/pull/3057
 
 # Abstract
 
-The Graph API layer for consumers is using GraphQL as a protocol to expose data. Graph Node is capable today of parsing and executing GraphQL operations and return spec-compliant results.
-The GraphQL specification also includes a validation phase, intended to remove all ambiguities, conflicts, or runtime errors.
+Today, The Graph provides an API layer for consuming indexed data using the GraphQL protocol, implemented in `graph-node`.
+The current GraphQL implementation does not have a validation layer, as described by the official GraphQL specification.
+
+This proposal aims to address the missing implementation in `graph-node`, and add a GraphQL validation phase, as expected by GraphQL engines. Adding a validation phase will remove all ambiguities, conflicts, or runtime errors that a GraphQL engine might have.
 
 # Motivation
 
