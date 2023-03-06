@@ -3,7 +3,7 @@ GIP: 0046
 Title: L2 Migration Helpers
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2023-02-13
-Updated: 2023-02-13
+Updated: 2023-03-02
 Stage: Draft
 Discussions-To: https://forum.thegraph.com/t/gip-0046-l2-migration-helpers/4023
 Category: Protocol Logic, Protocol Interfaces
@@ -106,11 +106,14 @@ To prevent beneficiaries from escaping the vesting lock, the L2 vesting counterp
 
 The only change needed in the core protocol, then, is for the Staking contract to allow migrating stake and delegation to L2 but restricting the L2 beneficiary to be the L2 vesting counterpart if the caller is a vesting contract. For this to work, there will be separate functions exposed in the Staking contract (`migrateLockedDelegationToL2` and `migrateLockedStakeToL2`) that will query the `L1GraphTokenLockMigrator` to get the L2 vesting contract address for the caller, and perform the same migration process described above but using this L2 address as beneficiary.
 
+Vesting lock contracts do not forward ETH in their function calls, so it is necessary for the migration helpers to pull the ETH for the L2 ticket gas from somewhere else. We propose adding the ability for users to deposit the ETH into the `L1GraphTokenLockMigrator`, and then the Staking contract can pull the ETH from there.
+
 As a result, vesting contract beneficiaries that want to migrate to L2 would have to:
 
-1) Use the L1GraphTokenLockMigrator to deposit an arbitrary amount of GRT in L2, and therefore initialize the L2 vesting contract.
-
-2) Call `migrateLockedStakeToL2` or  `migrateLockedDelegationToL2` to migrate their stake or delegation.
+1) Use the L1GraphTokenLockMigrator to deposit some ETH to pay for the L2 retryable tickets.
+2) Use the L1GraphTokenLockMigrator to deposit an arbitrary amount of GRT in L2, and therefore initialize the L2 vesting contract.
+3) Call `migrateLockedStakeToL2` or  `migrateLockedDelegationToL2` to migrate their stake or delegation.
+4) (Optionally) Withdraw any remaining ETH from the L1GraphTokenLockMigrator.
 
 These actions can also be surfaced in the Explorer UI when connected with a vesting contract wallet.
 
@@ -138,9 +141,9 @@ The GNS contract on L2 will be upgraded to a new L2GNS contract, that inherits f
 The Staking contract on L1 will be upgraded to a new L1Staking contract, that inherits from the original base Staking but adds the following external functions:
 
 - `migrateStakeToL2()`: This function takes an L2 beneficiary address and an amount, and sends this amount from the caller’s Indexer stake to be staked for the beneficiary in L2. The caller must also specify gas parameters for the L2 retryable ticket.
-- `migrateLockedStakeToL2()`: equivalent to `migrateStakeToL2`, but queries the L2 beneficiary from an external L1GraphTokenLockMigrator address configured on storage; it will revert if the migrator returns a zero address for the beneficiary (meaning the caller is not a GraphTokenLockWallet that has migrated to L2).
+- `migrateLockedStakeToL2()`: equivalent to `migrateStakeToL2`, but queries the L2 beneficiary from an external L1GraphTokenLockMigrator address configured on storage; it will revert if the migrator returns a zero address for the beneficiary (meaning the caller is not a GraphTokenLockWallet that has migrated to L2). It will pull the ETH for the retryable ticket from the L1GraphTokenLockMigrator using a call to `pullETH()`, checking that the migrator transferred the ETH to the Staking contract after the call.
 - `migrateDelegationToL2()`: takes an Indexer address and an L2 beneficiary. Sends the caller’s delegation assigned to the specified Indexer through the bridge, to be delegated to the corresponding Indexer in L2. The Indexer must have previously migrated using one of the stake migration helper functions. The caller must also specify gas parameters for the L2 retryable ticket.
-- `migrateLockedDelegationToL2()`: equivalent to `migrateDelegationToL2`, but queries the L2 beneficiary from an external L1GraphTokenLockMigrator address configured on storage; it will revert if the migrator returns a zero address for the beneficiary (meaning the caller is not a GraphTokenLockWallet that has migrated to L2).
+- `migrateLockedDelegationToL2()`: equivalent to `migrateDelegationToL2`, but queries the L2 beneficiary from an external L1GraphTokenLockMigrator address configured on storage; it will revert if the migrator returns a zero address for the beneficiary (meaning the caller is not a GraphTokenLockWallet that has migrated to L2). It will pull the ETH for the retryable ticket from the L1GraphTokenLockMigrator using a call to `pullETH()`, checking that the migrator transferred the ETH to the Staking contract after the call.
 - `setL1GraphTokenLockMigrator()`: can only be called by the governor (i.e. the Council). Sets the address of the L1GraphTokenLockMigrator that will be queried by `migrateLockedDelegationToL2` and `migrateLockedStakeToL2`.
 - `unlockDelegationToMigratedIndexer()`: this function can only be called by Delegators that are delegated to an Indexer that has migrated to L2 and has no stake left in L1. The Delegator must have previously locked tokens for undelegation using `undelegate` (though his could have been done in the same transaction using `multicall`). The function will set this delegation’s `tokensLockedUntil` to the current epoch, so that the Delegator can withdraw the locked tokens immediately after calling this (again, potentially on the same transaction using `multicall`).
 
