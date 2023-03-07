@@ -23,7 +23,7 @@ In order to be useful to these emerging projects, Graph Node needs to be able to
 
 # Prior Art
 
-[Prior IPFS Datasource RFP](https://github.com/graphprotocol/network-rfcs/blob/master/rfcs/0003-data-availability-and-IPFS-data-sources.md)
+[Prior IPFS Datasource RFC](https://github.com/graphprotocol/network-rfcs/blob/master/rfcs/0003-data-availability-and-IPFS-data-sources.md)
 [IPFS data sources graph-node issues](https://github.com/graphprotocol/graph-node/issues/1017)
 [Existing IPFS documentation](https://thegraph.com/docs/developer/assemblyscript-api#ipfs-api)
 
