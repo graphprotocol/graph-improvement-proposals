@@ -85,7 +85,27 @@ There is a downside to this approach, which is that it makes it less intuitive t
 
 ## Detailed Specification
 
-TODO.
+### Spec for staking contract changes
+
+The staking contract will be upgraded to a new implementation containing the following changes:
+
+- Add `lambdaNumerator` and `lambdaDenominator` to contract storage. For `alphaNumerator` and `alphaDenominator` we will re-use the storage variables currently in use for the Cobb-Douglas formula.
+- Deprecate `rebates` storage variable and update `closeAllocation()` function to remove rebate pools logic.
+- Remove `claim()` function
+- Update `collect()` function to perform operations that were done by `claim()`
+    - Calculate rebated fees
+    - Distribute rebates to delegators and indexer
+    - Re-stake rebated fees only if `rewardsDestination` is not set for the indexer
+- Deprecate `channelDisputeEpochs` storage variable and remove associated setters/getters
+- Remove `Closed` and `Finalized` states from Allocation life cycle, affects `getAllocationState()`
+- Add `distributedRebates` to the `Allocation` struct to keep track of rebate distribution across multiple voucher collections.
+
+### Spec for rebates staking lib
+
+The rebates library for the staking contract will be updated:
+
+- Remove Cobb-Douglas implementation
+- Update `redeem()` to calculate rebates using exponential formula described in this GIP.
 
 ## Backwards Compatibility + Upgrade Path
 
@@ -93,7 +113,7 @@ The switch to exponential rebates in itself is not significant as it only modifi
 
 We propose making both changes at once, *i.e.* directly switch to exponential rebates and remove rebate pools in a single upgrade. This greatly simplifies the operational overhead (orchestrating ops, communication with indexers, code audits, *etc.*) when compared to a potential two stage upgrade (first one to switch rebates to exponential, second one to remove pools after a grace period). This presents some transitional challenges described below.
 
-********************Unclaimed open pools********************
+**Unclaimed open pools**
 
 Today there are roughly 38,000 open pools with rebates waiting to be claimed. These most likely remain unclaimed due to the rebate amount being so small it’s not enough to cover the gas cost for the claim transaction. 
 
@@ -104,6 +124,19 @@ We anticipate most indexers will forfeit these fees as they should, for the most
 There is another situation where pools/allocations may be caught in between the transition and, thus, lost. Fees cannot be claimed from a rebate pool until the allocation they are being claiming for is in the `Finalized` state. Currently this takes ~7 days after the allocation is closed (defined by `Staking.channelDisputeEpochs`). Indexers will lose any collected fees if the upgrade hits during that time window as the claim function will be removed before they can reclaiming the rebates. 
 
 To minimize this risk, we propose reducing `Staking.channelDisputeEpochs` from the current ~7 days to ~1 day, this will give indexers more flexibility so they can plan their query collecting/claiming accordingly and minimize loses. With a clear upgrade date on sight, indexers can close allocations up to one day before the upgrade and have enough time to claim any collected fees as long as they don’t collect any new fees during that last day.
+
+**Re-staking flag removal**
+
+An additional consideration for indexers is re-staking behavior when collecting rebates after the upgrade. In order to keep the same `Staking.collect` interface (which avoids having to upgrade the `AllocationExchange` contract) rebated fees for indexers will automatically be re-staked unless there is a `rewardsDestination` set. This mimics the way indexing rewards re-staking works. 
+
+Since `rewardsDestination` will control both indexing rewards and query fee re-staking behavior, indexers wanting to re-stake one but withdraw the other will need to toggle the rewards destination address before/after their `collect` or `closeAllocation` calls, which can be done using multi-call. For example, to have indexing rewards re-staked but query fees withdrawn to an address:
+
+- Set rewards destination address by calling `setRewardsDestination(withdrawAddress)`
+- For rebates collection just call `collect` and rebates will be transferred to `withdrawAddress`
+- For indexing rewards re-staking, indexer will need to perform the following multi-call:
+    - `setRewardsDestination(address(0))`
+    - `closeAllocation(...)`
+    - `setRewardsDestination(withdrawAddress)`
 
 ## Dependencies
 
