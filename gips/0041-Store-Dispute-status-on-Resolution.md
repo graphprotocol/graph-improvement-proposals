@@ -1,11 +1,11 @@
 ---
-GIP: 0041 
+GIP: 0041
 Title: Store Dispute status on Resolution
-Authors: jordan@soulbound.xyz
+Authors: jordan@soulbound.xyz goose@soulbound.xyz
 Created: 2023-11-22
-Updated: 
+Updated:
 Stage: Draft
-Category: 
+Category:
 ---
 
 ### Abstract
@@ -34,14 +34,17 @@ Modify the Dispute struct in [IDisputeManager.sol](https://github.com/graphprot
         DisputeStatus disputeStatus; /* New disputeStatus enum */
     }
 
-     enum DisputeStatus {
-        Pending,
-        Drawn,
+    enum DisputeStatus {
+        Null,
         Accepted,
-        Rejected
+        Rejected,
+        Drawn,
+        Pending
     }
 
 ```
+
+Add an `onlyPendingDisputes` modifier.
 
 Modify the `_resolveDispute` and `_resolveDisputeInConflict` methods in [DisputeManager.sol](https://github.com/graphprotocol/contracts/blob/dev/contracts/disputes/DisputeManager.sol) to accept and set a `DisputeStatus` value on a `Dispute`.
 
@@ -49,9 +52,11 @@ Modify `acceptDispute`, `rejectDispute`, and `drawDispute` methods to call t
 
 Modify `_createIndexingDisputeWithAllocation` and `_createQueryDisputeWithAttestation` methods to create new disputes with a `Pending` status.
 
+Modify the `isDisputeCreated` function to use the new dispute status.
+
 ### Implementation
 
-This proposal doesn't have an implementation yet.
+A pull request is open [here](https://github.com/graphprotocol/contracts/pull/766).
 
 ### Backwards Compatibility
 
