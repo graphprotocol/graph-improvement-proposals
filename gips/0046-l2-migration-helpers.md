@@ -48,6 +48,8 @@ The Subgraph Owner must then wait for the transaction to propagate to L2, which 
 
 Once this second transaction succeeds, the subgraph will be published in L2 and the owner will have an amount of signal corresponding to the amount of GRT that was sent from L1 (note this is different from the signal in L1 due to GIP-0039). No curation tax will be charged when minting this signal.
 
+The subgraph in L2 will have a subgraph ID that is different from L1, but that can be computed deterministically from the L1 subgraph ID, similarly to [how Arbitrum does address aliasing](https://developer.arbitrum.io/arbos/l1-to-l2-messaging#address-aliasing).
+
 ## Curation migration
 
 Once a Subgraph Owner migrates a subgraph to L2, the L1 subgraph will appear as deprecated, but the L1 GNS will also record that it was migrated to L2.
@@ -98,19 +100,31 @@ Vesting contracts from The Graph’s [token-distribution repo](https://github.co
 
 The full spec for the changes needed on the vesting contracts for them to migrate to L2 is out of scope for this GIP, but we will outline the high level overview and how we can support them with minimal modifications in the Staking contract.
 
-Vesting contracts are instances (or more precisely, proxies) of a contract called `GraphTokenLockWallet`. These smart contract wallets allow releasing funds as the vesting periods pass, and they also allow certain functions in the protocol to be called, using an allowlist and the fallback function.
+Vesting contracts are instances (or more precisely, proxies) of a contract called `GraphTokenLockWallet`. These smart contract wallets allow releasing funds as the vesting periods pass, and they also allow certain functions in the protocol to be called, using an allowlist and the fallback function. This fallback function does not forward ETH from `msg.value`, so the contracts can't directly pay for the L2 retryable tickets.
 
 For vesting contracts to migrate to L2, we propose deploying an `L1GraphTokenLockMigrator` contract, that can be called by the GraphTokenLockWallet to deposit an arbitrary amount of GRT into a counterpart vesting contract in L2. This counterpart will be created through a callhook on the bridge that calls an `L2GraphTokenLockManager` contract on Arbitrum. This GIP therefore proposes allowing this migrator contract to be added to the bridge callhook allowlist (see GIP-0031 for details on how the callhooks work).
 
-To prevent beneficiaries from escaping the vesting lock, the L2 vesting counterparts (`L2GraphTokenLockWallet`) will not allow releasing funds in L2 until the full vesting timeline is over; but beneficiaries will be able to bridge tokens back to the L1 vesting contract to release them there.
+For contracts that are fully-vested (i.e. their `endTime` is in the past), and that haven't previously created a counterpart L2 lock, the migrator will allow setting an arbitrary L2 counterpart address, so that beneficiaries can use a non-vesting-contract setup in L2.
 
-The only change needed in the core protocol, then, is for the Staking contract to allow migrating stake and delegation to L2 but restricting the L2 beneficiary to be the L2 vesting counterpart if the caller is a vesting contract. For this to work, there will be separate functions exposed in the Staking contract (`migrateLockedDelegationToL2` and `migrateLockedStakeToL2`) that will query the `L1GraphTokenLockMigrator` to get the L2 vesting contract address for the caller, and perform the same migration process described above but using this L2 address as beneficiary.
+To prevent (non-fully-vested) beneficiaries from escaping the vesting lock, the L2 vesting counterparts (`L2GraphTokenLockWallet`) will not allow releasing funds in L2 until the full vesting timeline is over; but beneficiaries will be able to bridge tokens back to the L1 vesting contract to release them there.
 
-As a result, vesting contract beneficiaries that want to migrate to L2 would have to:
+Both fully and still-vesting beneficiaries will have to deposit ETH into the migrator contract using a `depositETH` function so that the Staking contract can pull it during the migration to pay for the L2 retryable ticket.
 
-1) Use the L1GraphTokenLockMigrator to deposit an arbitrary amount of GRT in L2, and therefore initialize the L2 vesting contract.
+The only change needed in the core protocol, then, is for the Staking contract to allow migrating stake and delegation to L2 but restricting the L2 beneficiary to be the L2 vesting counterpart if the caller is a vesting contract, and pull the ETH from the migrator contract. For this to work, there will be separate functions exposed in the Staking contract (`migrateLockedDelegationToL2` and `migrateLockedStakeToL2`) that will query the `L1GraphTokenLockMigrator` to get the L2 vesting contract address for the caller, and perform the same migration process described above but using this L2 address as beneficiary.
 
-2) Call `migrateLockedStakeToL2` or  `migrateLockedDelegationToL2` to migrate their stake or delegation.
+As a result, vesting contract beneficiaries that are still vesting, and want to migrate to L2 would have to:
+
+1) Deposit some ETH into the migrator contract (UI can help estimate a reasonable amount)
+2) Send some locked GRT through the migrator contract, to L2 to initialize the L2 vesting lock. This will also set their L2 beneficiary address.
+3) Send their stake/delegation to L2 through the “locked” migration helpers in the L1Staking contract.
+4) Withdraw any remaining ETH from the migrator contract
+
+For those that are fully-vested, the process is similar:
+
+1) Deposit some ETH into the migrator contract (UI can help estimate a reasonable amount)
+2) Set their L2 address with a call to the migrator contract
+3) Send their stake/delegation to L2 through the “locked” migration helpers in the L1Staking contract.
+4) Withdraw any remaining ETH from the migrator contract
 
 These actions can also be surfaced in the Explorer UI when connected with a vesting contract wallet.
 
@@ -121,14 +135,14 @@ These actions can also be surfaced in the Explorer UI when connected with a vest
 The GNS contract on L1 will be upgraded to a new L1GNS contract, that inherits from the original GNS but adds the following external functions:
 
 - `sendSubgraphToL2()`: this function can be called by a Subgraph Owner. They must specify a subgraph ID and an address for the Subgraph Owner in L2, together with gas parameters for the L2 retryable ticket. This function will mark the subgraph as migrated and disable it. It will burn all the signal and send the GRT corresponding to the owner’s share, together with the subgraph’s information, to L2 through the L1GraphTokenGateway. The remaining GRT will be set as withdrawable so that Curators can withdraw them (or send them to L2).
-- `sendCuratorBalanceToBeneficiaryOnL2()`: this function can be called by Curators that have signal deposited on a subgraph that was migrated to L2. They must specify the subgraph ID and the L2 beneficiary that will own the signal on the migrated subgraph. They must also specify gas parameters for the L2 retryable ticket. The function sends the GRT corresponding to the Curator’s share of the subgraph signal to L2 through the L1GraphTokenGateway. It reduces the subgraph’s withdrawable GRT accordingly.
+- `sendCuratorBalanceToBeneficiaryOnL2()`: this function can be called by Curators that have signal deposited on a subgraph that was migrated to L2. They must specify the (L1) subgraph ID and the L2 beneficiary that will own the signal on the migrated subgraph. They must also specify gas parameters for the L2 retryable ticket. The function sends the GRT corresponding to the Curator’s share of the subgraph signal to L2 through the L1GraphTokenGateway. It reduces the subgraph’s withdrawable GRT accordingly.
 
 ## L2GNS spec
 
 The GNS contract on L2 will be upgraded to a new L2GNS contract, that inherits from the original GNS but adds the following external functions and modifications:
 
 - `onTokenTransfer()`: to conform to the bridge’s callhook interface (see GIP-0031), this function can only be called by the L2GraphTokenGateway, and validates that the L1 sender is the L1GNS. It accepts two types of encoded messages, identified by a `uint8` code in the ABI-encoded callhook data:
-    - `RECEIVE_SUBGRAPH_CODE` will receive a subgraph ID and owner address and create the subgraph in a disabled state. The subgraph will not have a deployment ID or any metadata at this point, and the received GRT will not be used yet (but the amount will be recorded in storage, to be used in `finishSubgraphMigrationFromL1`).
+    - `RECEIVE_SUBGRAPH_CODE` will receive a subgraph ID and owner address and create the subgraph in a disabled state. The subgraph will not have a deployment ID or any metadata at this point, and the received GRT will not be used yet (but the amount will be recorded in storage, to be used in `finishSubgraphMigrationFromL1`). The subgraph ID in L2 will be aliased from the L1 subgraph ID.
     - `RECEIVE_CURATOR_BALANCE_CODE` will receive a subgraph ID and beneficiary address, and use the received GRT to mint signal on the subgraph for the beneficiary. Signal will be minted without charging curation tax. If the subgraph migration has not been finalized (i.e. the Subgraph Owner never called `finishSubgraphMigrationFromL1`, or for whatever reason the subgraph was never received in L2), the tokens will instead be returned to the beneficiary.
 - `finishSubgraphMigrationFromL1()`: this function must be called by a Subgraph Owner after the subgraph was received from L1 through `onTokenTransfer`. The caller must specify the subgraph deployment ID, subgraph metadata and version metadata to publish the subgraph. The tokens received in the callhook will be used to mint signal on the subgraph deployment, initializing the (flat) curation pool for the subgraph. The corresponding subgraph signal will be owned by the Subgraph Owner. Since the curve is flat, there is no problem if someone has pre-curated on the subgraph deployment directly through the Curation contract (unlike in L1, where such a scenario would revert to prevent frontrunning).
 - `publishNewVersion()`: this function is overridden from the original GNS implementation to allow updating to a pre-curated subgraph deployment. This reverted in the original implementation to avoid frontrunning; the flat curve implemented in GIP-0039 means we don’t need to prevent this scenario anymore.
@@ -186,6 +200,26 @@ To minimize divergence and keep the contracts more maintainable, this is done at
 To support the addition of the StakingExtension contract, a new `setExtensionImpl` function is added for the Council to set the address of the StakingExtension.
 
 Finally, a `setCounterpartAddress()` is added as well; it allows the governor (Council) to set the address of the L2 Staking contract to which to send messages (in the L1Staking case) or the L1 Staking contract from which messages are received (in the L2Staking case).
+
+## Arbitration Charter change
+
+Migrating stake could provide a way for indexers to avoid slashing, by sending their stake to L2 after performing a slashable offense. As part of this GIP, we propose modifying the Arbitration Charter to note that L1 offenses are slashable in L2 if the indexer migrates stake after the offense and before the slashing decision.
+
+## Subgraph ID aliasing
+
+To prevent conflicts with subgraphs created in L2, subgraph IDs from L1 will be aliased by adding a constant:
+```
+uint256 public constant SUBGRAPH_ID_ALIAS_OFFSET =
+        uint256(0x1111000000000000000000000000000000000000000000000000000000001111);
+```
+
+This constant will be added to the L1 subgraph ID when receiving the subgraph in L2GNS, using addition in a way that wraps around zero when overflowing (note this is Solidity 0.7 addition):
+
+```
+l2SubgraphId = l1SubgraphID + SUBGRAPH_ID_ALIAS_OFFSET
+```
+
+Additionally, to make subgraph IDs unique cross-chain going forward, after this update new IDs will use the chain ID as part of the hash input.
 
 # Backwards Compatibility
 
