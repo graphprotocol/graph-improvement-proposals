@@ -5,7 +5,7 @@ Authors: Pablo Carranza Velez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgea
 Created: 2023-04-20
 Updated: 2023-04-20
 Stage: Draft
-Discussions-To: TODO
+Discussions-To: https://forum.thegraph.com/t/gip-0052-timeline-and-requirements-to-increase-rewards-in-l2/4193
 Category: Economic Parameters
 Depends-On: GIP-0043, GIP-0046
 ---
