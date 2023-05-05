@@ -3,8 +3,8 @@ GIP: 0052
 Title: Timeline and requirements to increase rewards in L2
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomas Migone <tomas@edgeandnode.com>
 Created: 2023-04-20
-Updated: 2023-04-20
-Stage: Draft
+Updated: 2023-05-05
+Stage: Candidate
 Discussions-To: https://forum.thegraph.com/t/gip-0052-timeline-and-requirements-to-increase-rewards-in-l2/4193
 Category: Economic Parameters
 Depends-On: GIP-0043, GIP-0046
@@ -12,11 +12,11 @@ Depends-On: GIP-0043, GIP-0046
 
 # Abstract
 
-This proposal presents a potential timeline to migrate 100% of indexing rewards to the L2 instance of The Graph. It proposes four steps with L2 rewards going from 5% to 25%, 50%, staying for 95% for some time, and finally 100%. It presents requirements and an estimated time for executing each step.
+This proposal presents a potential timeline to start issuing 100% of indexing rewards on the L2 instance of The Graph. It proposes four steps with L2 rewards going from 5% to 25%, 50%, staying for 95% for some time, and finally 100%. It presents requirements and an estimated time for executing each step.
 
 # Motivation
 
-In several GIPs, we’ve presented various steps to migrate The Graph Network to Arbitrum One. Now that the L2 network has been deployed, and other important milestones have been met, it would be desirable to have a clear timeline and exit criteria for completing the migration by switching 100% of indexing rewards to L2.
+In several GIPs, we’ve presented various steps to scale The Graph Network by moving to Arbitrum One. Now that the L2 network has been deployed, and other important milestones have been met, it would be desirable to have a clear timeline and exit criteria for completing the move by switching 100% of indexing rewards to L2.
 
 # Prior Art
 
@@ -28,10 +28,10 @@ In GIP-0043 and the corresponding GGP-0021, the Council approved sending 5% of i
 
 We propose four steps to take rewards from the current status to 100% minted on L2:
 
-1) Bump to 25% on L2 after releasing all migration helpers as described in GIP-0046
-2) Bump to 50% on L2 after at least two weeks of migration helpers working as expected, and some increase in L2 participation.
+1) Bump to 25% on L2 after releasing all L2 Transfer Tools as described in GIP-0046
+2) Bump to 50% on L2 after at least two weeks after that, and some increase in L2 participation.
 3) Bump to 95% on L2 two months after the previous step, as long as everything is working as expected and there is a considerable increase in L2 participation.
-4) Bump to 100% on L2 a month after the previous step, as long as a large percentage of subgraphs have migrated to L2.
+4) Bump to 100% on L2 a month after the previous step, as long as a large percentage of subgraphs have transferred to L2.
 
 Note this proposal is more about the steps than the actual percentages, if the community or the Council prefer different issuance values for each step, the proposal can still be implemented with different values.
 
@@ -41,9 +41,11 @@ The four steps would have some requirements or “exit criteria” that would ne
 
 Any issues that require making changes in the smart contracts should restart the timeline, to make sure there is enough time to ensure safety before another increase.
 
+Before each increase, we propose briefly discussing the status on the Indexer Office Hours call, to check that Indexers (and other participants) are not having issues that should delay the increase.
+
 ## 1) Increase to 25% on L2
 
-ETA: week of May 8th, 2023
+ETA: week of May 22nd, 2023
 
 Criteria:
 
@@ -54,13 +56,14 @@ Criteria:
     - Indexers have successfully opened and closed allocations on L2
     - Indexers have successfully served queries on L2, and collected query fees
 - Indexer Agent support for running on L1 and L2 with a single instance has been released
-- GNS (Subgraphs / Curation) migration helpers have been released as per GIP-0046
-- Stake and Delegation migration helpers have been released as per GIP-0046
-- Vesting contract migration helpers have been released as per GIP-0046
+- GNS (Subgraphs / Curation) Transfer Tools have been released as per GIP-0046
+- Stake and Delegation Transfer Tools have been released as per GIP-0046
+- Vesting contract Transfer Tools have been released as per GIP-0046
+- Transfer Tools have been deployed for at least one week, and participants can confirm they are able to use them without major issues.
 
 ## 2) Increase to 50% on L2
 
-ETA: week of May 22nd, 2023
+ETA: week of June 5th, 2023
 
 Criteria:
 
@@ -70,12 +73,12 @@ Criteria:
     - No smart contract issues have been reported
     - Indexers have successfully opened and closed allocations on L2
     - Indexers have successfully served queries on L2, and collected query fees
-- Some (> 1) subgraphs have been successfully migrated to L2 using the migration helpers
-- Some (> 1) indexers have used the stake migration helpers
+- Some (> 1) subgraphs have been successfully transferred to L2 using the Transfer Tools.
+- Some (> 1) indexers have used the stake Transfer Tool after the 25% increase.
 
 ## 3) Increase to 95% on L2
 
-ETA: week of July 24th, 2023
+ETA: week of August 7th, 2023
 
 Criteria:
 
@@ -86,13 +89,14 @@ Criteria:
     - Indexers have successfully opened and closed allocations on L2
     - Indexers have successfully served queries on L2, and collected query fees
 - The number of indexers on L2 is at least 50% the number of indexers on L1
+- Total Delegation on L2 is at least 50% of Delegation on L1 (or equivalently, a third of Delegation has been transferred to L2)
 - Gateway QoS metrics on L2 are comparable to metrics on L1
 
 ## 4) Increase to 100% on L2
 
-ETA: week of August 28th, 2023
+ETA: week of September 4th, 2023
 
-This last bump will essentially disable the L1 network, as indexers will have little incentive to keep indexing subgraphs there. For this reason, we should wait until most subgraph owners have migrated to L2 to avoid outages, which is reflected in the last criterion.
+This last bump will essentially disable the L1 network, as indexers will have little incentive to keep indexing subgraphs there. For this reason, we should wait until most active subgraph owners have transferred to L2 to avoid outages, which is reflected in the last criterion.
 
 Criteria:
 
@@ -103,8 +107,9 @@ Criteria:
     - Indexers have successfully opened and closed allocations on L2
     - Indexers have successfully served queries on L2, and collected query fees
 - The number of indexers on L2 is (still) at least 50% the number of indexers on L1
+- Total Delegation on L2 is (still) at least 50% of total Delegation on L1
 - Gateway QoS metrics on L2 are comparable to metrics on L1
-- At least 90% of L1 subgraphs with more than the minimum curation signal have migrated to L2
+- At least 90% of subgraphs that have had queries in the last month are now deployed on L2.
 
 # Backwards Compatibility
 
