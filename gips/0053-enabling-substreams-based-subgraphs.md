@@ -1,7 +1,7 @@
 ---
-GIP: <The number of this GIP. To be assigned by editors.>
-Title: <The title of this GIP>
-Authors: <A list of authors. Include full name or pseudonym. At least one author must have valid contact information provided in angle brackets.>
+GIP: <0053>
+Title: <Enabling-Substreams-Based-Subgraphs>
+Authors: <Alex Bourget alex@dfuse.io, Adam Fuller adam@edgeandnode.com>
 Created: <The date the GIP was created.>
 Updated: <The date the GIP was last updated.>
 Stage: <The current stage of the proposal. Specified by author and confirmed by editors by virtue of a GIP being accepted into an editor's view of the repo.>
