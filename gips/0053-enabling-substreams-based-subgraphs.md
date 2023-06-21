@@ -2,19 +2,10 @@
 GIP: <0053>
 Title: <Enabling-Substreams-Based-Subgraphs>
 Authors: <Alex Bourget alex@dfuse.io, Adam Fuller adam@edgeandnode.com>
-Created: <The date the GIP was created.>
-Updated: <The date the GIP was last updated.>
-Stage: <The current stage of the proposal. Specified by author and confirmed by editors by virtue of a GIP being accepted into an editor's view of the repo.>
-Discussions-To: <The forum post where discussion for this proposal is taking place.>
-Category: <(Optional) The type of GIP or GRP. Should be left blank for GRCs. Valid types are "Protocol Logic", "Protocol Interfaces", "Subgraph API", "Process", "Economic Parameters", "Protocol Charters".>
-Depends-On: <(Optional) A list of GIPs that this GIP depends on. If some other type of dependency exists, include a reference link here and an explanation in the body of the GIP.>
-Superseded-By: <(Optional) A GIP that supersedes the current proposal. If this field is specified, the stage of the GIP should be "Withdrawn".>
-Replaces: <(Optional) A GIP that this proposal is intended to supersede.>
-Resolves: <(Optional) If this GIP was written in response to an RFP, include it here.>
-Community-Polls: <(Optional) A list of URLs to community polls relating to this GIP.>
-Governance Proposals: <(Optional) A list of URLs to governance proposals related to this GIP.>
-Implementations: <(Optional) A list of URLs to reference implementations for this proposal.>
-Audits: <(Optional) A list of URLs to audits related to this proposal.>
+Created: <2022-07-19>
+Updated: <2023-06-21>
+Stage: <Draft>
+Discussions-To: <https://forum.thegraph.com/t/ggp-0025-enabling-substreams-based-subgraphs/4287, https://forum.thegraph.com/t/substreams-into-subgraphs-a-simple-integration/3542>
 ---
 (*All lists should comprise comma-separated elements. All dates are in ISO 8601 format.*)
 
@@ -26,7 +17,11 @@ Audits: <(Optional) A list of URLs to audits related to this proposal.>
 
 # Abstract
 
-*A brief (roughly 5-10 lines) summary of this proposal.*
+*Substreams are a new streaming-first blockchain indexing technology developed for The Graph Network, focused on performance and composability.
+
+A substreams package is a collection of interdependent modules, which combine to extract and transform blockchain events in a highly configurable and parallelisable way, producing a streaming output.
+
+This GIP describes the simplest possible integration of Substreams with Subgraphs, to take that final streaming output and make it persistent and queryable.*
 
 # Motivation
 
