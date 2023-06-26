@@ -3,7 +3,7 @@ GIP: <0053>
 Title: <Enabling-Substreams-Based-Subgraphs>
 Authors: <Alex Bourget alex@dfuse.io, Adam Fuller adam@edgeandnode.com>
 Created: <2022-07-19>
-Updated: <2023-06-21>
+Updated: <2023-06-26>
 Stage: <Draft>
 Discussions-To: <https://forum.thegraph.com/t/ggp-0025-enabling-substreams-based-subgraphs/4287, https://forum.thegraph.com/t/substreams-into-subgraphs-a-simple-integration/3542>
 ---
@@ -18,7 +18,7 @@ This GIP describes the simplest possible integration of Substreams with Subgraph
 
 # Motivation
 
-As Substreams become first-class citizens with The Graph Network, the StreamingFast team believes that Substreams software has been battle tested enough to be deemed fully production ready with The Graph Network. To ensure that Indexers will index substreams-back subgraphs, the GIP proposes to add Oracle support for dataSource.kind =="substreams" to the Feature Matrix shared below. 
+As Substreams become first-class citizens with The Graph Network, the StreamingFast team believes that Substreams software has been battle tested enough to be deemed fully production ready with The Graph Network. To ensure that Indexers will index substreams-back subgraphs, the GIP proposes to add Oracle support for dataSource.kind =="substreams" to the Feature Matrix shared below.
 
 This would make an important moment where the performance promises we have made in the last 2 years come to fruition. With a very important indexing-time performance boost, as well as an important injection-time performance boost.
 
@@ -51,30 +51,38 @@ dataSources:
     mapping:
       kind: substreams/graph-entities
       apiVersion: 0.0.X
-```   
+```
 
 This introduces a new `substreams` “kind” of dataSource. This dataSource is identified on the `subgraph.yaml` by a name and a filepath. This filepath will point locally to a Substreams package, which will be uploaded to IPFS on deployment.
 
 > Subgraphs with a substreams dataSource can only have that single dataSource.
 
 #### Graph Node configuration
+
 In order to support substream-based subgraphs, Graph Node will need to be Substream aware. An additional substream endpoint will be required for each network which Graph Node will want to support
 
 This can be an extension of the existing provider configuration in Graph Node:
+
 ```typescript
-[chains.mainnet]
-shard = "main"
-protocol = "ethereum"
+[chains.mainnet];
+shard = "main";
+protocol = "ethereum";
 provider = [
-  { label = "substreams-provider-mainnet",
-    details = { type = "substreams",
-    url = "https://mainnet-substreams-url.grpc.substreams.io/",
-    token = "exampletokenhere" }},
-]
+  {
+    label = "substreams-provider-mainnet",
+    details = {
+      type = "substreams",
+      url = "https://mainnet-substreams-url.grpc.substreams.io/",
+      token = "exampletokenhere",
+    },
+  },
+];
 ```
+
 Substreams may require dedicated error handling / retry logic, though a lot of the requirements should be covered by the Firehose cursor-based integration.
 
 #### Mapping entities
+
 Substreams have their own protobuf schemas. However to directly copy the raw substream schema would be to lose the ability to link and traverse entities in the resulting GraphQL schema.
 
 Utilities should certainly be provided to auto-generate a `.graphql` file from a substream protobuf schema, with intelligent type mapping. However once generated, developers should be able to update the `.graphql` schema, to identify connections between entities, and to add derived fields. Therefore there is still value in having a schema file as part of the subgraph definition.
@@ -82,6 +90,7 @@ Utilities should certainly be provided to auto-generate a `.graphql` file from a
 This proposal does assume a tight coupling between entity names in the substream, and entity names in the subgraph
 
 #### Updating entities
+
 In order to support performant querying, Graph Node stores full entities at every block where those entities change. It supports “upsert” type behaviour, where saved values are merged with existing entities.
 
 Substreams currently provide entity “deltas”, which just capture the changed values. Therefore there is a requirement to fetch any prior entity values to create the full entity to store. This could be done on either the Substream or Graph Node side of the integration, so we should work through the trade offs & alternatives.
@@ -89,6 +98,7 @@ Substreams currently provide entity “deltas”, which just capture the changed
 Graph Node will still need to “close” the block range for any existing entities, which could negatively impact indexing performance.
 
 #### Deterministic indexing
+
 A fundamental requirement is deterministic indexing, specifically the generation of a Proof of Indexing, which can then be cross-checked across indexers.
 
 > Graph Node makes the assumption that all upstream datasources are deterministic, and will make the same assumption about Substreams
@@ -96,16 +106,20 @@ A fundamental requirement is deterministic indexing, specifically the generation
 Depending on the implementation in Graph Node, this could leverage the existing Proof of Indexing setup, or it may need a dedicated Proof of Indexing in Graph Node.
 
 #### Handling re-orgs
+
 Graph Node will still need to be re-org aware. The substreams connection should provide the relevant information (which blocks to remove). Graph Node will need to remove entities from those blocks, and re-open the block range for older entities. This functionality already exists in Graph Node, but might need to be updated for the new data source.
 
 #### Linear process & batch back-filling
+
 Graph node will need to support linear processing, e.g. when indexing at the chain head. There is a possibility that linear processing historical blocks becomes a significant performance bottleneck. In that case, a dedicated “batch” insert implementation might be required to load historical data into the subgraph.
 
 #### Monitoring
+
 Graph Node’s instrumentation & monitoring may need to be updated for the new type of indexing (e.g. tracking indexing time per block etc).
 
 #### Graph CLI
-Graph CLI will need to be updated for the new type of data source. Graph CLI could also include the helpers to auto-generate `.graphql` files for a given substream.*
+
+Graph CLI will need to be updated for the new type of data source. Graph CLI could also include the helpers to auto-generate `.graphql` files for a given substream.\*
 
 # Backwards Compatibility
 
@@ -116,7 +130,7 @@ This functionality is purely additive. Graph Node may need a new `specVersion` g
 - Substream support for a given network requires a Firehose implementation for that network.
 - Requires determinism from the upstream Firehose & Substreams
 - Substreams introduce additional infrastructural requirements for indexers
-- This integration may require some changes as part of Substreams
+- This integration relies on a dedicated `substreams_entity_change` [crate](https://docs.rs/substreams-entity-change/1.2.2/substreams_entity_change/index.html#), which streamlines the creation of output entities which are subgraph compatible.
 
 # Risks and Security Considerations
 
@@ -130,8 +144,7 @@ Discovery of new indeterminisms are still possible, but mitigated by greater fac
 
 # Rationale and Alternatives
 
-- Alternative Postgres Sink
-- Less opaque integration
+This GIP describes the simplest route to Substreams availability on The Graph Network. This does not preclude introduction of other approaches on The Graph Network in the future, such as availability of Substreams endpoints directly, or the introduction of other Substreams sinks as "deployable units". In addition, the Graph Node integration could be made less opaque, deepening the integration (for example passing parameters to the underlying Substreams package). These are all potential extensions as the Substreams ecosystem grows and matures.
 
 # Copyright Waiver
 
