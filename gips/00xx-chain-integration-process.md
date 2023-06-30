@@ -66,9 +66,16 @@ Integrators must open a PR, updating the `[feature-matrix-support.md](http://fea
 
 | | Requirements | Exit Criteria |
 | --- | --- | --- |
-| Stage 1 |✓ GIP if Graph Node integration exists; GRP if otherwise.<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories.<br>✓ Open-sourced Firehose implementation, if applicable.<br>✓ Example subgraph/substream with docs (reproducible deployment to Graph Node).<br>✓ A substream or substream-based subgraph is required for Firehose-based integrations. |→ Example subgraph or substream (if applicable) syncs successfully.<br>Chain's node runs reliably (same for Firehose, if applicable).<br>→ Docker and bare metal Indexer guides on Firehose stack and EVM RPC nodes.<br>→ Merged Stage 1 PRs. |
-| Stage 2 |✓ Free of charge backend supporting Graph Studio integration or a grant for teams to operate such backend (GRP required for the latter).<br>✓ Documentation for Indexers to run a required backend with Graph Node. | → At least 2 subgraphs on Graph's testnet synced by >=5 Indexers. <br>→ 0% POI divergence.<br>→ Community validation on the integration (through a poll, if necessary).<br>→ Graph Studio's integration uptime >99%.<br> |
-| Stage 3  | GGP for mainnet integration | Council-approved GGP |
+| Stage 1 |✓ GIP if Graph Node integration exists; GRP if otherwise.<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories.<br>✓ Open-sourced Firehose implementation, if applicable.<br>✓ Example subgraph with docs.`ᶜ` |→ Example subgraph syncs successfully.<br>Chain's node and/or Firehose runs reliably`ᵃ`.<br>→ Docker and bare metal Indexer guides for Firehose stack and EVM RPC.`ᵇ`<br>→ Merged Stage 1 PRs. |
+| Stage 2 |✓ Free of charge backend supporting Graph Studio integration or a grant for teams to operate such backend (GRP required for the latter).| → At least 2 subgraphs on Graph's testnet synced by >=5 Indexers.`ᵉ` <br>→ 0% POI divergence`ᵃ`<br>→ Community validation on the integration.`ᵈ`<br>→ Graph Studio's integration uptime >99%.<br> |
+| Stage 3  | GGP for mainnet integration | Council-approved GGP `` |
+
+> _Notes_
+> - `ᵃ` validated by IndexerDAO
+> - `ᵇ` with the help of IndexerDAO
+> - `ᶜ` reproducible deployment to Graph Node
+> - `ᵈ` via a poll, if no rough consensus on the Forum
+> - `ᵉ` to be deployed by IndexerDAO
 
 
 # Dependencies
