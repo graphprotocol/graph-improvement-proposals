@@ -1,3 +1,4 @@
+---
 GIP: <The number of this GIP. To be assigned by editors.>
 Title: Chain Integration Process
 Authors: Pedro Diogo <pedro@thegraph.foundation>
@@ -5,6 +6,7 @@ Created: June 6, 2023
 Updated: June 30, 2023
 Stage: Draft
 Discussions-To: TBD
+---
 
 # Abstract
 
