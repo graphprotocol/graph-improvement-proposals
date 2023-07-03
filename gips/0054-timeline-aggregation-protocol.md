@@ -1,36 +1,14 @@
 ---
-GIP: 0053
+GIP: 0054
 Title: Timeline Aggregation Protocol
-Authors: 
-Bryan Cole <bryan.cole@semiotic.ai>
-Severiano Sisneros <severiano@semiotic.ai>
-Alexis Asseman <alexis@semiotic.ai>
-Zachary Burns <zac@edgeandnode.com>
-Theo Butler <theo@edgeandnode.com>
-Gokay Saldamli <gokay@semiotic.ai>
-Tomasz Kornuta <tomasz@semiotic.ai>
-
+Authors: <Bryan Cole <bryan.cole@semiotic.ai>, Severiano Sisneros <severiano@semiotic.ai>, Alexis Asseman <alexis@semiotic.ai>, Zachary Burns, <zac@edgeandnode.com>, Theo Butler <theo@edgeandnode.com>, Gokay Saldamli <gokay@semiotic.ai>, Tomasz Kornuta <tomasz@semiotic.ai>
 Created: 2023-05-23
 Updated: 2023-06-03
 Stage: Draft
-Discussions-To: <The forum post where discussion for this proposal is taking place.>
 Category: Protocol Logic
-Depends-On: -
-Superseded-By: -
-Replaces: -
-Resolves: -
-Community-Polls: -
-Governance Proposals: -
 Implementations: TAP <https://github.com/semiotic-ai/timeline_aggregation_protocol>, TAP Contracts <https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts>
 Audits: TOADD
 ---
-(*All lists should comprise comma-separated elements. All dates are in ISO 8601 format.*)
-
-*This is a template GIP proposal showing the layout and formatting described in GIP 0001. Italicized writing are comments and should be removed or replaced. Sections marked optional may also be removed if left empty.*
-
-*All GIPs MUST include preamble, in RFC 822 format, preceeded and followed by three dashes ("—-"). This formatting aids in compatibility with most static site generators.*
-
-*Given the heterogeneous types of proposals that this template is meant to reflect, most sections below, with the exception of "Abstract" and "Motivation" may be treated as optional. The author, however, should exercise good judgement in deviating from the template, as they are reflective of the type of information, when relevant, that editors will look for in reviewing a proposal.*
 
 # Abstract
 
@@ -82,7 +60,7 @@ The goal of Timeline Aggregation Protocol (TAP) is to enable the Indexers to agg
 
 A Gateway pays an Indexer for query serving. On the other hand, an Indexer provides these services to a Gateway and collects payments in return. Fig. 1 presents the most important interactions between Gateway, Indexer and Gateway Receipt Aggregator.
 
-| ![tap_diagram.png](../assets/gip-0053/tap_diagram.png) |
+| ![tap_diagram.png](../assets/gip-0054/tap_diagram.png) |
 | - |
 | <b>Fig 1: Diagram presenting the most important interactions between the core components of the protocol.</b>|
 
@@ -106,7 +84,7 @@ TAP Receipts are used as proof of value owed from gateway to indexer. A single T
 * Random Nonce - Randomly selected number used concatenated with timestamp to create a unique ID for receipt within an aggregation batch
 * Signature - ECDSA signature of all other items in receipt
 
-| ![tap_receipt.png](../assets/gip-0053/tap_receipt.png) |
+| ![tap_receipt.png](../assets/gip-0054/tap_receipt.png) |
 | - |
 | <b>Fig. 2: TAP Receipt structure</b>|
 
@@ -127,7 +105,7 @@ Receipt Aggregate Voucher (RAV) is a response message sent by the Gateway Receip
 
 For hashing and signing RAVs we also leverage [EIP-712](https://eips.ethereum.org/EIPS/eip-712).
 
-| ![tap_receipt_aggregation.png](../assets/gip-0053/tap_receipt_aggregation.png) |
+| ![tap_receipt_aggregation.png](../assets/gip-0054/tap_receipt_aggregation.png) |
 | - |
 | <b>Fig. 3: TAP RAV structure and aggregation of batches of TAP Receipt</b>|
 
@@ -173,7 +151,7 @@ When an Indexer receives a receipt (that comes along with an associated query), 
 
 The order of execution of those checks is presented in fig. 4.
 
-| ![tap_manager_receipt_checks.png](../assets/gip-0053/tap_manager_receipt_checks.png) |
+| ![tap_manager_receipt_checks.png](../assets/gip-0054/tap_manager_receipt_checks.png) |
 | - |
 | <b>Fig. 4: (Optional) receipt checks performed when a new receipt is received by the Indexer</b>|
 
@@ -183,7 +161,7 @@ Hence TAP enables the Indexers to postpone all/or some of those checks to be exe
 as presented in fig. 5.
 In short, during RAV request preparation TAP manager checks if a given receipt passed all checks - and if some are missing it will run them at the very moment.
 
-| ![tap_manager_rav_request_checks.png](../assets/gip-0053/tap_manager_rav_request_checks.png) |
+| ![tap_manager_rav_request_checks.png](../assets/gip-0054/tap_manager_rav_request_checks.png) |
 | - |
 | <b>Fig. 5: (Mandatory) receipt checks performed by the Indexer when preparing RAV request</b>|
 
@@ -229,7 +207,7 @@ At its core TAP relies on cryptographic protocols to ensure the integrity and au
 A key design feature of TAP is that it is simple; it relies on standard cryptography, does not require special assumptions about the underlying cryptographic primitives, and the reference implementation is built on top of well known open source libraries. Specifically, receipts and RAVs are signed using the deterministic variant of the standardized ECDSA signature algorithm (see IETF RFC6979) with the secp256k1 elliptic curve, the same as currently used in Ethereum for signing transactions. Receipt messages are hashed according to the EIP-712 specification. The reference TAP implementation was built in Rust using well known open source libraries for all cryptographic operations, specifically signature generation and verification; building on the contributions of the community and mitigating the risks of “rolling your own cryptography”. 
 
 Additionally, both the protocol and the implementation were assessed for security vulnerabilities internally and externally by independent teams. Findings from those assessments were incorporated into the design specified in this GIP. Detailed risks analysis can be found in:
-[2023.03 TAP security.pdf](../assets/gip-0053/2023.03_tap_security.pdf)
+[2023.03 TAP security.pdf](../assets/gip-0054/2023.03_tap_security.pdf)
 
 Finally, the protocol and the reference implementations are open source. Abiding by Kerckoffs’s principle and providing the opportunity for the protocol to be further improved by the community. 
 
@@ -238,7 +216,7 @@ Finally, the protocol and the reference implementations are open source. Abiding
 # Validation
 
 We got the protocol reviewed by an external consultant. Details can be found in:
-[2023.03 TAP Discussion (External Review).pdf](../assets/gip-0053/2023.03_tap_discussion_external_review.pdf)
+[2023.03 TAP Discussion (External Review).pdf](../assets/gip-0054/2023.03_tap_discussion_external_review.pdf)
 
 We will also schedule an audit of all the implemented smart contracts before their deployment.
 
