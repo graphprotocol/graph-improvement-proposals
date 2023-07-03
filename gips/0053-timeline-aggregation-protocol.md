@@ -179,17 +179,17 @@ This contract is intended to be used with the `Collateral` contract.
 
 Implementation along with detailed API documentation of TAP contracts can be found [here](https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts).
 
-
 # Backwards Compatibility
-
-## Indexers:
-?
 
 ## Gateway:
 Indexers are currently expected to report their software version (via the `/version` path of indexer-service). During the transition period, the gateway will use this version to determine if the indexer can be expected to support TAP. If so, the gateway will only send receipts to that indexer using TAP. Otherwise, the current Scalar receipt format will be used. This will ensure that any query sent to an indexer from a gateway will only be associated with one receipt, and that receipt will only be associated with one of the two Scalar protocol versions.
 
+## Indexers:
+We assume no backwards compatibility for the Indexer Service, i.e. once the Indexers will upgrate their stack, then they will switch to the TAP Scalar payments.
+Hence the protocol will have to make advertise that this is a breaking change and Indexers will have to redeem your receipts and close all the allocations before this upgrade.
+
 ## Smart contacts:
-@bryan? @tomasmigone?
+Similarly to Indexer Service, update to new stack will automatically trigger switching to new Collateralization and TAP Verifier smart contracts.
 
 
 # Risks and Security Considerations
