@@ -161,6 +161,36 @@ TAPManager uses 4 adapters:
 
 Detailed documentation can be found in [TAP Core docs.rs](https://docs.rs/tap_core/0.1.0/tap_core/)
 
+### TAP Manager receipt and RAV request checks
+
+When an Indexer receives a receipt (that comes along with an associated query), it has to perform several validations, namely it needs to check if:
+* receipt is unique (`check_uniqueness`)
+* the allocation is correct and open (`checkt_AllocationID`)
+* receipt timestamp is correct (`check_timestamp`)
+* value of the receipt matches it's price bid according to the latest Indexer's Agora model (`check_value`)
+* Gateway signature is correct (`check_signature`)
+* collateral is sufficiend to collect the payment once the query is served (`check_collateral`).
+
+The order of execution of those checks is presented in fig. 4.
+
+| ![tap_manager_receipt_checks.png](../assets/gip-0053/tap_manager_receipt_checks.png) |
+| - |
+| <b>Fig. 4: (Optional) receipt checks performed when a new receipt is received by the Indexer</b>|
+
+Please note those checks are done as part of the critical path when an Indexer is serving a query.
+This might impact the total serving time.
+Hence TAP enables the Indexers to postpone all/or some of those checks to be executed during the RAV request preparation,
+as presented in fig. 5.
+In short, during RAV request preparation TAP manager checks if a given receipt passed all checks - and if some are missing it will run them at the very moment.
+
+| ![tap_manager_rav_request_checks.png](../assets/gip-0053/tap_manager_rav_request_checks.png) |
+| - |
+| <b>Fig. 5: (Mandatory) receipt checks performed by the Indexer when preparing RAV request</b>|
+
+Please refer to [TAP Manager documentation](https://docs.rs/tap_core/0.1.0/tap_core/tap_manager/struct.Manager.html) for more details on this topic.
+
+
+
 ### Gateway Receipt Aggregator
 
 Gateway Receipt Aggregator is a A JSON-RPC service that lets clients request an aggregate receipt (RAV) based on a list of individual receipts. High-level specification can be found [TAP Aggregator README](https://docs.rs/crate/tap_aggregator/0.1.0).
