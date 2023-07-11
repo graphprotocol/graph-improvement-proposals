@@ -34,15 +34,15 @@ Adding Substreams support to Graph Node is the fastest way to bring the performa
 | **Data Source Types**    |         |             |              |                   |                      |                  |
 | eip155:*                 | *       | Yes         | No           | No                | No                   | No               |
 | eip155:1                 | mainnet | Yes         | No           | Yes               | Yes                  | Yes              |
-| eip155:100 | gnosis | Yes | Yes | Yes | Yes |
+| eip155:100 | gnosis | Yes         | Yes         | Yes         | Yes         |  Yes         |
 | near:*                   | *       | Yes         | Yes          | No                | No                   | No               |
 | cosmos:*                 | *       | Yes         | Yes          | No                | No                   | No               |
 | arweave:*                | *       | Yes         | Yes          | No                | No                   | No               |
-|eip155:42161 | artbitrum-one | Yes | Yes | Yes | Yes |
-| eip155:42220 | celo | Yes | Yes | Yes | Yes |
-| eip155:43114 | avalanche | Yes | Yes | Yes | Yes |
-| eip155:250 | fantom | Yes | Yes | Yes | Yes |
-| eip155:137 | polygon | Yes | Yes | Yes | Yes |
+|eip155:42161 | artbitrum-one | Yes         | Yes         | Yes         | Yes         |  Yes         |
+| eip155:42220 | celo | Yes         | Yes         | Yes         |  Yes         | Yes         |
+| eip155:43114 | avalanche | Yes         | Yes         | Yes         | Yes         | Yes         |
+| eip155:250 | fantom | Yes         | Yes         | Yes         | Yes         | Yes         |
+| eip155:137 | polygon | Yes         | Yes         | Yes         | Yes         | Yes         |
 | **Data Source Features** |         |             |              |                   |                      |                  |
 | ipfs.cat in mappings         |         | Yes         | Yes          | No                | No                   | No               |
 | ENS                      |         | Yes         | Yes          | No                | No                   | No               |
