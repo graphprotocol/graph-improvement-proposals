@@ -42,7 +42,7 @@ The goal of Timeline Aggregation Protocol (TAP) is to enable the Indexers to agg
 
 ## Definitions
 
-* Gateway - a distributed entity sharing a public/private key pair, pays Indexers for their  service
+* Gateway - a distributed entity providing access to services provided by Indexers and monitoring their performance. In the context of TAP it is responsible for sharing public/private key pairs and paying Indexers for their services
 * Indexer -  provides a service for a Gateway (potentially many Gateways) and collects payments
 * Receipt - a promissory note from a Gateway to an Indexer
 * Receipt Aggregate Voucher (RAV) - a message from a Gateway to an Indexer which can be used to redeem a debt
