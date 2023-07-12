@@ -1,7 +1,7 @@
 ---
 GIP: 0054
 Title: Timeline Aggregation Protocol
-Authors: <Bryan Cole <bryan.cole@semiotic.ai>, Severiano Sisneros <severiano@semiotic.ai>, Alexis Asseman <alexis@semiotic.ai>, Zachary Burns, <zac@edgeandnode.com>, Theo Butler <theo@edgeandnode.com>, Gokay Saldamli <gokay@semiotic.ai>, Tomasz Kornuta <tomasz@semiotic.ai>
+Authors: Bryan Cole <bryan.cole@semiotic.ai>, Severiano Sisneros <severiano@semiotic.ai>, Alexis Asseman <alexis@semiotic.ai>, Zachary Burns, <zac@edgeandnode.com>, Theo Butler <theo@edgeandnode.com>, Gokay Saldamli <gokay@semiotic.ai>, Tomasz Kornuta <tomasz@semiotic.ai>
 Created: 2023-05-23
 Updated: 2023-06-03
 Stage: Draft
