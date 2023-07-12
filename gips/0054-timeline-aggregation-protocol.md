@@ -175,7 +175,7 @@ Gateway Receipt Aggregator is a A JSON-RPC service that lets clients request an 
 
 Detailed documentation can be found in [TAP Aggregator docs.rs](https://docs.rs/tap_core/0.1.0/tap_core/).
 
-## Smart Contracts (Tom/Bryan | Status: OK)
+## Smart Contracts
 
 TAPVerifier - A contract for verifying receipt aggregation vouchers.
 
