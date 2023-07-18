@@ -22,32 +22,7 @@ To ensure that Indexers will index substreams-powered subgraphs, the GIP propose
 
 This would make an important moment where the performance promises we have made come to fruition. With a very important indexing-time performance boost, as well as an important injection-time performance boost.
 
-Adding Substreams support to Graph Node is the fastest way to bring the performance and composability benefits of substreams to The Graph Network.
-
-#### Updated Feature Matrix
-| Subgraph Feature         | Aliases | Implemented | Experimental | Query Arbitration | Indexing Arbitration | Indexing Rewards |
-|--------------------------|---------|-------------|--------------|-------------------|----------------------|------------------|
-| **Core Features**        |         |             |              |                   |                      |                  |
-| Full-text Search         |         | Yes         | No           | No                | Yes                  | Yes              |
-| Non-Fatal Errors         |         | Yes         | Yes          | Yes               | Yes                  | Yes              |
-| Grafting                 |         | Yes         | Yes          | Yes               | Yes                  | Yes              |
-| **Data Source Types**    |         |             |              |                   |                      |                  |
-| eip155:*                 | *       | Yes         | No           | No                | No                   | No               |
-| eip155:1                 | mainnet | Yes         | No           | Yes               | Yes                  | Yes              |
-| eip155:100 | gnosis | Yes         | Yes         | Yes         | Yes         |  Yes         |
-| near:*                   | *       | Yes         | Yes          | No                | No                   | No               |
-| cosmos:*                 | *       | Yes         | Yes          | No                | No                   | No               |
-| arweave:*                | *       | Yes         | Yes          | No                | No                   | No               |
-|eip155:42161 | artbitrum-one | Yes         | Yes         | Yes         | Yes         |  Yes         |
-| eip155:42220 | celo | Yes         | Yes         | Yes         |  Yes         | Yes         |
-| eip155:43114 | avalanche | Yes         | Yes         | Yes         | Yes         | Yes         |
-| eip155:250 | fantom | Yes         | Yes         | Yes         | Yes         | Yes         |
-| eip155:137 | polygon | Yes         | Yes         | Yes         | Yes         | Yes         |
-| **Data Source Features** |         |             |              |                   |                      |                  |
-| ipfs.cat in mappings         |         | Yes         | Yes          | No                | No                   | No               |
-| ENS                      |         | Yes         | Yes          | No                | No                   | No               |
-| File data sources: IPFS | | Yes | Yes | No | Yes | Yes|
-| Substreams data sources | | Yes | Yes | Yes | Yes | Yes |
+Adding Substreams support to Graph Node is the fastest way to bring the performance and composability benefits of substreams to The Graph Network. 
 
 
 # Detailed Specification
@@ -69,11 +44,45 @@ dataSources:
     mapping:
       kind: substreams/graph-entities
       apiVersion: 0.0.X
-```   
+```  
 
 This introduces a new `substreams` “kind” of dataSource. This dataSource is identified on the `subgraph.yaml` by a name and a filepath. This filepath will point locally to a Substreams package, which are uploaded to IPFS on deployment.
 
 > Subgraphs with a substreams dataSource can only have that single dataSource.
+
+
+#### Updated Feature Matrix
+
+This GIP proposes initial support for indexing rewards only on Ethereum mainnet (`mainnet`) `substreams`. However, it doesn't mean indexing rewards will be supported on a chain basis: `mainnet` is the starting point, based on early data determinism assurances and Indexer readiness to operate an Ethereum Firehose at scale, whose implementation has been battle-tested by core developers and the Indexer community during the [MIPs program](https://thegraph.com/migration-incentive-program/). More on data determinism can be found in [Deterministic indexing](#deterministic-indexing) below.
+
+The proposed updated Feature Matrix, including the new `Substreams data sources` subgraph feature, with indexing rewards support for `mainnet` substreams:
+
+More on Subgraph API versioning and feature support can be found in [GIP-008](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0008-subgraph-api-versioning-and-feature-support.md).
+
+| Subgraph Feature         | Aliases       | Implemented | Experimental | Query Arbitration | Indexing Arbitration | Indexing Rewards |
+| ------------------------ | ------------- | ----------- | ------------ | ----------------- | -------------------- | ---------------- |
+| **Core Features**        |               |             |              |                   |                      |                  |
+| Full-text Search         |               | Yes         | No           | No                | Yes                  | Yes              |
+| Non-Fatal Errors         |               | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| Grafting                 |               | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| **Data Source Types**    |               |             |              |                   |                      |                  |
+| eip155:*                 | *             | Yes         | No           | No                | No                   | No               |
+| eip155:1                 | mainnet       | Yes         | No           | Yes               | Yes                  | Yes              |
+| eip155:100               | gnosis        | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| near:*                   | *             | Yes         | Yes          | No                | No                   | No               |
+| cosmos:*                 | *             | Yes         | Yes          | No                | No                   | No               |
+| arweave:*                | *             | Yes         | Yes          | No                | No                   | No               |
+| eip155:42161             | artbitrum-one | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| eip155:42220             | celo          | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| eip155:43114             | avalanche     | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| eip155:250               | fantom        | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| eip155:137               | polygon       | Yes         | Yes          | Yes               | Yes                  | Yes              |
+| **Data Source Features** |               |             |              |                   |                      |                  |
+| ipfs.cat in mappings     |               | Yes         | Yes          | No                | No                   | No               |
+| ENS                      |               | Yes         | Yes          | No                | No                   | No               |
+| File data sources: IPFS  |               | Yes         | Yes          | No                | Yes                  | Yes              |
+| Substreams data sources  | mainnet       | Yes         | Yes          | Yes               | Yes                  | Yes              
+
 
 #### Graph Node configuration
 In order to support substreams-powered subgraphs, Graph Node is Substream aware. An additional substream endpoint is required for each network which Graph Node will want to support
