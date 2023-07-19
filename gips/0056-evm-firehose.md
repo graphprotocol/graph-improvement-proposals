@@ -1,5 +1,5 @@
 ---
-GIP: <The number of this GIP. To be assigned by editors.>
+GIP: 0056
 Title: EVM Firehose implementation
 Authors: Adam Fuller, Alexandre Bourget
 Created: 2023-06-15
