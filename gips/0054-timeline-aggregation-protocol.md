@@ -179,8 +179,8 @@ Detailed documentation can be found in [TAP Aggregator docs.rs](https://docs.rs/
 
 TAPVerifier - A contract for verifying receipt aggregation vouchers.
 
-Collateral - This contract allows `senders` to deposit collateral for specific `receivers`, which can later be redeemed using Receipt Aggregate Vouchers (`RAV`) signed by an authorized `signer`. `Senders` can deposit collateral for `receivers`, authorize `signers` to create signed `RAVs`, and withdraw collateral after a set `thawingPeriod` number of seconds. `Receivers` can redeem signed `RAVs` to claim collateral.
-This contract uses the `TAPVerifier` contract for recovering signer addresses from `RAVs`.
+Collateral - This contract allows `senders` who are whitelisted to deposit collateral for specific `receivers`, which can later be redeemed using Receipt Aggregate Vouchers (`RAV`) signed by an authorized `signer`. `Senders` can deposit collateral for `receivers`, authorize `signers` to create signed `RAVs`, and withdraw collateral after a set `thawingPeriod` number of seconds. `Receivers` can redeem signed `RAVs` to claim collateral.
+This contract uses the `TAPVerifier` contract for recovering signer addresses from `RAVs`. AccessControlDefaultAdminRules is used for managing sender authorization.
 
 AllocationIDTracker - This contract tracks the allocation IDs of the RAVs that have been submitted to ensure that each allocation ID is only used once. It is external to the collateral contract to allow for updating the collateral contract without losing the list of used allocation IDs.
 This contract is intended to be used with the `Collateral` contract.
