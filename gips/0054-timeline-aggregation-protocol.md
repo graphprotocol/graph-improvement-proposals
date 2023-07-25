@@ -193,8 +193,9 @@ Implementation along with detailed API documentation of TAP contracts can be fou
 Indexers are currently expected to report their software version (via the `/version` path of indexer-service). During the transition period, the gateway will use this version to determine if the indexer can be expected to support TAP. If so, the gateway will only send receipts to that indexer using TAP. Otherwise, the current Scalar receipt format will be used. This will ensure that any query sent to an indexer from a gateway will only be associated with one receipt, and that receipt will only be associated with one of the two Scalar protocol versions.
 
 ## Indexers:
-We assume no backwards compatibility for the Indexer Service, i.e. once the Indexers will upgrate their stack, then they will switch to the TAP Scalar payments.
-Hence the protocol will have to make advertise that this is a breaking change and Indexers will have to redeem your receipts and close all the allocations before this upgrade.
+Similarly to Gateways, Indexer stack (Indexer Service) will keep backwards compatibility and won't have to redeem their receipts nor close their allocations before this upgrade.
+In short, the Indexers will be able to redeem both old Scalar and new TAP Scalar receipts at the same time.
+In the long run, once the Gateway(s) will switch to TAP Scalar receipts, the old method will be deprecated.
 
 ## Smart contacts:
 Similarly to Indexer Service, update to new stack will automatically trigger switching to new Collateralization and TAP Verifier smart contracts.
