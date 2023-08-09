@@ -1,5 +1,5 @@
 ---
-GIP: 0055
+GIP: 0057
 Title: Chain Integration Process
 Authors: Pedro Diogo <pedro@thegraph.foundation>
 Created: June 6, 2023
