@@ -1,6 +1,6 @@
 
 ---
-GIP: <The number of this GIP. To be assigned by editors.>
+GIP: <0056>
 Title: Permissionless payment
 Authors: Zac Burns <zac@edgeandnode.com>
 Created: 2023-07-28
