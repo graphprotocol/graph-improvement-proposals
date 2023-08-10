@@ -1,4 +1,3 @@
-
 ---
 GIP: <0056>
 Title: Permissionless payment
