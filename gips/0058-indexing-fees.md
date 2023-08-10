@@ -1,5 +1,5 @@
 ---
-GIP: xxxx
+GIP: 0058
 Title: Indexing Fees
 Authors: Justin Grana, Howard Heaton
 Created: 2023-08-08
