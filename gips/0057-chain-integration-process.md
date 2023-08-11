@@ -10,7 +10,7 @@ Discussions-To: TBD
 
 # Abstract
 
-This GIP proposes a governance-based approach for new blockchains to be integrated by the protocol and supported on The Graph Network mainnet.
+This GIP proposes a governance-based process for teams seeking Graph protocol integration for a new data source like a new blockchain. Protocol support for a new data source comes after ensuring a reliable and stable integration with Graph Node and developer-focused GUIs like [Graph Studio](https://thegraph.com/studio/).
 
 # Motivation
 
@@ -20,10 +20,10 @@ For this reason, this GIP proposes a lightweight process targeting teams seeking
 
 # High-Level Description
 
-At a high level, the integration happens following a 3-stage process:
+At a high level, the integration follows a 3-stage process:
 
 1. Teams manifest interest in protocol integration by creating a new thread in [The Graph's Forum](https://forum.thegraph.com/), under `Governance & GIPs` > `New Data Sources` ([direct link](https://forum.thegraph.com/c/governance-gips/new-chain-support/71)).
-2. The integraiton is tested in at least one GUI facilitating subgraph testing and publishing to the network such as [Graph Studio](https://thegraph.com/studio/), and The Graph's testnet.
+2. The integration is tested in at least one GUI facilitating subgraph testing and publishing to the network such as [Graph Studio](https://thegraph.com/studio/), and The Graph's testnet.
 3. The team writes a GIP proposing support for indexing rewards on The Graph's decentralized network (mainnet). The Council will review the GIP, taking into account the success of Stage 2 and the Indexer community feedback.
 
 ```mermaid
@@ -38,13 +38,13 @@ flowchart LR
     (Graph Improvement Proposal)`")
 ```
 
-Mainnet support for a new `data source type`, such as a new blockchain, means, in the current state of the protocol, having the chain recognized by the Council, on mainnet, as a new `data source type` with detailed support for rewards and arbitration. This is defined in [GIP-0008](https://snapshot.org/#/council.graphprotocol.eth/proposal/0xbdd884654a393620a7e8665b4289201b7542c3ee62becfad133e951b0c408444) using the protocol’s [Feature Matrix Support](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md). An example of a Council-ratified feature matrix [is here](https://snapshot.org/#/council.graphprotocol.eth/proposal/0xd40fe605ecc3d0faca07d6c8d85a3f0d66106ef9e206aa57397de776f0a76a2c). 
+Mainnet support for a new `data source`, such as a new blockchain, means, in the current state of the protocol, having the chain recognized by the Council, on mainnet, as a new `data source` with detailed support for rewards and arbitration. This is defined in [GIP-0008](https://snapshot.org/#/council.graphprotocol.eth/proposal/0xbdd884654a393620a7e8665b4289201b7542c3ee62becfad133e951b0c408444) using the protocol’s [Feature Matrix Support](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md). An example of a Council-ratified feature matrix [here](https://snapshot.org/#/council.graphprotocol.eth/proposal/0xd40fe605ecc3d0faca07d6c8d85a3f0d66106ef9e206aa57397de776f0a76a2c). 
 
 ## Stages’ requirements
 
 ### Stage 1
 
-An initial blockchain extraction and ingestion solution compliant with Graph Node’s protocol must exist. For Graph Node to ingest blockchain data, it must connect to an **EVM JSON RPC API** or a **Firehose-enabled blockchain**. General documentation on this integration [can be found here](https://github.com/graphprotocol/docs/pull/433). If the chain exposes an EVM JSON-RPC, integration with Graph Node may be tested [by a simple Graph Node configuration change](https://github.com/graphprotocol/docs/pull/433). For non-EVM, a Firehose-enabled chain is required. Information on how to add Firehose support to a new chain [can be found here](https://github.com/graphprotocol/docs/pull/433). Firehose support is optional but highly recommended for both [substreams](https://thegraph.com/docs/en/substreams/README/) and [Substreams-powered subgraphs](https://thegraph.com/docs/en/cookbook/substreams-powered-subgraphs/) support. 
+An initial blockchain extraction and ingestion solution compliant with Graph Node’s protocol must exist. For Graph Node to ingest blockchain data, it must connect to an **EVM JSON RPC API** or a **Firehose-enabled blockchain**. General documentation on this integration [can be found here](https://thegraph.com/docs/en/new-chain-integration/). If the chain exposes an EVM JSON-RPC, integration with Graph Node may be tested [by a simple Graph Node configuration change](https://thegraph.com/docs/en/new-chain-integration/#testing-an-evm-json-rpc). For non-EVM, a Firehose-enabled chain is required. Information on how to add Firehose support to a new chain [can be found here](https://thegraph.com/docs/en/firehose/integrate-new-chains/design-principles). Firehose support is optional but highly recommended for both [substreams](https://thegraph.com/docs/en/substreams/README/) and [Substreams-powered subgraphs](https://thegraph.com/docs/en/cookbook/substreams-powered-subgraphs/) support. 
 
 Integrators must provide the open-sourced solution with documentation for Indexers and Developers and a subgraph showcasing the type of data Graph Node can ingest. This is the minimum information required for a first validation by core developers or community members like IndexerDAO. Other general information required on the new data source can be found in the Forum thread's template, such as minimum hardware requirements for Indexers (RPC node and/or Firehose-enabled stack), the usual upgrade frequency of underlying nodes, and, if applicable, how Indexers may be notified of future planned hard-forks should they lead to breaking changes to the integration.
 
@@ -77,15 +77,17 @@ Afterward, the Graph Foundation will post the GGP (Graph Governance Proposal) on
 
 | | Requirements | Exit Criteria |
 | --- | --- | --- |
-| Stage 1 |✓ A [new Forum topic](https://forum.thegraph.com/c/governance-gips/new-chain-support/71) if Graph Node integration exists; GRP if otherwise (for one to be built).<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories. More info [here](https://github.com/graphprotocol/graph-node/blob/master/docs/implementation/add-chain.md).<br>✓ Docker and bare metal Indexer guides for Firehose stack and EVM RPC.`ᵇ`<br>✓ Example subgraph with docs.`ᶜ` <br> ✓ Open-sourced Firehose implementation, if applicable. |→ Chain's node and/or Firehose runs reliably.`ᵃ`.<br> → Example subgraph syncs successfully.|
+| Stage 1 |✓ A [new Forum topic](https://forum.thegraph.com/c/governance-gips/new-chain-support/71) if Graph Node integration exists; GRP if otherwise (for one to be built).<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories `ᵉ`.<br>✓ Docker and bare metal Indexer guides for Firehose stack and EVM RPC.`ᵇ`<br>✓ Example subgraph with docs.`ᶜ` <br> ✓ Open-sourced Firehose implementation, if applicable. |→ Chain's node and/or Firehose runs reliably.`ᵃ`.<br> → Example subgraph syncs successfully.|
 | Stage 2 |✓ Free of charge backend (Firehose / EVM RPC) integration with GUIs and Gateways like [Subgraph Studio](https://thegraph.com/studio/), or a grant for teams to operate such backend.| → At least 2 subgraphs on Graph's testnet synced by >=5 Indexers.<br>→ 0% POI divergence`ᵃ`<br>→ Community validation on the integration.`ᵈ`<br>→ Graph Studio's integration uptime >99%.<br> → Merged PRs from Stage 1. |
 | Stage 3  |✓ GIP for mainnet integration. |→ Council-approved GIP (GGP vote). |
 
 > _Notes_
 > - `ᵃ` validated by IndexerDAO
-> - `ᵇ` with the help of IndexerDAO
+> - `ᵇ` with the help of IndexerDAO, as appropriate
 > - `ᶜ` reproducible deployment to Graph Node
 > - `ᵈ` via a poll, if no rough consensus on the Forum
+> - `ᵉ` if applicable. More info [here](https://github.com/graphprotocol/graph-node/blob/master/docs/implementation/add-chain.md). 
+
 
 
 # Dependencies
