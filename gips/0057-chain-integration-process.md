@@ -10,7 +10,7 @@ Discussions-To: TBD
 
 # Abstract
 
-This GIP proposes a governance-based process for teams seeking Graph protocol integration for a new data source like a new blockchain. Protocol support for a new data source comes after ensuring a reliable and stable integration with Graph Node and developer-focused GUIs like [Graph Studio](https://thegraph.com/studio/).
+This GIP proposes a governance-based process for teams seeking Graph protocol integration for a new data source like a new blockchain. Protocol support on the decentralized network for a new data source comes after ensuring a performant and reliable integration with Graph Node (validated on Graph's testnet) and developer-focused GUIs like [Graph Studio](https://thegraph.com/studio/). The GIP specifies how teams move through the proposed 3-stage process. 
 
 # Motivation
 
