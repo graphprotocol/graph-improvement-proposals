@@ -68,10 +68,20 @@ The last stage is supporting the new blockchain on mainnet with some level of su
 1. Open a PR,updating the `[feature-matrix-support.md](http://feature-matrix-support.md)` [here](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md) to include support for the new data source.
 2. Publish a GIP [template here](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0000-template.md) as the formal process to request Graph protocol integration. The GIP must include the proposed update to the Feature Matrix Support (the open PR) and data gathered during Stage 2 on performance, stability, and data determinism.
 
+> **Note on the blockchain naming convention**
+>
+> The name of the data source to be included in the feature matrix support must follow the naming convention as specified in [GIP-0047](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0047-chain-aliases.md). The Graph has adopted [CAIP-2 identifiers](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-2.md), and it's important the name remains consistent across the protocol: feature matrix support, Graph Node, EBO, Graph Tooling, etc. 
+> 
+>Known CAIPs for a variety of chains can be found in the [Chain Agnostic Namespace repository](https://github.com/ChainAgnostic/namespaces).
 
-Afterward, the Graph Foundation will post the GGP (Graph Governance Proposal) on the [Graph’s Council snapshot page](https://snapshot.org/#/council.graphprotocol.eth). The GGP will follow the principles agreed upon in [GIP-008: Subgraph API Versioning and Feature Support](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0008-subgraph-api-versioning-and-feature-support.md). The Graph Foundation will ensure the GGP is created and reviewed by the Graph Council. Council's ratification of the GGP will officially mark the support for the new data source on The Graph's mainnet as outlined in the Feature Matrix Support (GIP).
 
-> *Note*: The GGP vote may be preceded by a community poll, providing no rough consensus on readiness and value-added for the protocol. Core developers’ and Indexers’ confidence in the integration stability, performance, reliability, and overall demand (the focus of Stage 2) will provide the Council with the required information to proceed with the GGP vote.
+Afterward, the Graph Foundation will post the GGP (Graph Governance Proposal) on the [Graph’s Council snapshot page](https://snapshot.org/#/council.graphprotocol.eth). The GGP will follow the principles agreed upon in [GIP-008: Subgraph API Versioning and Feature Support](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0008-subgraph-api-versioning-and-feature-support.md). The Graph Foundation will ensure the GGP is created and reviewed by the Graph Council. Council's ratification of the GGP will officially mark the support for the new data source on The Graph's mainnet.
+
+> **Note on governance**
+>
+> The GGP vote may be preceded by a community poll, providing no rough consensus on readiness and value-added for the protocol. 
+> 
+> Core developers’ and Indexers’ confidence in the integration stability, performance, reliability, and overall demand (the focus of Stage 2) will provide the Council with the required information to proceed with the GGP vote.
 
 ## Summarized Requirements & Exit Criteria
 
