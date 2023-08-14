@@ -1,6 +1,6 @@
 ---
 GIP: 0058
-Title: Indexing Fees
+Title: Replacing Bonding Curves with Indexing Fees
 Authors: Justin Grana, Howard Heaton
 Created: 2023-08-08
 Updated: 2023-08-08
@@ -11,13 +11,13 @@ Implementations: NA
 ---
 
 # Abstract
- A  key step to creating unstoppable dapps is  creating a system whereby Indexers and data consumers can coordinate to get subgraphs indexed. The current coordination mechanism, curation with bonding curves, is rife with inefficiencies.  This document provides a detailed description and rationale for indexing fees via a new mechanism that would replace curation to enable efficient coordination among Indexers and developers. With indexing fees, Indexers publicly post their price *per unit of subgraph gas* and consumers (or someone acting on behalf of the consumer), choose Indexers to perform indexing at the posted price.  Security of the payments is ensured through on-chain collateralization contracts.  Importantly, while individual consumers can directly choose Indexers, this mechanism enables general automated Indexer selection algorithms that are essential for scalability and can be abstracted from end consumers. 
+ A  key step to creating unstoppable dapps is  creating a system whereby Indexers and data consumers can coordinate to get subgraphs indexed. The current coordination mechanism, curation with bonding curves, is rife with inefficiencies.  This document provides a detailed description and rationale for indexing fees via a new mechanism that would replace curation to enable efficient coordination among Indexers and developers. With indexing fees, Indexers publicly post their price *per unit of subgraph gas* and consumers (or someone acting on behalf of the consumer), choose Indexers to perform indexing at the posted price.  Security of the payments is ensured through on-chain collateralization contracts.  While consumers can select Indexers directly, the mechanism also supports automated Indexer selection for scalability. 
 
 # Executive Summary
 
 **Problem:** The Graph’s current curation mechanism is inefficient for several reasons.
 
-1. Subgraphs are heterogenous in their cost to index, leading to uncertainty in Indexer profits.
+1. Subgraphs cost varying amounts to index, making it difficult for Indexers to predict GRT rewards.
 2. Indexer payments are uncertain and volatile due to staking decisions in disparate parts of the network.
 3. There is a noisy relationship between curation signal and the quality of indexing service for a subgraph.
 
@@ -34,7 +34,7 @@ how many units of work it took to index the subgraph.
 2. Indexer revenue per unit of work is perfectly predictable and is not volatile.
 3. The relation between consumer payment (per unit of work) and number of Indexers is perfectly predictable. This makes the relationship between consumer payment and quality of service more transparent.
 
-Although indexing fees yield a radical departure from curation, it adds clarity and predictabilty to the protocol by limiting
+Although indexing fees represent a radical departure from curation, it adds clarity and predictabilty to the protocol by limiting
 uncertainty. This will enable an efficient and scalable marketplace for indexing services.
 
 # Motivation
@@ -124,7 +124,7 @@ different levels of service at different prices.
 Indexer selection can happen in two ways 1) directly by the consumer or 2) through an automated Indexer selection algorithm that optimizes for consumers preferences (e.g. quality of service). An automatic Indexer selection algorithm is discussed in detail below. This section focuses on the case where consumers choose their own Indexers.  Under manual Indexer selection, a consumer is presented with a menu of Indexers and relevant features (price per unit of gas, geographical location, quality of service statistics, etc.). Note quality of service stats are trusted data (in the case of Gateway usage) and untrusted if manually collected. The consumer can then select one or more Indexers based on its preference to index its subgraph. Importantly, at this point neither the consumer nor the Indexer have entered into an agreement through smart contract. The selection step notifies Indexers that there is a smart contract that if they choose to enter would make them eligible for a payment upon successfully indexing of a subgraph.
 
 ### Step 3 — Consumer and Indexer Enter Agreement
-After the Indexer is notified, the consumer and the Indexer must both opt into the agreement. The consumer opts into the agreement by depositing GRT into a smart contract that would then be transferred to the Indexer upon successful indexing. The Indexer deposits collateral into the smart contract that would be slashed if indexing did not happen according to the agreements parameters.  The smart contract specifies several parameters of the agreement including the price per unit of subgraph gas, the required amount of Indexer collateral, the maximum amount of gas the Indexer should spend indexing the subgraph, slashable events and parameters (how much an Indexer should be slashed for not meeting their sync-speed warranty, for example), arbitrating entity and collateral thawing period. The contract is uses the collateralization of the Horizon Core contract and can contain general terms. 
+After the Indexer is notified, the consumer and the Indexer must both opt into the agreement. The consumer opts into the agreement by depositing GRT into a smart contract that would then be transferred to the Indexer upon successful indexing. The Indexer deposits collateral into the smart contract that would be slashed if indexing did not happen according to the agreements parameters.  The smart contract specifies several parameters of the agreement including the price per unit of subgraph gas, the required amount of Indexer collateral, the maximum amount of gas the Indexer should spend indexing the subgraph, slashable events and parameters (how much an Indexer should be slashed for not meeting their sync-speed warranty, for example), arbitrating entity and collateral thawing period.
 
 ### Step 4 — Indexing Occurs
 This step is identical to how the Graph functions today.
@@ -139,7 +139,7 @@ After the Indexer submits a POI the dispute period begins. Within this period, t
 After the dispute period, the Indexer retrieves its entitled funds (both collateral and payment) that remain after any slashing events. Of course, because the collateral and slashing provides adequate incentive for Indexers to meet the terms in step 3, step 7 will often consist of the Indexer withdrawing its full collateral and the consumer’s payment for indexing services.
 
 ### Step 8 — Continual Syncing and Payment
-Since subgraphs incur additional syncing and continual , the Indexers post the incremental sync gas and disk space required to fully sync the subgraph. After a dispute period and assuming no slashable events, the Indexer can withdraw additional funds as compensation for the additional syncing resources.
+Since subgraphs undergo continual syncing, the Indexers post the incremental sync gas and disk space required to fully sync the subgraph. After a dispute period and assuming no slashable events, the Indexer can withdraw additional funds as compensation for the additional syncing resources.
 
 ### Step 9 - Indexer Retrieves Remaining Funds
 Although a correctness warranty can be reclaimed at the end of a dispute period (e.g. whenever a PoI is submitted + fixed time,) the sync speed warranty can only be reclaimed at the end of the agreement. A PoI may be required periodically to checkpoint syncing, but submitting a PoI and collecting payment for the subgraph synced so far does not obviate the need for the sync speed warranty to continue for the subgraph yet to sync past that checkpoint.
@@ -147,7 +147,7 @@ Although a correctness warranty can be reclaimed at the end of a dispute period 
 ## Desiderata Revisited
 Given the full description of indexing fees in the previous section, it is now possible to show how the new mechanism meets the desiderata:
 
-**Low Uncertainty – Indexer Revenue**
+**High Certainty – Indexer Revenue**
 The Indexer’s price (per unit of “work”) is perfectly predictable. It is simply the posted price. This is not affected by the behavior of other Indexers.
 
 **Low Uncertainty – Indexer Profitability**
@@ -208,7 +208,7 @@ Yes! Indexing fees does not preclude any Indexer from indexing a subgraph, it on
 This is impossible to know exactly before indexing. You can find some statistics for common subgraphs that relate subgraph properties to gas costs in Appendix A.
 
 # Summary
-Indexing fees are an improvement over the current curation mechanism. These add transparency and predictability which begets simplicity and efficiency for both consumers and Indexers. Together with Graph Horizon, indexing fees are general enough to allow for future services on the network and to scale, independent of issuance.  While it may seem like a radical departure from current curation, indexing fees simply use a posted prices mechanism that is ubiquitous for large markets.
+Indexing fees are an improvement over the current curation mechanism. These add transparency and predictability which begets simplicity and efficiency for both consumers and Indexers. Together with Graph Horizon, indexing fees are general enough to allow for future services on the network and to scale, independent of issuance.  
 
 # Detailed Specification
 The detailed specification of the smart contracts for this GIP will be added at a later time.
