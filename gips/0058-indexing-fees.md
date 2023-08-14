@@ -183,7 +183,7 @@ This example algorithm is admittedly crude and imprecise. However, it already gi
 In this section, we address some of the frequently asked question that arise when replacing curation with indexing fees.
 
 **How do Indexers know which subgraphs to index?**
-They can be notified that they have been selected to index a subgraph at their posted price.
+They can be notified (e.g. via Discord, Telegram, POI radio, email) that they have been selected to index a subgraph at their posted price. We leave it open to the community to decide the best approach for notifications.
 
 **What is an Indexer’s incentive to index the subgraph if they are selected?**
 They will receive a payment equal to their posted price multiplied by the subgraph gas used to index.
