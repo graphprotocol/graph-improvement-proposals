@@ -34,8 +34,7 @@ how many units of work it took to index the subgraph.
 2. Indexer revenue per unit of work is perfectly predictable and is not volatile.
 3. The relation between consumer payment (per unit of work) and number of Indexers is perfectly predictable. This makes the relationship between consumer payment and quality of service more transparent.
 
-Although indexing fees represent a radical departure from curation, it adds clarity and predictabilty to the protocol by limiting
-uncertainty. This will enable an efficient and scalable marketplace for indexing services.
+Although indexing fees represent a radical departure from curation, it adds clarity and predictabilty to the protocol by limiting uncertainty. This will enable an efficient and scalable marketplace for indexing services.
 
 # Motivation
 
@@ -64,12 +63,12 @@ To fully document and explain the proposed mechanism, the remainder of this docu
 
 
 ## Desiderata
-The desiderata — desired properties of a new mechanism— reflect addressing the issues with the current curation mechanism. Specifically, once agreements are reached, the Indexer should have low uncertainty in regard to its profit and revenue, and that certainty should not wane with time. On the consumer side, once agreements are reached, their price paid and received quality of service should both be predictable and steady over time. Reducing these uncertainties yields the desirable higher level properties simplicity and efficiency. Of course, this must also be done in a sybil resistant manner to preserve the robustness and censorship resistance benefits of a decentralized platform. The remainder of this section details each of the desiderata.
+The desiderata — desired properties of a new mechanism— reflect addressing the issues with the current curation mechanism. Specifically, once agreements are reached, the Indexer should have high certainty in regard to its profit and revenue, and that certainty should not wane with time. On the consumer side, once agreements are reached, their price paid and received quality of service should both be predictable and steady over time. Reducing these uncertainties yields the desirable higher level properties simplicity and efficiency. Of course, this must also be done in a sybil resistant manner to preserve the robustness and censorship resistance benefits of a decentralized platform. The remainder of this section details each of the desiderata.
 
-**Low Uncertainty – Indexer Revenue**
+**High Certainty – Indexer Revenue**
 Indexers should be able to forecast how much revenue they will achieve by indexing a subgraph. Uncertainty may arise when indexing revenue is influenced by actions of other participants (e.g. curators adjusting signal with bonding curves, Indexers unexpectedly allocating a large amount of stake on a subgraph).
 
-**Low Uncertainty – Indexer Profitability**
+**High Certainty – Indexer Profitability**
 Indexers cannot know the total cost to index subgraphs beforehand. To ensure Indexers are profitable, it follows that there must be a way to compensate them proportional to their incurred indexing costs.
 
 **Low Price Volatility**
@@ -116,9 +115,7 @@ Under the indexing fees mechanism, the order of events can be summarized as foll
 **Step 9:** When the contract is over, the Indexer can withdraw collateral for the sync speed warranty.
 
 ### Step 1 — Indexers Post Prices
-Simply stated, Indexers will submit prices to the Gateway that it charges to index a subgraph. This is similar to the current process for the Indexer selection algorithm for choosing queries. Importantly, these prices are in terms of metered computational units of work and also contain a sync speed warranty. The motivation for metered pricing is to account for subgraph heterogeneity and to incentivize dapp developers to optimize their subgraphs. One of the main challenges with previous versions of curation was that payment to Indexers did not depend on the amount of work (compute, storage, etc) required to index a subgraph. With indexing fees, Indexer pricing is a function of computational resources required to index a subgraph. As an initial protocol design choice, prices will be in terms of “subgraph gas,” an approximation of computational resources needed to index a subgraph. See section A for more details on the relationship between subgraph gas compute costs.
-The sync-speed warranty provides a channel for Indexers to credibly differentiate the quality of their hardware and thus earn more revenue by deploying better hardware.  By posting sync-speed warranties per unit of compute (subgraph gas), Indexers with better hardware can post faster sync-speed warranties and thus charge a higher price. For more details on how different hardware configurations impact sync-time, see Appendix A. Furthermore, Indexers can post multiple prices with multiple sync-speed warranties if they want to offer
-different levels of service at different prices.
+Simply stated, Indexers will submit prices to the Gateway that it charges to index a subgraph. This is similar to the current process for the Indexer selection algorithm for choosing queries. Importantly, these prices are in terms of metered computational units of work and also contain a sync speed warranty. The motivation for metered pricing is to account for subgraph heterogeneity and to incentivize dapp developers to optimize their subgraphs. One of the main challenges with previous versions of curation was that payment to Indexers did not depend on the amount of work (compute, storage, etc) required to index a subgraph. With indexing fees, Indexer pricing is a function of computational resources required to index a subgraph. As an initial protocol design choice, prices will be in terms of “subgraph gas,” an approximation of computational resources needed to index a subgraph. See section A for more details on the relationship between subgraph gas compute costs. The sync-speed warranty provides a channel for Indexers to credibly differentiate the quality of their hardware and thus earn more revenue by deploying better hardware.  By posting sync-speed warranties per unit of compute (subgraph gas), Indexers with better hardware can post faster sync-speed warranties and thus charge a higher price. For more details on how different hardware configurations impact sync-time, see Appendix A. Furthermore, Indexers can post multiple prices with multiple sync-speed warranties if they want to offer different levels of service at different prices.
 
 ### Step 2 — Indexer Selection
 Indexer selection can happen in two ways 1) directly by the consumer or 2) through an automated Indexer selection algorithm that optimizes for consumers preferences (e.g. quality of service). An automatic Indexer selection algorithm is discussed in detail below. This section focuses on the case where consumers choose their own Indexers.  Under manual Indexer selection, a consumer is presented with a menu of Indexers and relevant features (price per unit of gas, geographical location, quality of service statistics, etc.). Note quality of service stats are trusted data (in the case of Gateway usage) and untrusted if manually collected. The consumer can then select one or more Indexers based on its preference to index its subgraph. Importantly, at this point neither the consumer nor the Indexer have entered into an agreement through smart contract. The selection step notifies Indexers that there is a smart contract that if they choose to enter would make them eligible for a payment upon successfully indexing of a subgraph.
@@ -150,7 +147,7 @@ Given the full description of indexing fees in the previous section, it is now p
 **High Certainty – Indexer Revenue**
 The Indexer’s price (per unit of “work”) is perfectly predictable. It is simply the posted price. This is not affected by the behavior of other Indexers.
 
-**Low Uncertainty – Indexer Profitability**
+**High Certainty – Indexer Profitability**
 Because Indexers post prices per unit of gas, they can charge more for more expensive subgraphs, thus reducing profitability uncertainty.
 
 **Low Price Volatility**
@@ -174,8 +171,7 @@ Although consumers may manually choose their own Indexers, those seeking a simpl
 
 An example algorithm works as follows. First, Indexers are sorted based on their sync speed warranties and then categorized into high, medium or low sync speed (based on pre-defined thresholds). Indexer’s that are dominated, i.e. have a higher price for a lower sync speed warranty than some other Indexer — are removed from selection. The number of requested Indexers in the tier are selected sequentially.
 
-The first Indexer within the chosen sync speed tier is selected at uniform random. To provide robustness and guard against sybil attacks, the subsequent Indexers are selected at uniform random as long as their quality of service is not sufficiently correlated with previously selected Indexers. In other words, robustness and redundancy relies on Indexer performance being uncorrelated; this ensures, if one Indexer fails, there is no loss in service. By selecting Indexers that are uncorrelated, the automated algorithm ensures robustness. Furthermore, sybil
-identities are also likely to have a correlated quality of service, and so selecting Indexers with low correlation protects against sybil attacks.
+The first Indexer within the chosen sync speed tier is selected at uniform random. To provide robustness and guard against sybil attacks, the subsequent Indexers are selected at uniform random as long as their quality of service is not sufficiently correlated with previously selected Indexers. In other words, robustness and redundancy relies on Indexer performance being uncorrelated; this ensures, if one Indexer fails, there is no loss in service. By selecting Indexers that are uncorrelated, the automated algorithm ensures robustness. Furthermore, sybil identities are also likely to have a correlated quality of service, and so selecting Indexers with low correlation protects against sybil attacks.
 
 This example algorithm is admittedly crude and imprecise. However, it already gives consumers greater control over their quality of service than they have today and, thus, makes the protocol more efficient. Nevertheless, there is nothing preventing other agents from developing more sophisticated Indexer selection algorithms, incorporating both on-chain and off-chain data to improve consumer experience.
 
@@ -189,8 +185,7 @@ They can be notified (e.g. via Discord, Telegram, POI radio, email) that they ha
 They will receive a payment equal to their posted price multiplied by the subgraph gas used to index.
 
 **Once selected, what actions must an Indexer take before making the indexing agreement valid?**
-An Indexer must opt-in to the agreement. This gives an Indexer the opportunity to verify the subgraph is
-available before accepting the indexing contract.
+An Indexer must opt-in to the agreement. This gives an Indexer the opportunity to verify the subgraph is available before accepting the indexing contract.
 
 **Can an Indexer post different prices for different subgraphs?**
 No, the price per unit of gas is network-wide. This is subject to change in the future.
