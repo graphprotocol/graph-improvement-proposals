@@ -59,7 +59,7 @@ For ease of onboarding of users to the Graph's decentralized network, subgraph d
 
 Teams must express their preference when creating the Forum topic. For #2, and assuming integration with the existing Subgraph Studio, Graph Foundation and Edge & Node will collaborate closely with the team to ensure a smooth integration process. 
  
-In addition, testing on Graph's testnet is also required. Core developers and Indexers will benchmark the solutions’ stability and performance by syncing different subgraphs and monitoring KPIs such as data freshness, node uptime, latency, and overall resource usage during stress tests. [POIs](https://thegraph.com/docs/en/network/indexing/#what-is-a-proof-of-indexing-poi) on testnet will be monitored to ensure 0% divergence, which is a hard requirement for the Council to approve support for indexing rewards on The Graph’s decentralized network. All found data determinism issues must be resolved during the stage, led by the team seeking protocol integration. 
+In addition, testing on Graph's testnet is also required. Core developers and Indexers will benchmark the solutions’ stability and performance by syncing different subgraphs and monitoring KPIs such as data freshness, node uptime and latency. [POIs](https://thegraph.com/docs/en/network/indexing/#what-is-a-proof-of-indexing-poi) on testnet will be monitored to ensure 0% divergence, which is a hard requirement for the Council to approve support for indexing rewards on The Graph’s decentralized network. All found data determinism issues must be resolved during the stage, led by the team seeking protocol integration. 
 
 ### Stage 3
 
@@ -87,18 +87,34 @@ Afterward, the Graph Foundation will post the GGP (Graph Governance Proposal) on
 
 | | Requirements | Exit Criteria |
 | --- | --- | --- |
-| Stage 1 |✓ A [new Forum topic](https://forum.thegraph.com/c/governance-gips/new-chain-support/71) if Graph Node integration exists; GRP if otherwise (for one to be built).<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories `ᵉ`.<br>✓ Docker and bare metal Indexer guides for Firehose stack and EVM RPC.`ᵇ`<br>✓ Example subgraph with docs.`ᶜ` <br> ✓ Open-sourced Firehose implementation, if applicable. |→ Chain's node and/or Firehose runs reliably.`ᵃ`.<br> → Example subgraph syncs successfully.|
+| Stage 1 |✓ A [new Forum topic](https://forum.thegraph.com/c/governance-gips/new-chain-support/71) if Graph Node integration exists; GRP if otherwise (for one to be built).<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories, if applicable `ᵉ`.<br>✓ Docker and bare metal Indexer guides for Firehose stack and EVM RPC.`ᵇ`<br>✓ Example subgraph with docs.`ᶜ` <br> ✓ Open-sourced Firehose implementation, if applicable. |→ Chain's node and/or Firehose runs reliably.`ᵃ`.<br> → Example subgraph syncs successfully.|
 | Stage 2 |✓ Free of charge backend (Firehose / EVM RPC) integration with GUIs and Gateways like [Subgraph Studio](https://thegraph.com/studio/), or a grant for teams to operate such backend.| → At least 2 subgraphs on Graph's testnet synced by >=5 Indexers.<br>→ 0% POI divergence`ᵃ`<br>→ Community validation on the integration.`ᵈ`<br>→ Graph Studio's integration uptime >99%.<br> → Merged PRs from Stage 1. |
 | Stage 3  |✓ GIP for mainnet integration. |→ Council-approved GIP (GGP vote). |
 
 > _Notes_
-> - `ᵃ` validated by IndexerDAO
+> - `ᵃ` validated by community members like IndexerDAO
 > - `ᵇ` with the help of IndexerDAO, as appropriate
 > - `ᶜ` reproducible deployment to Graph Node
 > - `ᵈ` via a poll, if no rough consensus on the Forum
-> - `ᵉ` if applicable. More info [here](https://github.com/graphprotocol/graph-node/blob/master/docs/implementation/add-chain.md). 
+> - `ᵉ` more info [here](https://github.com/graphprotocol/graph-node/blob/master/docs/implementation/add-chain.md)
 
 
+# Frequently Asked Questions 
+**1. How does this relate to the [World of Data Services GIP](https://forum.thegraph.com/t/gip-0042-a-world-of-data-services/3761)?**
+
+This process is related to the Subgraph Data Service, applicable only to new Subgraph `Data Sources`. 
+
+**2. What happens if Firehose & Substreams support comes after the network is supported on mainnet?**
+
+This would only impact protocol support for indexing rewards on Substreams-powered subgraphs. The new Firehose implementation would need to be tested on testnet, following the methodology outlined for Stage 2 in this GIP. Similarly, assuming the implementation is performant and reliable, a PR on the [Feature Support Matrix](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md) would be required (`Substreams data sources` Subgraph Feature), as well as a new GIP for protocol support for indexing rewards. Anyone can create the PR and GIP; the Foundation would help with Council approval.
+
+**3. How much time will this process take?** 
+
+It depends. Getting protocol support for indexing rewards will depend on the involved stakeholders' bandwidth to proceed with testing, feedback gathering, and handling contributions to the core codebase, if applicable. All of this is directly tied to how the integration's maturity and how responsive the integration team is (who may or may not be the team behind the RPC/Firehose implementation). The Foundation will oversee the whole process, unblocking participants as much as possible.
+ 
+ **4.How will priorities be handled?** 
+
+Similar to #3, it will mostly depend on overall readiness and involved stakeholders' bandwidth. For example, a new chain with a brand new Firehose implementation may get a different amount of allocated resources and effort than others whose integration process may or may not already be in progress. This is especially true for chains previously supported on the [Hosted Service](https://thegraph.com/hosted-service), or those relying on already tested stacks like the OP Stack.
 
 # Dependencies
 
