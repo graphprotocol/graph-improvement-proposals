@@ -106,15 +106,15 @@ This process is related to the Subgraph Data Service, applicable only to new Sub
 
 **2. What happens if Firehose & Substreams support comes after the network is supported on mainnet?**
 
-This would only impact protocol support for indexing rewards on Substreams-powered subgraphs. The new Firehose implementation would need to be tested on testnet, following the methodology outlined for Stage 2 in this GIP. Similarly, assuming the implementation is performant and reliable, a PR on the [Feature Support Matrix](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md) would be required (`Substreams data sources` Subgraph Feature), as well as a new GIP for protocol support for indexing rewards. Anyone can create the PR and GIP; the Foundation would help with Council approval.
+This would only impact protocol support for indexing rewards on Substreams-powered subgraphs. The new Firehose implementation would need testing on testnet, following the methodology outlined for Stage 2 in this GIP. Similarly, assuming the implementation is performant and reliable, a PR on the [Feature Support Matrix](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md) would be required (`Substreams data sources` Subgraph Feature), as well as a new GIP for protocol support for indexing rewards. Anyone can create the PR and GIP; the Foundation would help with Council approval.
 
 **3. How much time will this process take?** 
 
-It depends. Getting protocol support for indexing rewards will depend on the involved stakeholders' bandwidth to proceed with testing, feedback gathering, and handling contributions to the core codebase, if applicable. All of this is directly tied to how the integration's maturity and how responsive the integration team is (who may or may not be the team behind the RPC/Firehose implementation). The Foundation will oversee the whole process, unblocking participants as much as possible.
+It depends. Protocol support for indexing rewards depends on the involved stakeholders' bandwidth to proceed with testing, feedback gathering, and handling contributions to core codebase, if applicable. All of this is directly tied to the integration's maturity and how responsive the integration team is (who may or may not be the team behind the RPC/Firehose implementation). The Foundation will oversee the whole process, unblocking participants as much as possible.
  
  **4.How will priorities be handled?** 
 
-Similar to #3, it will mostly depend on overall readiness and involved stakeholders' bandwidth. For example, a new chain with a brand new Firehose implementation may get a different amount of allocated resources and effort than others whose integration process may or may not already be in progress. This is especially true for chains previously supported on the [Hosted Service](https://thegraph.com/hosted-service), or those relying on already tested stacks like the OP Stack.
+Similar to #3, it will depend on overall readiness and involved stakeholders' bandwidth. For example, a new chain with a brand new Firehose implementation may get a different amount of allocated resources and effort than others whose integration process may or may not already be in progress. This is especially true for chains previously supported on the [Hosted Service](https://thegraph.com/hosted-service) or those relying on already tested stacks like the OP Stack.
 
 # Dependencies
 
