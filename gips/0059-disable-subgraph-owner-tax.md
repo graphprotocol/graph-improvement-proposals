@@ -1,5 +1,5 @@
 ---
-GIP: "0057"
+GIP: "0059"
 Title: Disable subgraph owner tax when publishing a new version
 Authors: Ariel Barmat <ariel@edgeandnode.com>, Adam Fuller <adam@edgeandnode.com>
 Created: 2023-08-05
