@@ -3,7 +3,7 @@ GIP: 0057
 Title: Chain Integration Process
 Authors: Pedro Diogo <pedro@thegraph.foundation>
 Created: June 6, 2023
-Updated: June 30, 2023
+Updated: Aug 29, 2023
 Stage: Draft
 Discussions-To: TBD
 ---
@@ -110,11 +110,13 @@ This would only impact protocol support for indexing rewards on Substreams-power
 
 **3. How much time will this process take?** 
 
-It depends. Protocol support for indexing rewards depends on the involved stakeholders' bandwidth to proceed with testing, feedback gathering, and handling contributions to core codebase, if applicable. All of this is directly tied to the integration's maturity and how responsive the integration team is (who may or may not be the team behind the RPC/Firehose implementation). The Foundation will oversee the whole process, unblocking participants as much as possible.
- 
- **4.How will priorities be handled?** 
+The time to mainnet is expected to be several weeks, varying based on the time of integration development, whether additional research is required, testing and bug fixes, and, as always, the timing of the governance process that requires community feedback. 
 
-Similar to #3, it will depend on overall readiness and involved stakeholders' bandwidth. For example, a new chain with a brand new Firehose implementation may get a different amount of allocated resources and effort than others whose integration process may or may not already be in progress. This is especially true for chains previously supported on the [Hosted Service](https://thegraph.com/hosted-service) or those relying on already tested stacks like the OP Stack.
+Protocol support for indexing rewards depends on the stakeholders' bandwidth to proceed with testing, feedback gathering, and handling contributions to the core codebase, if applicable. This is directly tied to the integration's maturity and how responsive the integration team is (who may or may not be the team behind the RPC/Firehose implementation). The Foundation is here to help support throughout the whole process.
+ 
+ **4. How will priorities be handled?** 
+
+Similar to #3, it will depend on overall readiness of the integration and community feedback. For example, a new chain with a brand new Firehose implementation may take longer than integrations that have already been battle-tested or are farther along in the governance process. This is especially true for chains previously supported on the [Hosted Service](https://thegraph.com/hosted-service) or those relying on already tested stacks.
 
 # Dependencies
 
