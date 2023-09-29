@@ -3,7 +3,7 @@ GIP: <The number of this GIP. Selected by the author and confirmed by editors (w
 Title: <The title of this GIP>
 Authors: <A list of authors. Include full name or pseudonym. At least one author must have valid contact information provided in angle brackets.>
 Created: <The date the GIP was created.>
-Stage: <The current stage of the proposal. Specified by the author and confirmed by editors by virtue of a GIP being accepted into the main branch of the GitHub repo.>
+Stage: <The current stage of the proposal. Specified by the author and confirmed by editors by virtue of a GIP being accepted into the main branch of the GitHub repo. See GIP-0001 for the possible stages and process.>
 Discussions-To: <The forum post where this proposal is discussed.>
 Category: <(Optional) The type of GIP or GRP. This field should be left blank for GRCs. Valid types are "Protocol Logic," "Protocol Interfaces," "Subgraph API," "Process," "Economic Parameters," and "Protocol Charters".>
 Depends-On: <(Optional) A list of GIPs that this GIP depends on. If some other type of dependency exists, include a reference link here and an explanation in the body of the GIP.>

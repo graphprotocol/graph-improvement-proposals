@@ -36,7 +36,7 @@ The high-level process is captured in the diagram below.
 
 ## Before a proposal is written
 
-The author(s) should do the leg work to assess whether their idea is a good one that is likely to be supported by the community. This includes discussing the idea in public spaces such as Discord, Twitter, and The Graph forum.
+The author(s) should do the leg work to assess whether their idea is a good one that is likely to be supported by the community. This includes discussing the idea in public spaces such as [Discord](https://discord.gg/graphprotocol), [Twitter](https://twitter.com/graphprotocol), and [The Graph forum](https://forum.thegraph.com/).
 
 The author should also make sure the proposal is in line with the values and mission of The Graph. This may include reading past blog posts that allude to The Graph's design philosophy as well as talking to existing contributors to The Graph.
 
@@ -128,7 +128,7 @@ If they prefer, authors may also ask the Editors to assign a number rather than 
 
 # After submitting a proposal
 
-Publishing a GIP does not guarantee inclusion in the protocol. Protocol upgrades are implemented via decentralized governance, while the GIP Process is geared towards surfacing and building legitimacy for valuable protocol upgrades that can be considered in that process. Multiple GIPs may be bundled together into a release and be voted on as a single Graph Governance Proposal (GGP).
+Publishing a GIP does not guarantee inclusion in the protocol. Protocol upgrades are implemented via decentralized governance, while the GIP Process is geared towards surfacing and building legitimacy for valuable protocol upgrades that can be considered in that process. Multiple GIPs may be bundled together into a release and be voted on as a single Graph Governance Proposal (GGP - more on this [below](#getting-a-proposal-accepted-by-the-council)).
 
 GGPs may also include protocol upgrades that did not go through the GIP Process, such as bugs that were reported as responsible security disclosures, or enhancements that were too minor to justify a full-fledged GIP.
 
@@ -144,7 +144,7 @@ If the author is unable to do the implementation of a GIP, and would like instea
 
 ## Proposals requiring off-chain software changes
 
-For proposals requiring changes in the behavior of off-chain components (e.g. Graph Node, Indexer Agent, Indexer Service), changes must be made as Pull Requests to the corresponding repositories (generally under the [graphprotocol org on GitHub](https://github.com/graphprotocol)). Authors are encouraged to collaborate with core developers (and if necessary, the Technical Advisory Board), to ensure the changes meet the quality criteria for each repository. These changes generally do not require explicit Council approval, unless the behavior of the components changes in a way that requires changes to the Feature Matrix or the Arbitration Charter. In particular, Graph Node versions are approved through a GGP.
+For proposals requiring changes in the behavior of off-chain components (e.g. Graph Node, Indexer Agent, Indexer Service), changes must be made as Pull Requests to the corresponding repositories (generally under the [graphprotocol org on GitHub](https://github.com/graphprotocol)). Authors are encouraged to collaborate with core developers (and if necessary, the Technical Advisory Board), to ensure the changes meet the quality criteria for each repository. These changes generally do not require explicit Council approval, unless the behavior of the components changes in a way that requires changes to the [Feature Matrix](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md) or the [Arbitration Charter](./0009-arbitration-charter.md). In particular, Graph Node versions are approved through a GGP.
 
 If needed, a GIP could propose adoption of a new repository or package, in which case this should be mentioned in the proposal.
 
@@ -159,9 +159,11 @@ For proposals that involve changes to protocol smart contracts, the authors are 
 
 # Getting a proposal accepted by the Council
 
-After the author has followed the process described above, the proposal has been discussed in relevant calls, and the changes have met the requirements to be ready for deployment, the proposal can advance to the Candidate stage. At this point, the author can request the Council to discuss the proposal for acceptance by filling in this form (TODO: link to form). The Council may rely on the Technical Advisory Board to filter these requests and validate that changes are really ready for deployment. The Council may also request a community Snapshot vote (at this stage, or any earlier stage in the process) to gauge community consensus before making a decision.
+After the author has followed the process described above, the proposal has been discussed in relevant calls, and the changes have met the requirements to be ready for deployment, the proposal can advance to the Candidate stage. At this point, the author can request the Council to discuss the proposal for acceptance by filling in this form (TODO: link to form). The Council may rely on the Technical Advisory Board to filter these requests and validate that changes are really ready for deployment, and may invite the authors to a Council meeting to present the proposal. The Council may also request a community Snapshot vote (at this stage, or any earlier stage in the process) to gauge community consensus before making a decision.
 
-Once a proposal has been Accepted (ultimately signaled through a successful vote of a GGP), the authors, core devs and Technical Advisory Board can work together with the Council to execute the Deployment Plan (if it's a smart contracts change) or any other changes needed to deploy the proposal.
+To accept a proposal, the Council will use a Graph Governance Proposal or GGP. GGPs are executed through a vote on [Snapshot](https://snapshot.org/#/council.graphprotocol.eth) were each Council member can vote, and 6 positive votes mean that a proposal was Accepted.
+
+Once a proposal has been Accepted, the authors, core devs and Technical Advisory Board can work together with the Council to execute the Deployment Plan (if it's a smart contracts change) or any other changes needed to deploy the proposal.
 
 # Copyright Waiver
 
