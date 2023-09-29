@@ -49,7 +49,7 @@ In practice, most GIP authors were self-assigning GIP numbers, to not depend on 
 
 ## A clearer process after publishing a GIP
 
-The process to get a GIP implemented and accepted by the Council needed some clarification. We had added more detail about the quality assurance process for the different kind of changes, with additional detail for smart contracts changes.
+The process to get a GIP implemented and accepted by the Council needed some clarification. We had added more detail about the quality assurance process for the different kinds of changes, with additional detail for smart contracts changes.
 
 The changes also make it explicit that implementation of a GIP can happen in parallel to the governance process.
 
