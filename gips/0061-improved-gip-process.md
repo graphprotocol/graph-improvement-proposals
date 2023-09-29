@@ -53,17 +53,17 @@ The process to get a GIP implemented and accepted by the Council needed some cla
 
 The changes also make it explicit that implementation of a GIP can happen in parallel to the governance process.
 
-We also introduce some mechanisms for authors to advance proposals through the process, using online forms (currently being set up on TypeForm) to:
+We also introduce some mechanisms for authors to advance proposals through the process, using an online form (currently being set up on TypeForm) to:
 - Request a speaking slot in one of the periodic community calls
 - Request an audit slot
-- Request help from core devs to implement a GIP
+- Request help from core devs to implement a GIP or review an implementation
 - Ask the Council to discuss a GIP for acceptance
 
-Hopefully these forms open a direct way for authors to advance a GIP through the process, and the additional instructions provide more clarity as to what needs to happen before a GIP is ready for deployment.
+Hopefully this form opens a direct way for authors to advance a GIP through the process, and the additional instructions provide more clarity as to what needs to happen before a GIP is ready for deployment.
 
 # Risks and Security Considerations
 
-The use of forms to advance proposals through the process, or request audits and other activities, involves a few risks:
+The use of a form to advance proposals through the process, or request audits and other activities, involves a few risks:
 - Spam: if the volume of invalid/nonsensical form submissions is too high, it could make it impractical for the Council and core dev contributors filtering them for legitimate submissions to be noticed. If this happens, further changes to the process would be needed to add more validation before sending a submission.
 - Single point of failure: if the forms provider goes down, or for whatever reason someone is unable to get the form submission delivered, this could impede them from advancing the proposal or putting forward their request. To avoid the single point of failure, authors are encouraged to use the forum, Discord, or any other public channel to communicate with core devs or The Foundation if they suspect the message was not received.
 
