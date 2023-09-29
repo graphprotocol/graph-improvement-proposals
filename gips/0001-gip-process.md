@@ -31,7 +31,6 @@ The GIP process includes both the stages and acceptance criteria that a proposal
 
 The high-level process is captured in the diagram below.
 
-(TODO: update this diagram)
 ![GIP Process Flowchart](../assets/gip-0001/gip-process-flowchart.png)
 
 ## Before a proposal is written
@@ -156,6 +155,10 @@ For proposals that involve changes to protocol smart contracts, the authors are 
 - **Audit**: Most changes will require an audit with a vetted auditor. Previous protocol audits have been performed with OpenZeppelin, Consensys Dilligence, Trust Security and 0xMacro. Audit contests in Code4rena have also been used in the past. Other audit firms may be accepted at the discretion of the Technical Advisory Board and Council. Authors can pay for audits at their own expense and risk, or request an audit slot from the Foundation using this form (TODO: add form link). Depending on the complexity, some proposals might require more than one audit. The version of the code that is deployed must match the audited commit; any changes must be re-reviewed by the auditors, with few exceptions (for instance, changing event parameters).
 - **Test Plan**: Besides unit tests, contract changes must be tested on a testnet. Often, the process involves testing on a "staging" testnet deployment, before deploying to the official testnet once the Council has given a clear signal that the GIP is close to approval. Authors are welcome to write automated scripts to execute the tests on a testnet, but it is generally accepted to document manual testing steps on a spreadsheet or Notion document (a "Test Plan"), and record the results and transaction hashes. The Test Plan should generally cover the main changes from the proposal and the most relevant edge cases. The authors are welcome to collaborate with core devs and the Technical Advisory Board in drafting this plan, and may request help from core devs in running it.
 - **Deployment Plan**: Updates to protocol contracts are generally a multi-step process. To reduce the probability of human error, authors and/or core devs must develop a "Deployment Plan", i.e. a document (generally a spreadsheet or Notion page)  specifying the transactions that must be run, and any relevant off-chain actions that must be taken to deploy the GIP. Council transactions that can be batched together must be identified as such.
+
+The following flowchart illustrates the usual process, though some of the steps could run in parallel, in different order, or be skipped, depending on the GIP and its complexity:
+
+![Flowchart for the Smart Contracts development process](../assets/gip-0001/smart-contracts-process-flowchart.png)
 
 # Getting a proposal accepted by the Council
 
