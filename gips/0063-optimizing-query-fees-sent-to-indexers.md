@@ -1,7 +1,7 @@
 ---
-GIP: "XXXX"
+GIP: 0063
 Title: Optimizing Query Fees sent to Indexers
-Authors: Howard 
+Authors: Howard <howard@edgeandnode.com>
 Created: 2023-11-08
 Updated: 2023-11-08
 Stage: Draft
