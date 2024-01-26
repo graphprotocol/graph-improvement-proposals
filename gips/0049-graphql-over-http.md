@@ -1,5 +1,5 @@
 ---
-GIP: 0049
+GIP: "0049"
 Title: GraphQL over HTTP spec
 Authors: Denis Badurina <badurinadenis@gmail.com>
 Created: 2023-02-28

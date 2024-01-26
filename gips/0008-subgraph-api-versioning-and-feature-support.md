@@ -1,5 +1,5 @@
 ---
-GIP: 0008
+GIP: "0008"
 Title: Subgraph API Versioning and Feature Support
 Authors: Brandon Ramirez <brandon@edgeandnode.com>, Adam Fuller <adam@edgeandnode.com>
 Created: 2021-04-27

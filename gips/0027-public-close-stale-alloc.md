@@ -1,5 +1,5 @@
 ---
-GIP: 0027
+GIP: "0027"
 Title: Create altruistic allocations and close stale allocations
 Authors: Ariel Barmat <ariel@thegraph.com>, Sam Green <sam@semiotic.ai>
 Created: 2022-03-24

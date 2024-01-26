@@ -1,5 +1,5 @@
 ---
-GIP: 0046
+GIP: "0046"
 Title: L2 Transfer Tools
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2023-02-13

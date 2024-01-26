@@ -1,5 +1,5 @@
 ---
-GIP: 0051
+GIP: "0051"
 Title: Exponential Query Fee Rebates for Indexers
 Authors: Howard Heaton <howard@edgeandnode.com>, Justin Grana <justin@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2023-03-01

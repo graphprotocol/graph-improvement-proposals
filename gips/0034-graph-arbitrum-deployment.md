@@ -1,5 +1,5 @@
 ---
-GIP: 0034
+GIP: "0034"
 Title: The Graph Arbitrum deployment with a new rewards issuance and distribution mechanism
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>
 Created: 2022-06-01

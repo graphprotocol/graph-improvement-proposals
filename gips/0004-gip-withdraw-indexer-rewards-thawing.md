@@ -1,5 +1,5 @@
 ---
-GIP: 0004
+GIP: "0004"
 Title: Withdraw indexing rewards to beneficiary address with thawing period.
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2021-03-23

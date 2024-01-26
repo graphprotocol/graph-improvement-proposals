@@ -1,5 +1,5 @@
 ---
-GIP: 0047
+GIP: "0047"
 Title: Chain identification & aliasing for The Graph Protocol
 Authors: Adam Fuller <adam@edgeandnode.com>
 Created: 2022-07-28

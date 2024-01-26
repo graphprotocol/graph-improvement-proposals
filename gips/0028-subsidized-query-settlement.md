@@ -1,5 +1,5 @@
 ---
-GIP: 0028
+GIP: "0028"
 Title: Subsidized Query Settlement
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2022-03-24

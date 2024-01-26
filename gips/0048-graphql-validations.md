@@ -1,5 +1,5 @@
 ---
-GIP: 0048
+GIP: "0048"
 Title: GraphQL Validations
 Authors: Dotan Simha <dotan@the-guild.dev>
 Created: 2023-02-19

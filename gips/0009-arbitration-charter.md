@@ -1,5 +1,5 @@
 ---
-GIP: 0009
+GIP: "0009"
 Title: Arbitration Charter
 Authors: Brandon Ramirez <brandon@edgeandnode.com>, Adam Fuller <adam@edgeandnode.com>
 Created: 2021-04-09

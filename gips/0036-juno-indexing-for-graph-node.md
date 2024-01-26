@@ -1,5 +1,5 @@
 ---
-GIP: 0036
+GIP: "0036"
 Title: Juno indexing for Graph node
 Authors: Marc
 Created: 2022-22-06

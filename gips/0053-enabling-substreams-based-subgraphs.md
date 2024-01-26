@@ -1,5 +1,5 @@
 ---
-GIP: <0053>
+GIP: "0053"
 Title: <Enabling-Substreams-Based-Subgraphs>
 Authors: <Alex Bourget alex@dfuse.io, Adam Fuller adam@edgeandnode.com>
 Created: <2023-06-01>
