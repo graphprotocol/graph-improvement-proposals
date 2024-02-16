@@ -18,7 +18,7 @@ This GIP seeks to simplify the release process, and reduce bureaucracy, in order
 
 # Prior Art
 
-Currently, as specified in GIP-0008, the Graph Council ratifies each Graph Node version via a GGP.
+Currently, [as specified in GIP-0008](https://snapshot.org/#/council.graphprotocol.eth/proposal/0xbdd884654a393620a7e8665b4289201b7542c3ee62becfad133e951b0c408444), the Graph Council ratifies each Graph Node version via a GGP.
 
 # High-Level Description
 
@@ -26,7 +26,7 @@ The Graph Council should delegate responsibility for specification of the protoc
 
 The Graph Node team should provide the Council and community with updates on new versions, along with any salient information regarding functionality or testing.
 
-The Graph Council will still be responsible for enablement of indexing rewards in the feature support matrix, via GGP.
+The Graph Council will still be responsible for specification of the rest of the feature support matrix, via GGP.
 
 # Copyright Waiver
 
