@@ -1,5 +1,5 @@
 ---
-GIP: 0062
+GIP: "0062"
 Title: Remove delegation parameters cooldown
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>
 Created: 2023-10-11
