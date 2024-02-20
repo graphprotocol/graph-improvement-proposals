@@ -1,5 +1,5 @@
 ---
-GIP: 0025
+GIP: "0025"
 Title: Principal-Protected Bonding Curves
 Authors: Juan Manuel Rodriguez Defago <juan@graphops.xyz>, Brandon Ramirez <brandon@edgeandnode.com>
 Created: 2022-03-03

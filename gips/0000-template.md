@@ -1,5 +1,5 @@
 ---
-GIP: <The number of this GIP. To be assigned by editors.>
+GIP: <The number of this GIP. To be assigned by editors. Put the number between quotes.>
 Title: <The title of this GIP>
 Authors: <A list of authors. Include full name or pseudonym. At least one author must have valid contact information provided in angle brackets.>
 Created: <The date the GIP was created.>

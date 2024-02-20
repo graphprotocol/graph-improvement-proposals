@@ -1,5 +1,5 @@
 ---
-GIP: 0029
+GIP: "0029"
 Title: Signal Renting
 Authors: Howard Heaton <howard@edgeandnode.com>, Brandon Ramirez <brandon@edgeandnode.com>
 Created: 2022-04-15

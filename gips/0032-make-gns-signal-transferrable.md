@@ -1,5 +1,5 @@
 ---
-GIP: 0032
+GIP: "0032"
 Title: Make GNS signal transferrable
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2022-05-15

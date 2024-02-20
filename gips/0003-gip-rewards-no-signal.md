@@ -1,5 +1,5 @@
 ---
-GIP: 0003
+GIP: "0003"
 Title: Fix accumulated subgraph rewards being reset to zero
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2021-03-01

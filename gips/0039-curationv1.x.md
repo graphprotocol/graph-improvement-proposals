@@ -1,5 +1,5 @@
 ---
-GIP: 0039
+GIP: "0039"
 Title: Curation v1.x
 Authors: Howard Heaton, Anirudh Patel
 Created: 2022-09-29

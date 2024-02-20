@@ -1,5 +1,5 @@
 ---
-GIP: 0035
+GIP: "0035"
 Title: GraphQL Live Queries
 Authors: Dotan Simha dotan@the-guild.dev
 Created: 2022-22-06

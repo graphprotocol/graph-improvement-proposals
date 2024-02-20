@@ -1,5 +1,5 @@
 ---
-GIP: 0043
+GIP: "0043"
 Title: Activate indexing rewards in The Graph Network on Arbitrum One
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2023-02-01

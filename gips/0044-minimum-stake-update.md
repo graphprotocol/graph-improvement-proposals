@@ -1,5 +1,5 @@
 ---
-GIP: 0044
+GIP: "0044"
 Title: Enforce minimum indexer stake across all indexer actions
 Authors: Pablo Carranza Vélez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomás Migone <tomas@edgeandnode.com>
 Created: 2023-02-03

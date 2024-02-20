@@ -1,5 +1,5 @@
 ---
-GIP: 0052
+GIP: "0052"
 Title: Timeline and requirements to increase rewards in L2
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomas Migone <tomas@edgeandnode.com>
 Created: 2023-04-20

@@ -1,5 +1,5 @@
 ---
-GIP: 0024
+GIP: "0024"
 Title: Query Versioning
 Authors: Zac Burns <zac@edgeandnode.com>
 Created: 2022-03-01

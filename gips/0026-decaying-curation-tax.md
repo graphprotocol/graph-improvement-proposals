@@ -1,5 +1,5 @@
 ---
-GIP: 0026
+GIP: "0026"
 Title: Decaying Curation Tax
 Authors: Juan Manuel Rodriguez Defago <juan@graphops.xyz>, Brandon Ramirez <brandon@edgeandnode.com>
 Created: 2022-03-18

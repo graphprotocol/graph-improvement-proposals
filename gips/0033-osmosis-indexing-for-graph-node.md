@@ -1,5 +1,5 @@
 ---
-GIP: 0033
+GIP: "0033"
 Title: Osmosis indexing for Graph node
 Authors: Marc
 Created: 6-22-2022

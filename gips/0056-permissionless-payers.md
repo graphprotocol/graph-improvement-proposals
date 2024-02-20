@@ -1,6 +1,5 @@
-
 ---
-GIP: <0056>
+GIP: "0056"
 Title: Permissionless payment
 Authors: Zac Burns <zac@edgeandnode.com>
 Created: 2023-07-28
