@@ -22,7 +22,7 @@ Currently, [as specified in GIP-0008](https://snapshot.org/#/council.graphprotoc
 
 # High-Level Description
 
-The Graph Council should delegate responsibility for specification of the protocol-supported version of Graph Node to the Graph Node core development team. The Graph Council can revoke this delegation of responsibility at any time.
+The Graph Council should delegate responsibility for specification of the protocol-supported version of Graph Node to the Graph Node core development team (with maintainer status on the [graph-node](https://github.com/graphprotocol/graph-node) repository). The Graph Council can revoke this delegation of responsibility at any time.
 
 The Graph Node team should provide the Council and community with updates on new versions, along with any salient information regarding functionality or testing.
 
