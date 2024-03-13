@@ -4,10 +4,10 @@ Title: Subgraph Availability Manager
 Authors: Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-01-10
 Stage: Draft
-Discussions-To: TODO
+Discussions-To: https://forum.thegraph.com/t/gip-0065-subgraph-availability-manager/5501
 Category: Protocol Interfaces
 Implementations: https://github.com/graphprotocol/contracts/pull/882
-Audits: TODO
+Audits: https://github.com/graphprotocol/contracts/blob/main/packages/contracts/audits/OpenZeppelin/2024-02-subgraph-availability-manager-and-minimum-allocation-duration-removal.pdf
 ---
 
 # Abstract
