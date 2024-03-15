@@ -85,7 +85,6 @@ The transaction to the `DataEdge` should follow the format:
 {
     "commit-hash": "XXXXX",
     "config": {
-        "ipfs": "<IPFS_NODE_URL>",
         "ipfs-concurrency": "4",
         "ipfs-timeout": "10000",
         "min-signal": "100",
@@ -96,7 +95,6 @@ The transaction to the `DataEdge` should follow the format:
         "subgraph": "https://api.thegraph.com/subgraphs/name/graphprotocol/graph-network-arbitrum",
         "subgraph_availability_manager_contract": "CONTRACT_ADDRESS",
         "oracle_index": "ORACLE_INDEX",
-        "url": "<RPC_URL>"
     }
 }
 
