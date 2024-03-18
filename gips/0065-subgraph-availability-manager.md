@@ -69,9 +69,7 @@ The number of oracle operators is strictly limited to five, ensuring a balance b
 
 ## 3. Responsibility and Integrity
 
-Oracle operators are expected to prioritize the network's integrity and best interests, targeting an uptime of 99.9%. This goal serves as a benchmark to ensure high operational performance and accurate subgraph assessments. Recognizing the challenges of maintaining the targeted uptime, this standard does account for unforeseen issues beyond the operator's control, such as IPFS node or RPC service failures.
-
-To promote transparency, operators must provide a public dashboard displaying operational runs and failures, facilitating collective performance evaluation. Should an operator consistently underperform relative to its peers, the technical advisory board or other Subgraph Availability Oracle operators may suggest to the Graph Council to find a replacement.
+Operators must ensure their oracles remain operational, acknowledging that while occasional outages are part of normal operations, efforts to minimize these are crucial. Operators should communicate their infrastructure choices with one another to prevent risks associated with common dependencies, thereby enhancing the network's overall resilience. Active participation in a group chat to discuss operational challenges and coordinate on mitigating risks is required. Operators who are unresponsive or consistently underperform may be recommended for replacement by the technical advisory board or fellow operators to the Graph Council.
 
 ## 4. Subgraph Availability Oracle Software and Versioning
 
