@@ -63,7 +63,7 @@ Oracles operate as part of the `SubgraphAvailabilityManager` smart contract, con
 
 ## 2. Appointment and Governance of Subgraph Availability Oracles Operators
 
-Oracle operators are appointed by The Graph Council, which retains the authority to add or remove oracle operators, ensuring compliance with the guidelines and responsibilities outlined in this charter.
+Oracle operators are appointed by The Graph Council, which retains the authority to add or remove oracle operators, ensuring compliance with the guidelines and responsibilities outlined in this charter. For this initial phase, the Oracle operators will be Core Developers Teams, although future extensions to include other community members are not discounted.
 
 The number of oracle operators is strictly limited to five, ensuring a balance between decentralization and manageability.
 
