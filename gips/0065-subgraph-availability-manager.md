@@ -75,7 +75,9 @@ Operators must ensure their oracles remain operational, acknowledging that while
 
 Subgraph Availability Oracles operators must use the software available at [The Graph's Subgraph Oracle repository](https://github.com/graphprotocol/subgraph-oracle). This ensures uniformity and accuracy in their assessments across the network. A specific commit or release version from this repository will be designated as the required version for all oracles. This version is subject to change over time as updates and improvements are made.
 
-Oracle operators are responsible for reaching consensus on the specific commit and configuration to be used, and must align their operations with these agreed-upon standards by posting a transaction with the details to a `DataEdge` smart contract. A dedicated subgraph will track these declarations, flagging any deviations for prompt resolution to maintain network consistency.
+Oracle operators are responsible for reaching consensus on the specific commit and configuration to be used. To facilitate this process, a group chat channel will be established for operators to communicate and reach consensus. Once agreed upon, operators must align their operations with these standards by posting a transaction with the details to a `DataEdge` smart contract within no more than three business days. A dedicated subgraph will track these declarations, flagging any deviations for prompt resolution to maintain network consistency.
+
+**Note:** In case a security fix is needed, operators should treat this with the highest priority. Oracles are required to be updated as soon as possible and no later than 24 hours after consensus.
 
 The transaction to the `DataEdge` should follow the format:
 
