@@ -1,0 +1,53 @@
+---
+GIP: "0067"
+Title: Deprecate the L1 (mainnet) protocol
+Authors: Pablo Carranza Velez <pablo@edgeandnode.com>
+Created: 2024-05-20
+Updated: 2024-05-20
+Stage: Candidate
+Discussions-To: TODO
+Category: Protocol Logic
+Depends-On: GIP-0052
+---
+
+# Abstract
+
+With GIP-0052, we have moved Indexing Rewards from the L1 (mainnet) deployment of protocol to the L2 (Arbitrum One) instance. Now that this process is close to complete (at the time of this writing, about to meet the milestones to go to 100%), we propose deprecating the L1 protocol, with a 6 month timeline to remove the transfer tools and all references to mainnet in the products maintained by core devs.
+
+# Motivation
+
+The community decided on a move to Arbitrum One to allow scaling the protocol in the face of rising gas costs. The current setup with two protocols running in parallel is costly for many protocol participants, confusing for consumers and subgraph developers, and unnecessary now that the L2 protocol has been running in production successfully for over a year.
+
+# High-Level Description
+
+## Deprecation Timeline
+
+The proposed timeline is as follows, and defined in relation to its first step, that is sending 100% of Indexing Rewards to L2:
+
+- T = 0: Indexing Rewards are set to 100% on L2. From this moment on, it is expected that most Indexers will wind down operations on L1. The backstop Indexer from Edge & Node can keep basic query capabilities running for the few remaining L1 subgraphs. The deprecation timeline is publicly announced, with community-wide efforts to inform all participants of the need to move to L2.
+- T = 3 months: Support for querying subgraphs on L1 is removed. The backstop Indexer on L1 is stopped. The L1 instances of the Gateway are stopped. All data consumers must start using L2 Gateway endpoints.
+- T = 6 months: Support for most transfer tools is removed (see below). The L1 protocol is considered officially deprecated, and L1 contracts are marked End-Of-Life and will get no new upgrades or support. Participants may still withdraw any remaining GRT from the protocol contracts.
+
+## Transfer tools deprecation
+
+At the 6 month milestone, the following transfer tools will stop working:
+- Stake transfer
+- Delegation transfer
+- Curation transfer
+- Subgraph transfer
+
+The following ones will keep working for the foreseeable future:
+- Vesting contract balance transfers to and from L2 (note this is for GRT that is not staked or delegated)
+- Adding billing balance from L1 using the BillingConnector will still be supported.
+
+This deprecation will allow removing all the transfer-tools-related code from the Staking and GNS contracts, reducing the complexity of the protocol and with it the attack surface.
+
+The L1 GraphToken contract and the L1-L2 token bridge will of course stay operational with no plans to deprecate them.
+
+# Risks and Security Considerations
+
+Moving completely to L2 and deprecating the L1 protocol makes the protocol more reliant on Arbitrum One. With Arbitrum having become the [first Stage 1 rollup](https://l2beat.com/scaling/projects/arbitrum) we believe its reached sufficient maturity to take this step. In a catastrophic scenario where Arbitrum One stops being operational, it should still be possible to use the last known state of the Arbitrum network to deploy a new protocol to another chain (for instance, a custom Arbitrum rollup) and recover participants' funds. This would take some development effort and Council approval, but we believe is a sufficient mitigation for this low-probability risk.
+
+# Copyright Waiver
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
