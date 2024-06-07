@@ -24,46 +24,46 @@ Audits: <(Optional) A list of URLs to audits related to this proposal.>
 
 *Given the heterogeneous types of proposals this template is meant to reflect, most sections below, except "Abstract" and "Motivation," may be treated as optional. The author, however, should exercise good judgment in deviating from the template, as they are reflective of the type of information, when relevant, that editors will look for in reviewing a proposal.*
 
-# Abstract
+## Abstract
 
 *A brief (roughly 5-10 lines) summary of this proposal.*
 
-# Motivation
+## Motivation
 
 *Why are you proposing this change? How will its adoption benefit The Graph protocol or community? What problem does it solve?*
 
-# Prior Art
+## Prior Art
 
 *(Optional) What solutions have been explored previously in this problem space? What prior art inspired or influenced this design?*
 
-# High-Level Description
+## High-Level Description
 
 *(Optional) Describe your specific solution at a high level. Include diagrams, math formulas, pseudocode, and any other artifacts helpful in showing how your proposal works at a conceptual level. This type of information is required for a proposal to reach the "Proposal" stage.*
 
-# Detailed Specification
+## Detailed Specification
 
 *(Optional) Include specific APIs, semantics, data structures, code snippets, etc. related to this proposal. This type of info is required for a proposal to reach the "Draft" stage.*
 
-# Backward Compatibility
+## Backward Compatibility
 
 *(Optional) How does this protocol impact backward compatibility? What breaking changes, if any, are included? Does the proposal have at least N-1 compatibility, or must it be deployed in a knife-edge rollout?*
 
-# Dependencies
+## Dependencies
 
 (*Optional) How does this proposal depend on other GIPs or other engineering work?*
 
-# Risks and Security Considerations
+## Risks and Security Considerations
 
 *(Optional) What technical or security risks are there with implementing this proposal? How might they be mitigated or addressed?*
 
-# Validation
+## Validation
 
 *(Optional) How should this proposal be validated before being included in the protocol? Examples might include security audits, economic modeling, user research, running in testnet, etc.*
 
-# Rationale and Alternatives
+## Rationale and Alternatives
 
 *(Optional) What, if any, alternate designs or interfaces were considered while writing this proposal? Why was the current proposal chosen over any alternate designs? Justify the design decisions you made in writing this proposal.*
 
-# Copyright Waiver
+## Copyright Waiver
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
