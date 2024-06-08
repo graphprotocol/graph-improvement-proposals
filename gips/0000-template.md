@@ -6,7 +6,7 @@ Created: <The date the GIP was created.>
 Updated: <The date the GIP was last updated.>
 Stage: <The current stage of the proposal. Specified by the author and confirmed by editors by virtue of a GIP being accepted into an editor's view of the repo.>
 Discussions-To: <The forum post where this proposal is discussed.>
-Category: <(Optional) The type of GIP or GRP. This field should be left blank for GRCs. Valid types are "Protocol Logic," "Protocol Interfaces," "Subgraph API," "Process," "Economic Parameters," and "Protocol Charters".>
+Category: <(Optional) The type of GIP or GRP. This field should be left blank for GRCs. Valid types are "Protocol Logic", "Protocol Interfaces", "Subgraph API", "Process", "Economic Parameters", and "Protocol Charters".>
 Depends-On: <(Optional) A list of GIPs that this GIP depends on. If some other type of dependency exists, include a reference link here and an explanation in the body of the GIP.>
 Superseded-By: <(Optional) A GIP that supersedes the current proposal. If this field is specified, the stage of the GIP should be "Withdrawn".>
 Replaces: <(Optional) A GIP that this proposal is intended to supersede.>
