@@ -3,7 +3,7 @@ GIP: "0067"
 Title: Deprecate the L1 (mainnet) protocol
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>
 Created: 2024-05-20
-Updated: 2024-05-20
+Updated: 2024-06-28
 Stage: Candidate
 Discussions-To: TODO
 Category: Protocol Logic
@@ -12,7 +12,7 @@ Depends-On: GIP-0052
 
 # Abstract
 
-With GIP-0052, we have moved Indexing Rewards from the L1 (mainnet) deployment of protocol to the L2 (Arbitrum One) instance. Now that this process is close to complete (at the time of this writing, about to meet the milestones to go to 100%), we propose deprecating the L1 protocol, with a 6 month timeline to remove the transfer tools and all references to mainnet in the products maintained by core devs.
+With GIP-0052, we have moved Indexing Rewards from the L1 (mainnet) deployment of protocol to the L2 (Arbitrum One) instance. Now that this process is complete (at the time of this writing, executing the last step for 100% of rewards to be on L2), we propose deprecating the L1 protocol, with a 6 month timeline to remove the transfer tools and all references to mainnet in the products maintained by core devs.
 
 # Motivation
 
@@ -24,9 +24,11 @@ The community decided on a move to Arbitrum One to allow scaling the protocol in
 
 The proposed timeline is as follows, and defined in relation to its first step, that is sending 100% of Indexing Rewards to L2:
 
-- T = 0: Indexing Rewards are set to 100% on L2. From this moment on, it is expected that most Indexers will wind down operations on L1. The backstop Indexer from Edge & Node can keep basic query capabilities running for the few remaining L1 subgraphs. The deprecation timeline is publicly announced, with community-wide efforts to inform all participants of the need to move to L2.
-- T = 3 months: Support for querying subgraphs on L1 is removed. The backstop Indexer on L1 is stopped. The L1 instances of the Gateway are stopped. All data consumers must start using L2 Gateway endpoints.
-- T = 6 months: Support for most transfer tools is removed (see below). The L1 protocol is considered officially deprecated, and L1 contracts are marked End-Of-Life and will get no new upgrades or support. Participants may still withdraw any remaining GRT from the protocol contracts.
+- T = 0 (June 28th, 2024): Indexing Rewards are set to 100% on L2. From this moment on, it is expected that most Indexers will wind down operations on L1. The backstop Indexer from Edge & Node can keep basic query capabilities running for the few remaining L1 subgraphs. The deprecation timeline is publicly announced, with community-wide efforts to inform all participants of the need to move to L2.
+- T = 1 month (July 28th): Support for querying subgraphs on L1 is removed. The backstop Indexer on L1 is stopped. The L1 instances of the Gateway are stopped. All data consumers must start using L2 Gateway endpoints.
+- T = 6 months (December 28th): Support for most transfer tools is removed (see below). The L1 protocol is considered officially deprecated, and L1 contracts are marked End-Of-Life and will get no new upgrades or support. Participants may still withdraw any remaining GRT from the protocol contracts.
+
+Exact dates for removing functionality might vary based on core dev availability to deploy upgrades, but support for the deprecated tools will stop on the dates mentioned above.
 
 ## Transfer tools deprecation
 
@@ -36,8 +38,8 @@ At the 6 month milestone, the following transfer tools will stop working:
 - Curation transfer
 - Subgraph transfer
 
-The following ones will keep working for the foreseeable future:
-- Vesting contract balance transfers to and from L2 (note this is for GRT that is not staked or delegated)
+The following ones will keep working:
+- Vesting contract balance transfers to and from L2 will still be supported (note this is for GRT that is not staked or delegated, but held by the vesting contract itself).
 - Adding billing balance from L1 using the BillingConnector will still be supported.
 
 This deprecation will allow removing all the transfer-tools-related code from the Staking and GNS contracts, reducing the complexity of the protocol and with it the attack surface.
