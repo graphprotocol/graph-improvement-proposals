@@ -49,14 +49,13 @@ Three main changes are proposed:
     - each data service type comes with basic meta data such as a name and description,
     - data sets of any supported data service type can be created,
     - new data set versions of any supported data service type can be published,
-    - an IPFS manifest hash is required for every new data set version that is\
-    published.
+    - an IPFS manifest hash is required for every new data set version that is published.
 
-2.  **Staking contract**: Instead of assuming that all allocations are against subgraph deployments, allow indexers to specify the data service type when creating an allocation such that:
+2. **Staking contract**: Instead of assuming that all allocations are against subgraph deployments, allow indexers to specify the data service type when creating an allocation such that:
     - each allocation is associated with a data service type,
     - each allocation is associated with a data set ID.
 
-3.  **Verifiability router**: Instead of using a single dispute mechanism, expand the contracts to allow a different dispute mechanism for each supported data service type, and to allow this dispute mechanisms to change over time. The existing disputes mechanism is kept for subgraphs. Additional data service types can then specify their own contract based on disputes or verifiable proofs.
+3. **Verifiability router**: Instead of using a single dispute mechanism, expand the contracts to allow a different dispute mechanism for each supported data service type, and to allow this dispute mechanisms to change over time. The existing disputes mechanism is kept for subgraphs. Additional data service types can then specify their own contract based on disputes or verifiable proofs.
 
 How consumers, gateways and indexers need to be updated to support new data service types is left to the GIPs that introduce these new data service types. The detailed specification below illustrates how the changes above can be introduced in a completely backwards-compatible way.
 
