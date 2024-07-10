@@ -1,6 +1,6 @@
 ---
 GIP: "0070"
-Title: Evolving The Graph Protocol
+Title: Evolving The Graph Protocol Vision (2024)
 Authors: Rembrandt Kuipers <rem@edgeandnode.com>
 Created: 2024-09-TBC
 Updated: 2024-09-TBC
