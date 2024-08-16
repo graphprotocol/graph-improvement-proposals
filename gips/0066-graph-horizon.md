@@ -39,7 +39,7 @@ Before we start, a few definitions:
 - ***data service***, a service designed to run on Graph Horizon that makes data available for consumers. In general data services will be comprised of both offchain and onchain components, with each one having it’s own smart contracts at the chain level. Potential examples include: Subgraphs, Firehose, Substream, SQL or LLM queries. A data service doesn’t need to be restricted to a data response-request type of service, and can include other types of applications like oracles, challenge systems, and others. Essentially, data services are new protocols built on top of The Graph. We focus on data as the natural extension of subgraphs, but a lot of DePIN use-cases could be served by the same primitives.
 - ***service provider**,* the entity providing the service. In the case of the Subgraph Service they are known as indexers. For most data services this is probably also the case, however to accommodate any future data services where the indexing term might not make sense we utilize a generic term, “service provider”.
 - ***data consumer**,* the customer, i.e. the entity consuming the data.
-- ***payer***, the entity paying for the usage of a data service. Intuitively this would be the data consumer ******itself, though for many data services it’s expected that consumers will use a gateway or some sort of intermediary between them and the service providers to manage payment.
+- ***payer***, the entity paying for the usage of a data service. Intuitively this would be the data consumer itself, though for many data services it’s expected that consumers will use a gateway or some sort of intermediary between them and the service providers to manage payment.
 - ***receiver***, the entity receiving a payment. This is typically the service provider.
 
 Here is a high level overview of how Graph Horizon will be utilized by a data service:
@@ -51,7 +51,7 @@ Here is a high level overview of how Graph Horizon will be utilized by a data se
 
 ## The staking protocol
 
-At it’s core, Graph Horizon includes a staking protocol designed to provide economic security for the exchange of data between a data provider and a data consumer***.*** The staking primitives allow for arbitrary data services to be built leveraging the economic security that Horizon mandates. Next, we will describe the most important features of the staking protocol.
+At it’s core, Graph Horizon includes a staking protocol designed to provide economic security for the exchange of data between a data provider and a data consumer. The staking primitives allow for arbitrary data services to be built leveraging the economic security that Horizon mandates. Next, we will describe the most important features of the staking protocol.
 
 ### Provisions
 
@@ -63,7 +63,7 @@ When the service provider creates a provision there are a few considerations to 
 
 It’s important to note that, while similar, provisions are not what the current protocol defines as allocations but rather a generalized version that operates at a higher level. The provision primitive guarantees that a certain amount of service provider stake is locked as economic security to provide a service. How this security is used is up to the data service implementation, the staking protocol offers a set of interfaces to perform common operations like thawing provisioned stake, managing stake delegations, etc.
 
-[https://imgr.whimsical.com/object/75zMoTtke13RZepWVyHfkm](https://imgr.whimsical.com/object/75zMoTtke13RZepWVyHfkm)
+[provisions](../assets/gip-0066/provisions.png)
 
 In the context of a world of data services, a service provider will typically have several provisions, one per data service being offered. Then, each data service can leverage the provisioned stake the way they see fit. For example, the Subgraph Service might further split the provisioned stake into per-subgraph-deployment allocations; another data service might use a “stake-to-fees ratio” model to require certain amount of stake when collecting fees from them. 
 
@@ -108,7 +108,7 @@ As described before, the slashing risk applies both to stake provisioned by the 
 
 The following diagram illustrates an example of the protection for delegators. In both cases the service provider was found to be at fault and is getting slashed for 200k GRT. In the first case, the service provider doesn’t have enough stake to cover the slashed amount, so the delegators are also slashed. In the second case that’s not the true however and the delegator’s funds are safe.
 
-[https://imgr.whimsical.com/object/7qzUcriG5NrYFJzftewFHg](https://imgr.whimsical.com/object/7qzUcriG5NrYFJzftewFHg)
+[slashing](../assets/gip-0066/slashing.png)
 
 This example might lead the reader into the false conclusion that delegating to the service provider with the highest amount of stake is the safest option. It’s worth noting that in the example we assumed the slashed amount is the same for both cases. In a real world scenario it’s up to each data service to establish their slashing rules that determine what the slashing amount is. The Data Service framework establishes some rules but additional policies might be implemented as well, for instance delegation ratio can be taken into consideration when choosing the slashed amount, or repeated offenses can be punished more severely. Choosing the a service provider to delegate to should be a balancing act that looks at different variables like the service provider’s stake, the delegation ratio, fee cuts for delegation, etc. We expect tools to emerge that will expose this information and provide a simple way for delegators of knowing how aligned service providers and data services are with The Graph standards. Similar tools exist already in the current version of the protocol but they are mostly aimed towards indexer operations (for example, Graphtronauts, Graphscan, Indexer Tools, etc).
 
@@ -130,7 +130,7 @@ To address this common payments flow we propose generalizing the Timeline Aggreg
 
 The following diagram shows how the payments protocol works:
 
-[https://imgr.whimsical.com/object/Q6U2KVq8hYMbx7eoW6wHnd](https://imgr.whimsical.com/object/Q6U2KVq8hYMbx7eoW6wHnd)
+[payments-overview](../assets/gip-0066/payments-overview.png)
 
 1. First the payer needs to deposit GRT into Graph Payments contract to show the service provider that they can pay for their services. These deposits are per service provider and are used to settle payer’s debts. They are also subject to a thawing period that protects service providers from being rug pulled. If a payer starts thawing it’s expected that the service provider would immediately collect any outstanding payments and stop doing business with them.
 2. Next the service provider starts providing the service to a data consumer using the payer as the intermediary. In return the service provider should get from the payer a receipt, voucher or any other evidence that demonstrates the outstanding debt. 
@@ -209,7 +209,7 @@ A few notes on the diagram below:
 - **data** is a generic `bytes` parameter that most interfaces in the Data Service framework accept to extend functionality. In this case it could be used for additional metadata which could also be subject to validation and possibly result in a registration rejection. In the case of the Subgraph Service for instance it could be used to record the service provider’s `geoHash` and a `url` where they can be reached.
 - the tuple **(serviceProvider, dataService)** is sufficient to uniquely identify a provision. There is no concept of provision ids.
 
-![Screenshot 2024-06-11 at 13.00.02.png](../assets/gip-0066/ds-setup.png)
+![ds-setup](../assets/gip-0066/ds-setup.png)
 
 **Payer sets up a new service provider**
 
@@ -262,14 +262,12 @@ The following contracts add specific functionality, they can be combined togethe
 
 A full specification for the Graph Horizon contracts can be found here: 
 
-[Graph Horizon technical specification v2.1](https://www.notion.so/Graph-Horizon-technical-specification-v2-1-16b83bfebc734062bd32af478617eaed?pvs=21)
+[Graph Horizon technical specification](https://edgeandnode.notion.site/Graph-Horizon-technical-specification-v2-1-16b83bfebc734062bd32af478617eaed)
 
 # **Backward Compatibility**
 
-<aside>
-⚠️ We use the term `Staking` to refer to the current version of the staking contract, and `HorizonStaking` to refer to the upgraded version of the staking contract with Horizon changes. They are different versions of the same contract.
+> ⚠️ We use the term `Staking` to refer to the current version of the staking contract, and `HorizonStaking` to refer to the upgraded version of the staking contract with Horizon changes. They are different versions of the same contract.
 
-</aside>
 
 Much of the complexity with this proposal relies on how we safely transition from the current version of the protocol to Graph Horizon. We’ve taken a lot of care to design a solution that can be safe while requiring the least amount of work from network participants. To understand how we can make this transition we first need to understand what is changing. We can very broadly categorize the existing features in the current `Staking` contract into a few different areas:
 
@@ -353,15 +351,8 @@ The following is a list of all contracts in The Graph and how they will evolve w
 | PaymentsEscrow | New contract to support the payments protocol. |
 | TAPCollector | New contract to support the payments protocol. |
 | RewardsManager | Upgraded to allow issuing rewards from the SubgraphService |
-| BridgeEscrow
-GraphTokenGateway
-EpochManager
-GraphProxyAdmin
-Controller | No changes. |
-| SubgraphService
-DisputeManager | New contracts to support subgraph indexing. See companion GIP. |
+|BridgeEscrow<br>GraphTokenGateway<br>EpochManager<br>GraphProxyAdmin<br>Controller | No changes. |
+| SubgraphService<br>DisputeManager | New contracts to support subgraph indexing. See companion GIP. |
 | Curation | Upgraded to allow SubgraphService to distribute query fees to curators. Now considered part of the SubgraphService. |
-| GNS
-SubgraphNFT | No changes. Now considered part of the SubgraphService. |
-| ServiceRegistry
-DisputeManager(old) | Deprecated. |
+| GNS<br>SubgraphNFT | No changes. Now considered part of the SubgraphService. |
+| ServiceRegistry<br>DisputeManager(old) | Deprecated. |
