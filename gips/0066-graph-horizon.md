@@ -63,7 +63,7 @@ When the service provider creates a provision there are a few considerations to 
 
 It’s important to note that, while similar, provisions are not what the current protocol defines as allocations but rather a generalized version that operates at a higher level. The provision primitive guarantees that a certain amount of service provider stake is locked as economic security to provide a service. How this security is used is up to the data service implementation, the staking protocol offers a set of interfaces to perform common operations like thawing provisioned stake, managing stake delegations, etc.
 
-[provisions](../assets/gip-0066/provisions.png)
+![provisions](../assets/gip-0066/provisions.png)
 
 In the context of a world of data services, a service provider will typically have several provisions, one per data service being offered. Then, each data service can leverage the provisioned stake the way they see fit. For example, the Subgraph Service might further split the provisioned stake into per-subgraph-deployment allocations; another data service might use a “stake-to-fees ratio” model to require certain amount of stake when collecting fees from them. 
 
@@ -108,7 +108,7 @@ As described before, the slashing risk applies both to stake provisioned by the 
 
 The following diagram illustrates an example of the protection for delegators. In both cases the service provider was found to be at fault and is getting slashed for 200k GRT. In the first case, the service provider doesn’t have enough stake to cover the slashed amount, so the delegators are also slashed. In the second case that’s not the true however and the delegator’s funds are safe.
 
-[slashing](../assets/gip-0066/slashing.png)
+![slashing](../assets/gip-0066/slashing.png)
 
 This example might lead the reader into the false conclusion that delegating to the service provider with the highest amount of stake is the safest option. It’s worth noting that in the example we assumed the slashed amount is the same for both cases. In a real world scenario it’s up to each data service to establish their slashing rules that determine what the slashing amount is. The Data Service framework establishes some rules but additional policies might be implemented as well, for instance delegation ratio can be taken into consideration when choosing the slashed amount, or repeated offenses can be punished more severely. Choosing the a service provider to delegate to should be a balancing act that looks at different variables like the service provider’s stake, the delegation ratio, fee cuts for delegation, etc. We expect tools to emerge that will expose this information and provide a simple way for delegators of knowing how aligned service providers and data services are with The Graph standards. Similar tools exist already in the current version of the protocol but they are mostly aimed towards indexer operations (for example, Graphtronauts, Graphscan, Indexer Tools, etc).
 
@@ -130,7 +130,7 @@ To address this common payments flow we propose generalizing the Timeline Aggreg
 
 The following diagram shows how the payments protocol works:
 
-[payments-overview](../assets/gip-0066/payments-overview.png)
+![payments-overview](../assets/gip-0066/payments-overview.png)
 
 1. First the payer needs to deposit GRT into Graph Payments contract to show the service provider that they can pay for their services. These deposits are per service provider and are used to settle payer’s debts. They are also subject to a thawing period that protects service providers from being rug pulled. If a payer starts thawing it’s expected that the service provider would immediately collect any outstanding payments and stop doing business with them.
 2. Next the service provider starts providing the service to a data consumer using the payer as the intermediary. In return the service provider should get from the payer a receipt, voucher or any other evidence that demonstrates the outstanding debt. 
@@ -221,7 +221,7 @@ A payer offering its intermediation services for a particular data service shoul
 
 The initial registration is a mandatory step to ensure the staking protocol can provide proper economic security, however data services might also require an additional step to indicate service provider’s readiness for providing the service. The data service framework provides two interfaces to signal this: start and stop service. These take an arbitrary bytes parameter which can be used by the implementation for any purpose. For a subgraphs service for example these would be the familiar “allocate” and “close allocation” function calls. Note that this onchain signaling is optional, data services can opt for other offchain solutions like status endpoints.
 
-![Untitled](../assets/gip-0066/ds-start.png)
+![ds-start](../assets/gip-0066/ds-start.png)
 
 **Service provider redeems fees**
 
@@ -260,9 +260,7 @@ The following contracts add specific functionality, they can be combined togethe
 
 # Detailed specification
 
-A full specification for the Graph Horizon contracts can be found here: 
-
-[Graph Horizon technical specification](https://edgeandnode.notion.site/Graph-Horizon-technical-specification-v2-1-16b83bfebc734062bd32af478617eaed)
+A full specification for the Graph Horizon contracts can be found here: [Graph Horizon technical specification](https://edgeandnode.notion.site/Graph-Horizon-technical-specification-v2-1-16b83bfebc734062bd32af478617eaed)
 
 It's worth noting this specification is a living document containing implementation details that can slightly change during the course of the development and auditing cycles. Once a finalized version is available it will be added to this GIP.
 

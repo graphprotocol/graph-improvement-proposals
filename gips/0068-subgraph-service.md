@@ -67,11 +67,11 @@ Indexers can collect indexing rewards for their indexing work by presenting a PO
 
 The following diagram depicts a scenario where the indexer was late when presenting the second POI and so the rewards corresponding to that period were forfeited:
 
-[poi](../assets/gip-0068/poi.png)
+![poi](../assets/gip-0068/poi.png)
 
 Indexers are advised to periodically post POIs to prevent being locked out of future rewards, if needed a zero POI can be presented to reset the “freshness counter”. This could be useful if there is an infrastructure or indexing problem that leads to downtime and the last POI becomes stale, by submitting a zero POI the indexer forfeits previous rewards but ensures upcoming ones can be collected:
 
-[poi2](../assets/gip-0068/poi2.png)
+![poi2](../assets/gip-0068/poi2.png)
 
 One consequence of long lived allocations is that the allocated amount will accrue rewards continuously, even if no POIs are presented and the indexer gets no rewards they would be diluting everyone else’s rewards by “burning” theirs (actually they are never minted). To prevent this from happening allocations with stale POIs can be closed by anyone (without rewards).
 
@@ -105,7 +105,7 @@ In previous sections we mentioned both types of work performed by indexers make 
 
 It’s important to consider how the provisioned stake is used for economic security. Both indexing rewards and query fees share the same pool of provisioned stake however they each have separate accounting. Essentially this means that there is some leveraging at play as provisioned stake is being used to collateralize two different types of work at the same time. This is more capital-efficient and closer to the current protocol, where the allocations used to collect rewards and post POIs are the same that are then used to calculate rebates. There is a tradeoff between this capital efficiency and economic security, as using the same stake for multiple purposes hypothetically makes it more profitable to carry out multiple simultaneous attacks, as they would all share the same cost-of-corruption. We think allowing this single shared use, and not more, strikes the right balance between capital efficiency and security. The following diagram shows how the stake in a provision can be reused for the different types of work the indexer performs:
 
-[allocation](../assets/gip-0068/allocation.png)
+![allocation](../assets/gip-0068/allocation.png)
 
 It’s expected that the size of the provision will be the a priori measure of economic security to be used by the gateway’s ISA - ideally gateways will correlate this to collected and pending payments and stop sending queries to an indexer that is under-staked for the amount of query fees that the indexer is owed (at least as far as each gateway knows).
 
@@ -132,9 +132,7 @@ It’s not easy however to find a solution that works for all cases. If we take 
 
 # Detailed specification
 
-A full specification for the Subgraph Service contracts can be found here: 
-
-[Subgraph Service technical specification](https://edgeandnode.notion.site/Subgraph-Service-technical-specification-v1-0-WIP-fae5361e50bd4d8fa27684ba703062dd?pvs=25)
+A full specification for the Subgraph Service contracts can be found here: [Subgraph Service technical specification](https://edgeandnode.notion.site/Subgraph-Service-technical-specification-v1-0-WIP-fae5361e50bd4d8fa27684ba703062dd?pvs=25)
 
 It's worth noting this specification is a living document containing implementation details that can slightly change during the course of the development and auditing cycles. Once a finalized version is available it will be added to this GIP.
 
