@@ -320,24 +320,14 @@ Here is a summary of the changes proposed in this GIP. Note that some changes re
 |  | Current protocol | Transition period | Graph Horizon |
 | --- | --- | --- | --- |
 | Service provider | Stake subject to thawing period. | Stake Subject to thawing period. | Idle stake immediately withdrawable. |
-|  | Allocations managed at the staking contract. | Legacy allocations: can only be closed or collected at the staking contract
-<br>
-New allocations: managed at the SubgraphService contract. | New allocations: (same as transition period) |
+|  | Allocations managed at the staking contract. | Legacy allocations: can only be closed or collected at the staking contract<br><br>New allocations: managed at the SubgraphService contract. | New allocations: (same as transition period) |
 | Delegators | Delegated stake not slashable. | Delegated stake not slashable. | Delegated stake eventually slashable (but not right after the end of the transition period). |
 |  | Stake delegated to a service provider. | Stake delegated to a specific service provider and data service pair. | (same as transition period) |
 |  | Delegators get taxed when they initially delegate. | No delegation tax. | (same as transition period) |
-|  | Only a single undelegation request at a time. | Multiple simultaneous undelegation requests supported (maximum of 100).
-<br>
-Thawing period determined by each data service. In the case of the Subgraph Service it will likely go down from current ~28 days to ~14 days. | (same as transition period) |
-| Service payment | Determined by exponential rebates. | Legacy allocations: determined by exponential rebates.
-<br>
-New allocations: depend on the data service usage of Graph Payments.
-For the SubgraphService, payments need to be collateralized by locking stake for a period of time. | New allocations: (same as transition period) |
-| Delegation cuts | Determined by delegation parameters in the staking contract. | Legacy allocations: Determined by delegation parameters in the staking contract.
-<br>
-New allocations: determined by the delegation cut the service provider sets for each payment type on each data service. | New allocations: (same as transition period) |
-| Curators | Curation used to signal subgraphs that are worth indexing. Indexing rewards proportional to curation signal. | Curation used to signal subgraphs that are worth indexing. Indexing rewards proportional to curation signal. | No changes proposed in this GIP. Direct Indexer Payments (DIPs) and/or other initiatives address the evolution of curation.
-However worth noting curation only affects the Subgraph Service. |
+|  | Only a single undelegation request at a time. | Multiple simultaneous undelegation requests supported (maximum of 100).<br><br>Thawing period determined by each data service. In the case of the Subgraph Service it will likely go down from current ~28 days to ~14 days. | (same as transition period) |
+| Service payment | Determined by exponential rebates. | Legacy allocations: determined by exponential rebates.<br><br>New allocations: depend on the data service usage of Graph Payments.For the SubgraphService, payments need to be collateralized by locking stake for a period of time. | New allocations: (same as transition period) |
+| Delegation cuts | Determined by delegation parameters in the staking contract. | Legacy allocations: Determined by delegation parameters in the staking contract.<br><br>New allocations: determined by the delegation cut the service provider sets for each payment type on each data service. | New allocations: (same as transition period) |
+| Curators | Curation used to signal subgraphs that are worth indexing. Indexing rewards proportional to curation signal. | Curation used to signal subgraphs that are worth indexing. Indexing rewards proportional to curation signal. | No changes proposed in this GIP. Direct Indexer Payments (DIPs) and/or other initiatives address the evolution of curation.<br>However worth noting curation only affects the Subgraph Service. |
 
 ## Summary of contract changes
 
