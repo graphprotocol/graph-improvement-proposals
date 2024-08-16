@@ -3,8 +3,8 @@ GIP: 0066
 Title: Introducing Graph Horizon - A data services protocol
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-05-03
-Updated:
-Stage: Draft
+Updated: 2024-08-16
+Stage: Candidate
 Discussions-To: https://forum.thegraph.com/t/<xxxx>
 Category: Protocol Logic, Protocol Interfaces, Economic Parameters
 Depends-On: GIP-0068

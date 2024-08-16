@@ -3,8 +3,8 @@ GIP: 0068
 Title: Subgraph Service - A subgraph data service in Graph Horizon
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-06-02
-Updated:
-Stage: Draft
+Updated: 2024-08-16
+Stage: Candidate
 Discussions-To: https://forum.thegraph.com/t/<xxxx>
 Category: Protocol Logic, Protocol Interfaces, Economic Parameters
 Depends-On: GIP-0066
