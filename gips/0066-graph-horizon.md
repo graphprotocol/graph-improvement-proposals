@@ -16,7 +16,7 @@ Audits:
 
 In this proposal we present our design for Graph Horizon, a data services protocol which is the next evolution of The Graph. We also introduce the Data Service framework, a library and set of guidelines to develop data services using Graph Horizon primitives; and the Subgraph Service, the first data service built to support the current use case of The Graph, indexing subgraphs. 
 
-These changes require a complete redesign, upgrading most of the protocol contracts. A companion [GIP-0068](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0068-subgraph-service) will cover the details of the Subgraph Service. Note however that both GIPs should be treated as a unit, meaning one cannot be implemented without the other.
+These changes require a complete redesign, upgrading most of the protocol contracts. A companion GIP-0068 will cover the details of the Subgraph Service. Note however that both GIPs should be treated as a unit, meaning one cannot be implemented without the other.
 
 Finally, the Graph Council has expressed support for the the [brownfield approach](https://forum.thegraph.com/t/graph-horizon-explained-a-proposal-for-the-evolution-of-the-protocol/5169#two-ways-to-get-there-brownfield-or-greenfield-11) so we propose a way of safely transitioning from the current version of the protocol to Graph Horizon. 
 

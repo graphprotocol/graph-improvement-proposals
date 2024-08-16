@@ -14,7 +14,7 @@ Audits:
 
 # Abstract
 
-This GIP describes the Subgraph Service, a data service designed to work with Graph Horizon that supports indexing subgraphs and serving queries to consumers. We also propose a safe path for indexers to transition from managing their subgraph operation on the current staking contract to the new Subgraph Service contract without service disruption. Note that this GIP depends on the changes proposed by [GIP-0066](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0066-graph-horizon).
+This GIP describes the Subgraph Service, a data service designed to work with Graph Horizon that supports indexing subgraphs and serving queries to consumers. We also propose a safe path for indexers to transition from managing their subgraph operation on the current staking contract to the new Subgraph Service contract without service disruption. Note that this GIP depends on the changes proposed by GIP-0066.
 
 # Motivation
 
