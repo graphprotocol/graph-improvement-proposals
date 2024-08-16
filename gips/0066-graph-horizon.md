@@ -264,7 +264,9 @@ A full specification for the Graph Horizon contracts can be found here:
 
 [Graph Horizon technical specification](https://edgeandnode.notion.site/Graph-Horizon-technical-specification-v2-1-16b83bfebc734062bd32af478617eaed)
 
-# **Backward Compatibility**
+It's worth noting this specification is a living document containing implementation details that can slightly change during the course of the development and auditing cycles. Once a finalized version is available it will be added to this GIP.
+
+# Backward Compatibility
 
 > ⚠️ We use the term `Staking` to refer to the current version of the staking contract, and `HorizonStaking` to refer to the upgraded version of the staking contract with Horizon changes. They are different versions of the same contract.
 
