@@ -311,7 +311,7 @@ Operators are special accounts that have the ability to perform actions on behal
 
 **Vesting contracts**
 
-TODO: @Tomás Migone 
+The current protocol allows service providers to use tokens that are locked in vesting contracts to participate in the protocol. Horizon will support this feature as well, vesting contracts will be able to create provisions for data services however to prevent them from using this feature to bypass the vesting schedule participation on arbitrary data services will not be allowed. The Graph Council will maintain a list of data services that have been approved for vesting contract participation.
 
 ## Summary of changes
 
