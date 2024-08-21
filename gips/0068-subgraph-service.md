@@ -103,7 +103,7 @@ Note that there is no rebate mechanism in the query fee collection process. Inst
 
 In previous sections we mentioned both types of work performed by indexers make use of “available tokens” from the provisioned stake. For indexing rewards, the indexer uses stake to create allocations which will earn them indexing rewards when POIs are presented. For serving queries, the indexer locks stake on stake claims each time they collect payment for their queries. Future indexing fee payments would also use the same stake claims mechanism.
 
-It’s important to consider how the provisioned stake is used for economic security. Both indexing rewards and query fees share the same pool of provisioned stake however they each have separate accounting. Essentially this means that there is some leveraging at play as provisioned stake is being used to collateralize two different types of work at the same time. This is more capital-efficient and closer to the current protocol, where the allocations used to collect rewards and post POIs are the same that are then used to calculate rebates. There is a tradeoff between this capital efficiency and economic security, as using the same stake for multiple purposes hypothetically makes it more profitable to carry out multiple simultaneous attacks, as they would all share the same cost-of-corruption. We think allowing this single shared use, and not more, strikes the right balance between capital efficiency and security. The following diagram shows how the stake in a provision can be reused for the different types of work the indexer performs:
+It’s important to consider how the provisioned stake is used for economic security. Both indexing rewards and query fees share the same pool of provisioned stake however they have separate accounting independent from each other: allocated stake does not impose any limitation to stake claims and vice versa. Essentially this means that there is some leveraging at play as provisioned stake is being used to collateralize two different types of work at the same time. This is more capital-efficient and closer to the current protocol, where the allocations used to collect rewards and post POIs are the same that are then used to calculate rebates. There is a tradeoff between this capital efficiency and economic security, as using the same stake for multiple purposes hypothetically makes it more profitable to carry out multiple simultaneous attacks, as they would all share the same cost-of-corruption. We think allowing this single shared use, and not more, strikes the right balance between capital efficiency and security. The following diagram shows how the stake in a provision can be reused for the different types of work the indexer performs:
 
 ![allocation](../assets/gip-0068/allocation.png)
 
@@ -118,11 +118,13 @@ The Dispute Manager allows creating two types of disputes:
 - Query disputes: Indexers receive queries and return responses with signed receipts called attestations. An attestation can be disputed if the consumer (or other party) thinks the query response was invalid. Indexers use the derived private key for an allocation to sign attestations for each query, which means they can be identified.
 - Indexing disputes: Indexers will periodically present a Proof of Indexing (POI) to prove they were indexing a subgraph and claim indexing rewards. This POI is optimistically accepted when posted however anyone can challenge it and dispute it’s validity.
 
-Disputes are submitted by Fisherman, a permissionless role in the protocol designed to bolster the economic security by ensuring there’s always an incentivezed party focused on maintaining data integrity. In order to create a dispute, a fisherman needs to provide a bond to back their claim. This bond will be returned to them unless the dispute is deemed invalid. A high enough bond ensures disputes cannot be spammed with hopes of doing a denial of service type of attack. The Dispute Manger defines a special role, the arbitrator, which can resolve disputes in the following ways:
+Disputes are submitted by Fisherman, a permissionless role in the protocol designed to bolster the economic security by ensuring there’s always an incentivezed party focused on maintaining data integrity. In order to create a dispute, a fisherman needs to provide a bond to back their claim. This bond will be returned to them unless the dispute is deemed invalid. A high enough bond ensures disputes cannot be spammed with hopes of doing a denial of service type of attack. The Dispute Manger defines a special role, the Arbitrator, which can resolve disputes in the following ways:
 
 - accept a dispute: the indexer gets slashed, the dispute submitter gets back the bond plus a reward.
 - draw a dispute: the indexer does not get slashed, the dispute submitter gets back the bond.
 - reject a dispute: the indexer does not get slashed, the dispute submitter’s bond is burnt.
+
+Arbitrators are appointed by governance and they should operate within the boundaries described by the Arbitration Charter. The charter establishes norms that constrain the Arbitrator's actions beyond what is expressible or currently expressed in smart contract code. Any Arbitrator that does not comply with the norms laid out in this charter should be replaced by governance.
 
 Arbitrators should investigate and resolve disputes within an established dispute period. The Subgraph Service enforces a thawing period equal to this dispute period, this ensures that indexers cannot withdraw their stake from the protocol before disputes are resolved. One deviation from the current iteration of the Dispute Manager is that fishermen are now allowed to cancel disputes that have been open for more than the dispute period. This protects their bond from being indefinitely locked up due to arbitrators' inaction.
 
@@ -185,6 +187,8 @@ Given the following definitions:
 - $R$, the stake to fees ratio
 - $q$, the amount of query fees being collected for a period of time $T$
 - $L$, the amount of stake locked in a stake claim for a period of time $T$, defined as $L=R*q$
+- $ROI$, the return on investment for a period of time $T$
+- $CoC$, the cost of capital for a period of time $T$
 
 We can then compare for a period of time $T$ the expected return on investment versus the cost of capital as:
 
