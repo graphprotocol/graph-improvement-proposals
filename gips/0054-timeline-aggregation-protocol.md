@@ -6,9 +6,9 @@ Created: 2023-05-23
 Updated: 2023-08-10
 Stage: Candidate
 Category: Protocol Logic
-Implementations: TAP <https://github.com/semiotic-ai/timeline_aggregation_protocol>, TAP Contracts <https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts>
-Audits: TOADD
-Discussions-To: Forum <https://forum.thegraph.com/t/timeline-aggregation-protocol/4405>
+Implementations: [TAP](https://github.com/semiotic-ai/timeline_aggregation_protocol), [TAP Contracts](https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts)
+Audits: https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts/tree/main/audit
+Discussions-To: [Forum](https://forum.thegraph.com/t/timeline-aggregation-protocol/4405)
 ---
 
 # Abstract
