@@ -112,7 +112,6 @@ The following methods can be used to prove that a specific block number correspo
 To reduce the number of calls to The Graph's Arbitrator, we will implement an escalating bond system:
 
 - Anyone can dispute while the dispute window is open and if staked. To dispute, you need to post a bond.
-    - ~~The resolution system is evoked if the disputer “ties” the bond.~~
     - The resolution system is triggered once the participants have completed the maximum number of rounds.
     - If the disputant “overtakes” the Min Bond, the answer is considered incorrect until the proposer responds. The proposer must overtake the disputant's Bond to escalate the answer further. This process can be repeated up to N times.
 - After each dispute, the original update gets deleted and can be answered again, even before resolution. This option makes the process quicker for the requestor. This answer can be disputed using the same method as described above.
