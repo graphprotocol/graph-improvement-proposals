@@ -5,7 +5,7 @@ Authors: Brandon Ramirez <brandon@edgeandnode.com>, Pablo Carranza Velez <pablo@
 Created: 2021-02-21
 Updated: 2023-09-28
 Stage: Living
-Discussions-To: https://forum.thegraph.com/t/gip-0001-and-getting-started-with-gips-grps-grcs-etc/1722/4
+Discussions-To: https://forum.thegraph.com/t/gip-0001-and-getting-started-with-gips-grps-grcs-etc/1722/4, https://forum.thegraph.com/t/gip-0061-improvements-to-the-gip-process/4570
 Category: Process
 ---
 
@@ -52,13 +52,14 @@ There are two primary types of documents that are tracked in this repo. These ar
 
 Depending on the type of proposal, they will move through the following stages, as indicated by the diagram up above:
 
-1. **Draft.** This stage encompasses all proposals that are not ready for deployment. The proposal might include just Abstract and Motivation, or have a full-blown Detailed Specification. It can evolve through community feedback when in this phase, and the key requirement to move to "Candidate" is to have an implementation that is ready for deployment.
-2. **Candidate.** A proposal at this stage has a reference implementation that has been linked in the document and can be used to validate the idea described in the protocol. The implementation must be ready for deployment, having completed any relevant audits and test plans.
-3. **Accepted | Deferred | Withdrawn | Living.** These are resolution stages for a proposal:
-    1. "Accepted" indicates that the proposal has been adopted. For GIPs this would typically mean a protocol upgrade initiated by The Graph Council, but for process changes, it could simply represent a rough consensus of the community.
-    2. "Deferred" changes have been voted on at least once as protocol upgrades and have been rejected. Deferred proposals may be included in future governance votes.
-    3. "Withdrawn" proposals have been withdrawn by the creator either because they have been superseded by another proposal or are no longer relevant for another reason.
-    4. "Living" proposals are documents that are never in a finalized state, but rather are actively changing in response to feedback and community input. This proposal is such an example.
+1. **Draft.** Day 0 through to Candidate stage
+2. **Candidate.** The Author may move their GIP to the candidate stage in Github to indicate to the Council and to the public that they believe enough support has been gathered from the community and sufficient due diligence has been completed for the Council to make a decision for approval. A minimum of 1 week draft on forum for public review is required.
+3. **Approved | Deferred | Withdrawn | Implemented | Living.** These are resolution stages for a proposal:
+    1. "Approved" Council approval has been obtained for the GIP
+    2. "Deferred" The GIP is on hold or otherwise working through remediations to obtain Council approval
+    3. "Withdrawn" The submission was withdrawn by the Author or was withdrawn due to Inactivity. If more than 6 months have elapsed with no activity editors may move the status of a GIP to withdrawn. Authors may still          contact editors to re-activate their proposal if the Author would still like to proceed with their submission at a later date.
+    4. "Implemented" Indicates that a GIP has either been deployed in the case of a code change or is in use today for procedure changes or other non-code based changes.
+    5. "Living" proposals are documents that are never in a finalized state, but rather are actively changing in response to feedback and community input. This proposal is such an example.
 
 The above describes the stages that all GIPs may move through. GRCs, on the other hand, always stay on "Draft" stage, as their intent is not to be accepted by governance or community consensus, but act as a document that is well thought-out and can be easily referenced, discussed, and used by the rest of the community.
 
@@ -133,13 +134,13 @@ GGPs may also include protocol upgrades that did not go through the GIP Process,
 
 Once a GIP is published on the GitHub repo and the forum, some time should be left for the community to discuss. Some more complex or controversial proposals may require more time and discussion, while others that are more straightforward may be accepted more quickly, always at the Council's discretion.
 
-After publishing, the authors are encouraged to present the GIPs in one or many of the relevant community calls, for instance, Indexer Office Hours that happen weekly on Discord, or the monthly core developer calls. To request a speaking slot in one of these calls, you can use this form (TODO: add form link) to get in touch with organizers from core dev teams and The Graph Foundation.
+After publishing, the authors are encouraged to present the GIPs in one or many of the relevant community calls, for instance, Indexer Office Hours that happen weekly on Discord, or the monthly core developer calls. To request a speaking slot in one of these calls, you can use [this form](https://thegraph.typeform.com/to/UIKoy6ys) to get in touch with organizers from core dev teams and The Graph Foundation.
 
 # Implementing a proposal
 
 Proposal authors are welcome to begin implementing the changes needed for a proposal at any time before or after submitting the proposal. They do so at their own risk, as there is no guarantee that the community and the Council will move forward with the proposal.
 
-If the author is unable to do the implementation of a GIP, and would like instead for core developers to implement it, this should be expressed in the GIP or the forum discussion, and the author may use this form (TODO: add form link) to request core devs for help implementing a GIP. The author may need to present evidence of community support for the proposal, and core devs' may accept or reject the request at their discretion.
+If the author is unable to do the implementation of a GIP, and would like instead for core developers to implement it, this should be expressed in the GIP or the forum discussion, and the author may use [this form](https://thegraph.typeform.com/to/UIKoy6ys) to request core devs for help implementing a GIP. The author may need to present evidence of community support for the proposal, and core devs' may accept or reject the request at their discretion.
 
 ## Proposals requiring off-chain software changes
 
@@ -152,7 +153,7 @@ If needed, a GIP could propose adoption of a new repository or package, in which
 For proposals that involve changes to protocol smart contracts, the authors are encouraged to work with core devs and the Technical Advisory Board to define a comprehensive plan to ensure the quality and security of the changes. The precise requirements will vary with the complexity of the changes, but generally, authors can expect the following process:
 
 - **Pull request QA**: Core devs will review pull requests to the contracts repositories and may leave comments to note issues or improve code quality. Authors are encouraged to address these comments to get the code ready for audit. The protocol contracts keep a high standard of quality, including unit test coverage for most of the code, extensive NatSpec comments, and attempting to follow Solidity best practices as much as possible.
-- **Audit**: Most changes will require an audit with a vetted auditor. Previous protocol audits have been performed with OpenZeppelin, Consensys Dilligence, Trust Security and 0xMacro. Audit contests in Code4rena have also been used in the past. Other audit firms may be accepted at the discretion of the Technical Advisory Board and Council. Authors can pay for audits at their own expense and risk, or request an audit slot from the Foundation using this form (TODO: add form link). Depending on the complexity, some proposals might require more than one audit. The version of the code that is deployed must match the audited commit; any changes must be re-reviewed by the auditors, with few exceptions (for instance, changing event parameters).
+- **Audit**: Most changes will require an audit with a vetted auditor. Previous protocol audits have been performed with OpenZeppelin, Consensys Dilligence, Trust Security and 0xMacro. Audit contests in Code4rena have also been used in the past. Other audit firms may be accepted at the discretion of the Technical Advisory Board and Council. Authors can pay for audits at their own expense and risk, or request an audit slot from the Foundation using [this form](https://thegraph.typeform.com/to/UIKoy6ys). Depending on the complexity, some proposals might require more than one audit. The version of the code that is deployed must match the audited commit; any changes must be re-reviewed by the auditors, with few exceptions (for instance, changing event parameters).
 - **Test Plan**: Besides unit tests, contract changes must be tested on a testnet. Often, the process involves testing on a "staging" testnet deployment, before deploying to the official testnet once the Council has given a clear signal that the GIP is close to approval. Authors are welcome to write automated scripts to execute the tests on a testnet, but it is generally accepted to document manual testing steps on a spreadsheet or Notion document (a "Test Plan"), and record the results and transaction hashes. The Test Plan should generally cover the main changes from the proposal and the most relevant edge cases. The authors are welcome to collaborate with core devs and the Technical Advisory Board in drafting this plan, and may request help from core devs in running it.
 - **Deployment Plan**: Updates to protocol contracts are generally a multi-step process. To reduce the probability of human error, authors and/or core devs must develop a "Deployment Plan", i.e. a document (generally a spreadsheet or Notion page)  specifying the transactions that must be run, and any relevant off-chain actions that must be taken to deploy the GIP. Council transactions that can be batched together must be identified as such.
 
@@ -162,7 +163,7 @@ The following flowchart illustrates the usual process, though some of the steps 
 
 # Getting a proposal accepted by the Council
 
-After the author has followed the process described above, the proposal has been discussed in relevant calls, and the changes have met the requirements to be ready for deployment, the proposal can advance to the Candidate stage. At this point, the author can request the Council to discuss the proposal for acceptance by filling in this form (TODO: link to form). The Council may rely on the Technical Advisory Board to filter these requests and validate that changes are really ready for deployment, and may invite the authors to a Council meeting to present the proposal. The Council may also request a community Snapshot vote (at this stage, or any earlier stage in the process) to gauge community consensus before making a decision.
+After the author has followed the process described above, the proposal has been discussed in relevant calls, and the changes have met the requirements to be ready for deployment, the proposal can advance to the Candidate stage. At this point, the author can request the Council to discuss the proposal for acceptance by filling in [this form](https://thegraph.typeform.com/to/UIKoy6ys) . The Council may rely on the Technical Advisory Board to filter these requests and validate that changes are really ready for deployment, and may invite the authors to a Council meeting to present the proposal. The Council may also request a community Snapshot vote (at this stage, or any earlier stage in the process) to gauge community consensus before making a decision.
 
 To accept a proposal, the Council will use a Graph Governance Proposal or GGP. GGPs are executed through a vote on [Snapshot](https://snapshot.org/#/council.graphprotocol.eth) were each Council member can vote, and 6 positive votes mean that a proposal was Accepted.
 
