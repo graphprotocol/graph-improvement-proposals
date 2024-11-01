@@ -1,5 +1,5 @@
 ---
-GIP: 0038
+GIP: "0038"
 Title: Epoch Block Oracle
 Authors: Adam Fuller (adam@edgeandnode.com), Ariel Barmat (ariel@edgeandnode.com), Zachary Burns
 Created: 2022-02-11

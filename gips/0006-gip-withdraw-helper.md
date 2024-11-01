@@ -1,5 +1,5 @@
 ---
-GIP: 0006
+GIP: "0006"
 Title: Withdraw helper contract to support collecting funds from Vector channels.
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2021-05-21

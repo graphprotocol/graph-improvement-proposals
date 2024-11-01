@@ -1,11 +1,11 @@
 ---
-GIP: 0057
+GIP: "0057"
 Title: Chain Integration Process
 Authors: Pedro Diogo <pedro@thegraph.foundation>
 Created: June 6, 2023
 Updated: Aug 29, 2023
 Stage: Draft
-Discussions-To: TBD
+Discussions-To: https://forum.thegraph.com/t/gip-0057-chain-integration-process/
 ---
 
 # Abstract
@@ -88,7 +88,7 @@ Afterward, the Graph Foundation will post the GGP (Graph Governance Proposal) on
 | | Requirements | Exit Criteria |
 | --- | --- | --- |
 | Stage 1 |✓ A [new Forum topic](https://forum.thegraph.com/c/governance-gips/new-chain-support/71) if Graph Node integration exists; new GRP if otherwise (for one to be built).<br>✓ Open PRs in [Graph Node](https://github.com/graphprotocol/graph-node), [graph-ts](https://github.com/graphprotocol/graph-tooling/tree/main/packages/ts) and [graph-cli](https://github.com/graphprotocol/graph-tooling/tree/main/packages/cli) repositories, if applicable `ᵉ`.<br>✓ Docker and bare metal Indexer guides for Firehose stack and EVM RPC.`ᵇ`<br>✓ Example subgraph with docs.`ᶜ` <br> ✓ Open-sourced Firehose implementation, if applicable. |→ Chain's node and/or Firehose runs reliably.`ᵃ`.<br> → Example subgraph syncs successfully.|
-| Stage 2 |✓ Free of charge backend (Firehose / EVM RPC) integration with GUIs and Gateways like [Subgraph Studio](https://thegraph.com/studio/), or a grant for teams to operate such backend.| → At least 2 subgraphs on Graph's testnet synced by >=5 Indexers.<br>→ 0% POI divergence`ᵃ`<br>→ Community validation on the integration.`ᵈ`<br>→ Graph Studio's integration uptime >99%.<br> → Merged PRs from Stage 1. |
+| Stage 2 |✓ Free of charge backend (Firehose / EVM RPC) integration with GUIs and Gateways like [Subgraph Studio](https://thegraph.com/studio/), or a grant for teams to operate such backend.| → At least 2 subgraphs on Graph's testnet synced by >=5 Indexers.<br>→ Community validation on the integration.`ᵈ`<br>→ Graph Studio's integration uptime >99%.<br> → Merged PRs from Stage 1. |
 | Stage 3  |✓ GIP for mainnet integration.<br> ✓ Updated [Feature Support Matrix](https://github.com/graphprotocol/indexer/blob/main/docs/feature-support-matrix.md) (open Pull Request) |→ Council-approved GIP (GGP vote). |
 
 > _Notes_

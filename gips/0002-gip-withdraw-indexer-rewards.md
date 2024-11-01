@@ -1,5 +1,5 @@
 ---
-GIP: 0002
+GIP: "0002"
 Title: Separate destination address for Indexer indexing rewards.
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2021-03-01

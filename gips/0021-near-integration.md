@@ -1,6 +1,6 @@
 ---
-GIP: 0021
-Title: GIP-0021: NEAR Indexing for Graph Node
+GIP: "0021"
+Title: "GIP-0021: NEAR Indexing for Graph Node"
 Authors: Adam Fuller (adam@edgeandnode.com)
 Created: 2021-10-11
 Updated: 2021-10-30

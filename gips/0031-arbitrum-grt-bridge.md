@@ -1,5 +1,5 @@
 ---
-GIP: 0031
+GIP: "0031"
 Title: Arbitrum GRT bridge
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>
 Created: 2022-04-20

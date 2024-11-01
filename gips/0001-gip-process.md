@@ -1,5 +1,5 @@
 ---
-GIP: 0001
+GIP: "0001"
 Title: Graph Improvement Proposal (GIP) Process
 Authors: Brandon Ramirez <brandon@edgeandnode.com>, Pablo Carranza Velez <pablo@edgeandnode.com>
 Created: 2021-02-21

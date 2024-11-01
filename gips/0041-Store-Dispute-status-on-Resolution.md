@@ -1,10 +1,10 @@
 ---
-GIP: 0041
+GIP: "0041"
 Title: Store Dispute status on Resolution
 Authors: jordan@soulbound.xyz goose@soulbound.xyz
 Created: 2023-11-22
 Updated:
-Stage: Draft
+Stage: Accepted
 Category:
 ---
 

@@ -1,5 +1,5 @@
 ---
-GIP: <0055>
+GIP: "0055"
 Title: EVM Firehose implementation
 Authors: Adam Fuller, Alexandre Bourget
 Created: 2023-06-15

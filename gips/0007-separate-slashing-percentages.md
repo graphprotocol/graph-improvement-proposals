@@ -1,5 +1,5 @@
 ---
-GIP: 0007
+GIP: "0007"
 Title: Separate slashing percentages for query and indexing disputes
 Authors: Ariel Barmat <ariel@edgeandnode.com>
 Created: 2021-05-21

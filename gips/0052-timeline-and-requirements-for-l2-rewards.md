@@ -1,5 +1,5 @@
 ---
-GIP: 0052
+GIP: "0052"
 Title: Timeline and requirements to increase rewards in L2
 Authors: Pablo Carranza Velez <pablo@edgeandnode.com>, Ariel Barmat <ariel@edgeandnode.com>, Tomas Migone <tomas@edgeandnode.com>
 Created: 2023-04-20
@@ -45,7 +45,7 @@ Before each increase, we propose briefly discussing the status on the Indexer Of
 
 ## 1) Increase to 25% on L2
 
-ETA: week of May 22nd, 2023
+September 10th, 2023
 
 Criteria:
 
@@ -63,7 +63,7 @@ Criteria:
 
 ## 2) Increase to 50% on L2
 
-ETA: week of June 5th, 2023
+September 25th, 2023
 
 Criteria:
 
@@ -78,7 +78,7 @@ Criteria:
 
 ## 3) Increase to 95% on L2
 
-ETA: week of August 7th, 2023
+ETA: week of November 27th, 2023
 
 Criteria:
 
@@ -94,7 +94,7 @@ Criteria:
 
 ## 4) Increase to 100% on L2
 
-ETA: week of September 4th, 2023
+ETA: week of January 1st, 2024
 
 This last bump will essentially disable the L1 network, as indexers will have little incentive to keep indexing subgraphs there. For this reason, we should wait until most active subgraph owners have transferred to L2 to avoid outages, which is reflected in the last criterion.
 
