@@ -1,9 +1,9 @@
 ---
-GRC: 20
+GRC: "20"
 Title: Knowledge Graph
 Authors: Yaniv Tal, Byron Guina
 Created: 2024-11-21
-Stage: Proposal
+Stage: Draft
 Version: 0.1.0
 Discussions-To: [https://forum.thegraph.com](https://forum.thegraph.com/t/grc-20-knowledge-graph/6161)
 ---
