@@ -118,19 +118,11 @@ The E&N MVP has different trust implications than what this proposal has describ
 
 ## Detailed Specification
 
-TBD
+TODO
 
 ## Dependencies
 
 This GIP depends on Horizon being fully functional.
-
-## Risks and Security Considerations
-
-TBD _(Optional) What technical or security risks are there with implementing this proposal? How might they be mitigated or addressed?_
-
-## Validation
-
-TBD _(Optional) How should this proposal be validated before being included in the protocol? Examples might include security audits, economic modeling, user research, running in testnet, etc._
 
 ## Rationale and Alternatives
 
