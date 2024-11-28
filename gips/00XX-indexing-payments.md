@@ -27,7 +27,7 @@ GIP-0058 presents a previous version of a very similar proposal. This GIP re-int
 
 ## High-Level Description
 
-We are proposing a new coordination mechanism to incentivize subgraph serving to a performant level. Such a coordination mechanism is necessary to jump-start, and sometimes maintain, performant subgraph serving. One such time is when a subgraph is being upgraded.
+We are proposing a new coordination mechanism to incentivize subgraph serving to a performant level. Such a coordination mechanism is necessary to jump-start, and sometimes maintain, performant subgraph serving. One such time is when a subgraph is being upgraded. In early conversations this has been referred to as **Direct Indexing Payments** (DIPs).
 
 In particular, the coordination mechanism has been designed with the following in mind:
 
