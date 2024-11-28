@@ -4,7 +4,7 @@ Title: A New Proposal for Indexing Payments
 Authors: Matias <matias@edgeandnode.com>, Pablo <pablo@edgeandnode.com>
 Created: 2024-10-21
 Updated: 2024-10-21
-Stage: Proposal
+Stage: Draft
 Discussions-To: <TODO>
 Category: Protocol Logic
 Depends-On: GIP-0066, GIP-0068
@@ -99,9 +99,9 @@ We anticipate needing to perform research into alternative approaches in the nea
 
 ### Minimum Viable Product
 
-While this proposal mostly focuses on the full Horizon backed implementation, E&N is already developing an MVP that does not require smart contracts. This MVP is described here as a complement to the proposal but it's not formally part of the GIP since it's entirely off-chain.
+While this proposal defines a smart contracts based solution using Graph Horizon, we also propose an MVP that can be built without any smart contracts changes using off-chain interfaces between Indexers and Gateways. This will allow us to implement parts of the solution that will be useful for the full proposal implementation, will also allow us to learn from seeing the mechanism in operation, and will help define the user interfaces and pricing approaches for subgraph developers that can be built on top of the protocol. As the MVP does not require changes to the on-chain protocol, it technically does not require a formal GIP approval, but we present it here alongside the full proposal to gather consensus towards this approach and to invite Indexers to participate in this initial stage and provide feedback.
 
-In this MVP, E&N will roll out a new gateway component (the “dipper”) that will be controlled with a CLI. Gateway operators can be onboarded to this CLI and use it to add subgraphs to the list of supported subgraphs. Once a subgraph is in the list, the dipper will take care of finding Indexers and setting up indexing agreements with them.
+In this MVP, we will roll out a new gateway component (the “dipper”) that will be controlled with a CLI. Gateway operators can be onboarded to this CLI and use it to add subgraphs to the list of supported subgraphs. Once a subgraph is in the list, the dipper will take care of finding Indexers and setting up indexing agreements with them.
 
 The Indexer stack will be updated to be able to accept indexing agreements from the dipper when the price is above the price set by the Indexer, and up to a maximum amount of subgraphs also set by the Indexer.
 
@@ -109,9 +109,9 @@ Pricing between Indexer and gateway in the MVP will be based on the "amount of w
 
 The dipper will initially set up agreements with 3 Indexers for each desired subgraph, as we estimate this is a reasonable number to achieve 99.9% uptime in most subgraphs.
 
-Once the smart contracts proposed in this GIP are deployed, E&N anticipates adapting the indexer and gateway components accordingly.
+Once the smart contracts proposed in this GIP are deployed, we anticipate adapting the indexer and gateway components accordingly.
 
-The E&N MVP has different trust implications than what this proposal has described so far. In particular these are:
+The MVP has different trust implications than what this proposal has described so far. In particular these are:
 
 - Indexers do the work upfront and trust that the gateway will pay them accordingly after the fact, since the gateway issues payment vouchers upon receiving PoIs and not before.
 - Gateways trust that indexers are reporting the correct amount of work done, since this information is not posted on-chain and thus it's non-slashable. This is partially mitigated by the fact that the gateway can (theoretically) compare the reported work done among the pool of indexers selected and thus can weed out bad actors, but it's nevertheless a weaker mechanism than slashing.
