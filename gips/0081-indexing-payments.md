@@ -72,7 +72,7 @@ Putting all of this together the solution consists of the following:
 
 This solution aims to:
 
-- compensate indexers for the exact amount of work they do.
+- compensate indexers based on the amount of work they perform.
 - allow indexers to gracefully exit the agreement if it can't be fully fulfilled.
 - cap the amount payers will spend on indexing. Though they might spend but get no service back if the cap is too low.
 - incentivize sufficient QoS by awarding agreements to indexers that provide it.
