@@ -39,8 +39,8 @@ While the proposal is meant to fully support this use case, it does not exclude 
 Looking further into the above, we assert that as described, it has some concerns that we need to address:
 
 1. Desired performance should be defined by the payer.
-1. Performance can only be assessed after the service has been consumed.
-1. The cost of serving a subgraph is unknown a-priori, and it depends on the desired query performance as well as the indexing cost.
+2. Performance can only be assessed after the service has been consumed.
+3. The cost of serving a subgraph is unknown a-priori, and it depends on the desired query performance as well as the indexing cost.
 
 To solve for the first two, we propose that the gateway is the one coordinating with the indexers. Gateways can define and assess Quality of Service (QoS) on an ongoing basis and decide which indexers to continue to work with based on that.
 
@@ -49,13 +49,13 @@ To solve for the last concern, we propose that indexers are paid proportionally 
 In particular we propose that the coordination mechanism is underpinned by an **Indexing Agreement** to be drafted by the gateway, shared with a subset of indexers of its choosing and subsequently approved by some of those indexers. These agreements are designed to allow for indexers to work and collect for their work without having to go back to the payer. They are self-contained in that regard. Furthermore, they specify the following:
 
 1. the subgraph to be indexed
-1. the data service that will initiate payment collection
-1. a deadline by which the agreement must be accepted
-1. an end date to the agreement
-1. a maximum amount payable for the initial indexing.
-1. a maximum amount payable for the ongoing indexing. The ongoing indexing is the indexing that happens between the last collection and the present.
-1. the maximum amount of time that can elapse between collections.
-1. a price per unit of work done.
+2. the data service that will initiate payment collection
+3. a deadline by which the agreement must be accepted
+4. an end date to the agreement
+5. a maximum amount payable for the initial indexing.
+6. a maximum amount payable for the ongoing indexing. The ongoing indexing is the indexing that happens between the last collection and the present.
+7. the maximum amount of time that can elapse between collections.
+8. a price per unit of work done.
 
 This agreement is to be upheld by protocol smart contracts, leveraging horizon primitives. This means that payers will have to escrow funds similarly to what's done for query fees. Between the smart contracts and the escrow, indexers are guaranteed that if they accept an indexing agreement, they'll be compensated as agreed, without the need to trust the agreement's counterpart.
 
