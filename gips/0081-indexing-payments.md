@@ -67,7 +67,7 @@ Putting all of this together the solution consists of the following:
 - Gateways send indexing agreements to indexers they want to work with.
 - Indexers accept (on-chain) agreements that meet their criteria and get to work indexing.
 - On a regular basis:
-  - Indexers collect for their work, by posting on-chain the original agreement, a Proof of Indexing (PoI) and the amount of work done for that period.
+  - Indexers collect payment for their work, by posting on-chain the original agreement, a Proof of Indexing (PoI) and the amount of work done for that period.
   - Gateways monitor the QoS per open agreement and assess if they need to cancel (on-chain) and/or replace any of them.
 
 This solution aims to:
