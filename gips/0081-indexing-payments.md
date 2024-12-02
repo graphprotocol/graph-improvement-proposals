@@ -91,7 +91,7 @@ Since collections are tied to "amount of work done" and this is reported by the 
 As an initial iteration of the "amount of work done" proxy we propose to use indexed blocks and subgraph entities. In particular the amount to be collected by indexers shall be equal to:
 
 - A price per block indexed (with a different price for each chain). These are charged incrementally, i.e. every time a PoI is posted, the indexer collects a payment for the new blocks indexed since the last PoI.
-- A price per amount of entities stored by the subgraph (same price for each chain). These are charged on a recurring basis per unit of time, for the total number of entities on the subgraph at the time the PoI is posted times the time since the last PoI.
+- A price per extracted entity of the subgraph (same price for each chain). These are charged on a recurring basis per unit of time, for the total number of entities on the subgraph at the time the PoI is posted times the time since the last PoI.
 
 We understand that this approach is vulnerable to some forms of abuse. For example, malicious users can deploy subgraphs that are expensive to index but amount to a comparatively small "amount of work done" proxy fee. We suggest that indexers stop serving such subgraphs as soon as possible, to minimize the damage done.
 
