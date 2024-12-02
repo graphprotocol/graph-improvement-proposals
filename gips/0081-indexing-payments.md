@@ -13,7 +13,7 @@ Replaces: GIP-0058
 
 ## Abstract
 
-This GIP describes **Indexing Payments**, a mechanism by which a protocol participant (commonly a gateway) can incentivize a candidate indexer to service a subgraph. It details a target, trust-minimized end-state that relies on Graph Horizon, while also introducing a semi-trusted Minimum Viable Product (MVP) based on the current protocol and off-chain components (gateway + indexer stacks). This GIP is an alternative, simplified proposal to [GIP-0058](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0058-Replacing-Bonding-Curves-with-Indexing-Fees.md).
+This GIP describes **Indexing Payments**, a mechanism by which a protocol participant (commonly a gateway) can incentivize a candidate indexer to serve a subgraph. It details a target, trust-minimized end-state that relies on Graph Horizon and the Subgraph Service, while also introducing a semi-trusted Minimum Viable Product (MVP) based on the current protocol and off-chain components (gateway + indexer stacks). This GIP is an alternative, simplified proposal to [GIP-0058](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0058-Replacing-Bonding-Curves-with-Indexing-Fees.md).
 
 ## Motivation
 
