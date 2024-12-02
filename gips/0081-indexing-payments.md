@@ -23,7 +23,7 @@ For Indexers, there is no clear relationship between the Indexing Rewards on a s
 
 ## Prior Art
 
-GIP-0058 presents a previous version of a very similar proposal. This GIP re-introduces the same concepts, but incorporates the latest approach in Graph Horizon, and simplifies the proposal with an off-chain MVP while clarifying that the actor engaging in **Indexing Payments** is generally a Gateway running automated indexer selection.
+[GIP-0058](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0058-Replacing-Bonding-Curves-with-Indexing-Fees.md) presents a previous version of a very similar proposal. This GIP re-introduces the same concepts, but incorporates the latest approach in Graph Horizon, and simplifies the proposal with an off-chain MVP while clarifying that the actor engaging in **Indexing Payments** is generally a Gateway running automated indexer selection.
 
 ## High-Level Description
 
@@ -34,7 +34,7 @@ In particular, the coordination mechanism has been designed with the following i
 - The objective is to get subgraphs served through the protocol to a sufficiently performant level
 - The price to get a subgraph served at said level should ideally be related to the amount of work required.
 
-While the proposal is meant to fully support this use case, it does not exclude other use cases that may organically arise. Several components are general and can be re-used.
+While the proposal is meant to fully support this use case, it does not exclude other use cases that may organically arise. Several components are generic and can be re-used.
 
 Looking further into the above, we assert that as described, it has some concerns that we need to address:
 
@@ -46,7 +46,7 @@ To solve for the first two, we propose that the gateway is the one coordinating 
 
 To solve for the last concern, we propose that indexers are paid proportionally to the amount of work they do to index the subgraph. This amount of work is reported by indexers and thus needs to be sufficiently verifiable for gateways, fishermen or other indexers to dispute how much work was actually done.
 
-In particular we propose that the coordination mechanism is underpinned by an **Indexing Agreement** to be drafted by the gateway, shared with a subset of indexers of its choosing and subsequently approved by some of those indexers. These agreements are designed to allow for indexers to work and collect for their work without having to go back to the payer. They are self-contained in that regard. Furthermore, they specify the following:
+In particular we propose that the coordination mechanism is underpinned by an **Indexing Agreement** to be drafted by the gateway, shared with a subset of indexers of its choosing and subsequently approved by some of those indexers. These agreements are designed to allow for indexers to work and collect for their work without needing to trust the payer. They are self-contained in that regard. Furthermore, they specify the following:
 
 1. the subgraph to be indexed
 2. the data service that will initiate payment collection
@@ -64,11 +64,11 @@ At the same time, agreements are cancellable by either party at any time, with s
 Putting all of this together the solution consists of the following:
 
 - Indexers disclose publicly their price per unit of work.
-- Gateways send indexing agreements to indexers they want to work with.
-- Indexers accept (on-chain) agreements that meet their criteria and get to work indexing.
+- Gateways send indexing agreements to indexers that best serve the needs of their consumers.
+- Indexers accept (on-chain) agreements that meet their criteria and start indexing.
 - On a regular basis:
   - Indexers collect payment for their work, by posting on-chain the original agreement, a Proof of Indexing (PoI) and the amount of work done for that period.
-  - Gateways monitor the QoS per open agreement and assess if they need to cancel (on-chain) and/or replace any of them.
+  - Gateways monitor the QoS per open agreement and assess if they need to cancel (on-chain) any of them.
 
 This solution aims to:
 
