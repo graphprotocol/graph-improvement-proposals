@@ -137,7 +137,7 @@ In the simple examples mentioned above, there are a few potential attack vectors
 
 Considering this, the protocol is designed to minimize the need for trust, in two directions:
 
-- Gateways should not need to trust that Indexers will do their job or provide correct data. Otherwise, Gateways would only query trusted Indexers (e.g. Indexers with a reputation or direct relationship with the Gateway, which could lead to centralization or a winner-take-all Indexer.)
+- Gateways should not need to trust that Indexers will do their job or provide correct data. Otherwise, Gateways would only query trusted Indexers (e.g. Indexers with a reputation or direct relationship with the Gateway, which could lead to centralization or a winner-take-all Indexer).
 - Indexers should not need to trust that Gateways will provide payments after completing their job. Otherwise, Indexers would only serve trusted Gateways to ensure payment. For example, Indexer would only serve reputable Gateways, which could lead to Gateway centralization and force consumers to access the network through the set of trusted Gateways.
 
 The proposed payment system minimizes trust in both directions.
