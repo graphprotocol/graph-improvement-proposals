@@ -6,7 +6,7 @@ Created: 2024-10-21
 Updated: 2024-10-21
 Stage: Draft
 Discussions-To: <TODO>
-Category: Protocol Logic
+Category: "Protocol Logic"
 Depends-On: "GIP-0066", "GIP-0068"
 Replaces: GIP-0058
 ---
