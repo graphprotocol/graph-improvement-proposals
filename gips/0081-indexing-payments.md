@@ -122,7 +122,7 @@ TODO
 
 ## Dependencies
 
-This GIP depends on Horizon being fully functional.
+This GIP depends on [Graph Horizon - GIP-0066](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0066-graph-horizon.md) and [Subgraph Service - GIP-0068](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0068-subgraph-service.md).
 
 ## Rationale and Alternatives
 
