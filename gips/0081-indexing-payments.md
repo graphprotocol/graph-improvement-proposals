@@ -107,7 +107,7 @@ The Indexer stack will be updated to be able to accept indexing agreements from 
 
 Pricing between Indexer and gateway in the MVP will be based on the "amount of work done" proxy detailed above.
 
-The dipper will initially set up agreements with 3 Indexers for each desired subgraph, as we estimate this is a reasonable number to achieve 99.9% uptime in most subgraphs.
+The Dipper will initially set up agreements with 3 Indexers for each desired subgraph, as we estimate this is a reasonable number to achieve 99.9% uptime in most subgraphs.
 
 Once the smart contracts proposed in this GIP are deployed, we anticipate adapting the indexer and gateway components accordingly.
 
