@@ -80,7 +80,7 @@ This solution aims to:
 
 ### Indexing Indexer Selection Algorithm (IISA)
 
-As mentioned above, gateways get to choose who they work with. In Horizon, gateways can be run be any protocol participant and they get to decide how to implement the indexer selection. Nevertheless we propose that a good IISA needs to considers QoS, available stake (with delegation), and other parameters to find the optimal balance between QoS, load-balancing, economic security and price.
+As mentioned above, gateways get to choose who they work with. In Horizon, gateways can be run be any protocol participant and they get to decide how to implement the indexer selection. Nevertheless we propose that a good IISA needs to consider QoS, available stake (with delegation), and other parameters to find the optimal balance between QoS, load-balancing, economic security and price.
 
 ### Arbitration and disputes
 
