@@ -7,7 +7,7 @@ Updated: 2024-10-21
 Stage: Draft
 Discussions-To: <TODO>
 Category: Protocol Logic
-Depends-On: GIP-0066, GIP-0068
+Depends-On: "GIP-0066", "GIP-0068"
 Replaces: GIP-0058
 ---
 
