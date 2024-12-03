@@ -27,37 +27,35 @@ For Indexers, there is no clear relationship between the Indexing Rewards on a s
 
 ## High-Level Description
 
-We are proposing a new coordination mechanism to incentivize subgraph serving to a performant level. Such a coordination mechanism is necessary to jump-start, and sometimes maintain, performant subgraph serving. One such time is when a subgraph is being upgraded. In early conversations this has been referred to as **Direct Indexing Payments** (DIPs).
+We are proposing a new coordination mechanism for gateways to incentivize indexers to serve specific subgraphs. Serving a subgraph includes both indexing the subgraph and serving queries.
 
-In particular, the coordination mechanism has been designed with the following in mind:
+> **_NOTE:_** Earlier conversations referred to this as **Direct Indexing Payments** (DIPs).
 
-- The objective is to get subgraphs served through the protocol to a sufficiently performant level
-- The price to get a subgraph served at said level should ideally be related to the amount of work required.
+The mechanism works as follows:
 
-While the proposal is meant to fully support this use case, it does not exclude other use cases that may organically arise. Several components are generic and can be re-used.
+- The gateway defines the desired characteristics of the subgraph serving to meet its consumers needs. E.g. latency, uptime, freshness, etc.
+- The gateway assesses historic serving characteristics by indexers.
+- Indexers set their price for serving subgraphs as a function of the amount of work required to index them.
+- The gateway chooses which indexers to incentivize based on all of the above.
 
-Looking further into the above, we assert that as described, it has some concerns that we need to address:
+> **_NOTE:_** While the proposal is meant to fully support subgraph gateways and indexers coordinating as described, it does not exclude other use cases that may organically arise. Several components are generic and can be re-used.
 
-1. Desired performance should be defined by the payer.
-2. Performance can only be assessed after the service has been consumed.
-3. The cost of serving a subgraph is unknown a-priori, and it depends on the desired query performance as well as the indexing cost.
+Most subgraph serving characteristics can only be observed **after** querying. At the same time, the desired characteristics vary per consumer. Because of this, we propose to have the gateway at the center of the coordination mechanism. Gateways can effectively observe characteristics, set expectations on behalf of their consumers and react accordingly when observations don't match expectations.
 
-To solve for the first two, we propose that the gateway is the one coordinating with the indexers. Gateways can define and assess Quality of Service (QoS) on an ongoing basis and decide which indexers to continue to work with based on that.
+On the other hand the cost of serving a subgraph is unknown a-priori, and it depends on the desired serving characteristics. Because of this, we propose to pay indexers proportionally to the amount of work they do to index the subgraph. This amount of work is reported by indexers and thus needs to be sufficiently verifiable for gateways, fishermen or other indexers to dispute.
 
-To solve for the last concern, we propose that indexers are paid proportionally to the amount of work they do to index the subgraph. This amount of work is reported by indexers and thus needs to be sufficiently verifiable for gateways, fishermen or other indexers to dispute how much work was actually done.
+The described coordination mechanism is underpinned by an **Indexing Agreement** to be drafted by the gateway, shared with a subset of indexers of its choosing and subsequently accepted by some of those indexers. These agreements are designed to allow indexers to work and collect payment for their work without needing to trust the payer. They are self-contained in that regard. Furthermore, they specify the following:
 
-In particular we propose that the coordination mechanism is underpinned by an **Indexing Agreement** to be drafted by the gateway, shared with a subset of indexers of its choosing and subsequently approved by some of those indexers. These agreements are designed to allow for indexers to work and collect for their work without needing to trust the payer. They are self-contained in that regard. Furthermore, they specify the following:
+1. The subgraph to be indexed
+2. The data service that will initiate payment collection
+3. A deadline by which the agreement must be accepted
+4. An end date to the agreement
+5. A maximum amount payable for the initial indexing.
+6. A maximum amount payable for the ongoing indexing. The ongoing indexing is the indexing that happens between the last collection and the present.
+7. The maximum amount of time that can elapse between collections.
+8. A price per unit of work done.
 
-1. the subgraph to be indexed
-2. the data service that will initiate payment collection
-3. a deadline by which the agreement must be accepted
-4. an end date to the agreement
-5. a maximum amount payable for the initial indexing.
-6. a maximum amount payable for the ongoing indexing. The ongoing indexing is the indexing that happens between the last collection and the present.
-7. the maximum amount of time that can elapse between collections.
-8. a price per unit of work done.
-
-This agreement is to be upheld by protocol smart contracts, leveraging horizon primitives. This means that payers will have to escrow funds similarly to what's done for query fees. Between the smart contracts and the escrow, indexers are guaranteed that if they accept an indexing agreement, they'll be compensated as agreed, without the need to trust the agreement's counterpart.
+This agreement is to be upheld by protocol smart contracts, leveraging Graph Horizon primitives. This means that payers will have to escrow funds similarly to what's done for query fees. Between the smart contracts and the escrow, indexers are guaranteed that if they accept an indexing agreement, they'll be compensated as per the agreement, without the need to trust the agreement's counterpart.
 
 At the same time, agreements are cancellable by either party at any time, with some limitations put in place to allow indexers to collect for all work done up to that point.
 
@@ -67,31 +65,31 @@ Putting all of this together the solution consists of the following:
 - Gateways send indexing agreements to indexers that best serve the needs of their consumers.
 - Indexers accept (on-chain) agreements that meet their criteria and start indexing.
 - On a regular basis:
-  - Indexers collect payment for their work, by posting on-chain the original agreement, a Proof of Indexing (PoI) and the amount of work done for that period.
-  - Gateways monitor the QoS per open agreement and assess if they need to cancel (on-chain) any of them.
+  - Indexers collect payment for their work, by posting on-chain the original agreement, a Proof of Indexing (POI) and the amount of work done for that period.
+  - Gateways monitor the serving characteristics per open agreement and assess if they need to cancel (on-chain) any of them.
 
 This solution aims to:
 
-- compensate indexers based on the amount of work they perform.
-- allow indexers to gracefully exit the agreement if it can't be fully fulfilled.
-- cap the amount payers will spend on indexing. Though they might spend but get no service back if the cap is too low.
-- incentivize sufficient QoS by awarding agreements to indexers that provide it.
-- provide sufficient transparency and flexibility for gateways, so that they can abstract the complexity and provide simpler pricing to subgraph developers
+- Compensate indexers based on the amount of work they perform.
+- Allow indexers to gracefully exit the agreement if it can't be fully fulfilled.
+- Cap the amount payers will spend on indexing. Though they might spend but get no service back if the cap is too low.
+- Incentivize sufficient serving characteristics by awarding agreements to indexers that match them.
+- Provide sufficient transparency and flexibility for gateways, so they can abstract the complexity and provide simpler pricing to subgraph developers.
 
 ### Indexing Indexer Selection Algorithm (IISA)
 
-As mentioned above, gateways get to choose who they work with. In Horizon, gateways can be run be any protocol participant and they get to decide how to implement the indexer selection. Nevertheless we propose that a good IISA needs to consider QoS, available stake (with delegation), and other parameters to find the optimal balance between QoS, load-balancing, economic security and price.
+As mentioned above, gateways get to choose who they work with. In Horizon, gateways can be run be any protocol participant and they get to decide how to implement their indexer selection. Nevertheless we propose that a good IISA needs to consider Quality of Service (QoS), available stake (with delegation), and other parameters to find the optimal balance between QoS, load-balancing, economic security and price.
 
 ### Arbitration and disputes
 
-Since collections are tied to "amount of work done" and this is reported by the indexers themselves, there needs to be a mechanism to punish malicious reporting. We propose here to use slashing. For this to be fair we need the "amount of work done" to be verifiable by an arbitrator in the case of a dispute.
+Since payment collections are tied to "amount of work done" and this is reported by the indexers themselves, there needs to be a mechanism to punish malicious reporting. We propose to use slashing. For this to be fair we need the "amount of work done" to be verifiable by an arbitrator in the case of a dispute.
 
 ### Amount of work done
 
-As an initial iteration of the "amount of work done" proxy we propose to use indexed blocks and subgraph entities. In particular the amount to be collected by indexers shall be equal to:
+As an initial iteration of the "amount of work done" proxy we propose to use indexed blocks and subgraph entities. In particular the amount of payment to be collected by indexers shall be equal to:
 
-- A price per block indexed (with a different price for each chain). These are charged incrementally, i.e. every time a PoI is posted, the indexer collects a payment for the new blocks indexed since the last PoI.
-- A price per extracted entity of the subgraph (same price for each chain). These are charged on a recurring basis per unit of time, for the total number of entities on the subgraph at the time the PoI is posted times the time since the last PoI.
+- A price per block indexed (with a different price for each chain). These are charged incrementally, i.e. every time a POI is posted, the indexer collects a payment for the new blocks indexed since the last POI.
+- A price per extracted entity of the subgraph (same price for each chain). These are charged on a recurring basis per unit of time, for the total number of entities on the subgraph at the time the POI is posted multiplied by the time since the last POI.
 
 We understand that this approach is vulnerable to some forms of abuse. For example, malicious users can deploy subgraphs that are expensive to index but amount to a comparatively small "amount of work done" proxy fee. We suggest that indexers stop serving such subgraphs as soon as possible, to minimize the damage done.
 
@@ -152,11 +150,11 @@ It works as follows:
 
 - **Gateways** will add funds to an **Escrow** account specific to the Indexer they want to interact with. This prevents double spending (the Gateway could otherwise pay itself from those same funds before the Indexer collects payment). Funds are locked with a thawing period, so the Indexer can know that funds will be available for at least that amount of time.
 - When the Gateway wants an Indexer to perform indexing work, it sends a signed **Voucher**. The Voucher specifies the max cost per period, the agreed price per gas/unit of work, and the details of the work to do (i.e. which subgraph).
-- The Indexer can post that Voucher onchain, which results in accepting the **Agreement**, the terms for which are encoded in the Voucher. The Voucher specifies that the Subgraph Service contract is authorized to release the payment; the Subgraph Service contract also specifies the stake-to-fees ratio. From the moment the voucher is posted onchain, the Indexer is guaranteed to be able to collect payment if they post the PoI (indexing up to the current Epoch) within the specified time and meeting all necessary conditions (e.g. provisioned stake).
+- The Indexer can post that Voucher onchain, which results in accepting the **Agreement**, the terms for which are encoded in the Voucher. The Voucher specifies that the Subgraph Service contract is authorized to release the payment; the Subgraph Service contract also specifies the stake-to-fees ratio. From the moment the voucher is posted onchain, the Indexer is guaranteed to be able to collect payment if they post the POI (indexing up to the current Epoch) within the specified time and meeting all necessary conditions (e.g. provisioned stake).
 - The Gateway doesn’t need to sign anything else to release further payments, they just need to keep the Escrow topped up. The Indexer can stop working if they don’t see sufficient funds in the Escrow. This ensures that Gateways cannot avoid payment after the Indexer has done the work.
-- The Subgraph Service releases payments conditional on Indexers posting PoIs - this ensures that Indexers cannot collect payment without doing the work (and if they present an invalid PoI, they can be slashed). The voucher release contract can ensure that only up to the maximum amount is released, but the Subgraph Service can release the exact amount based on the agreed pricing (e.g. price per gas times the reported indexing gas used).
+- The Subgraph Service releases payments conditional on Indexers posting PoIs - this ensures that Indexers cannot collect payment without doing the work (and if they present an invalid POI, they can be slashed). The voucher release contract can ensure that only up to the maximum amount is released, but the Subgraph Service can release the exact amount based on the agreed pricing (e.g. price per gas times the reported indexing gas used).
 
-**This voucher release mechanism is generic and can be used for other data services:** it validates that the caller is the approved data service contract, that the token amount is within the maximum value specified by the voucher per period, and that the right amount of time has passed. The data service specific aspects e.g. PoI validity, gas/pricing, etc. are defined at the data service contract level. Moreover, this contract can be immutable, so payers are protected even if the data service contract is upgraded.
+**This voucher release mechanism is generic and can be used for other data services:** it validates that the caller is the approved data service contract, that the token amount is within the maximum value specified by the voucher per period, and that the right amount of time has passed. The data service specific aspects e.g. POI validity, gas/pricing, etc. are defined at the data service contract level. Moreover, this contract can be immutable, so payers are protected even if the data service contract is upgraded.
 
 It is important to note that we cannot expect Indexers to take on risk, e.g. by agreeing to a fixed price for a specific subgraph (instead of per unit of work/gas). The cost of indexing each subgraph is unknown until the subgraph has been indexed, so if the price was fixed a rational Indexer would simply stop indexing when the subgraph becomes unprofitable, forcing the payer to start over. Tying payments as much as possible to the verifiable cost of performing the work is the best way to prevent Denial of Service scenarios, just like with gas in Ethereum.
 
