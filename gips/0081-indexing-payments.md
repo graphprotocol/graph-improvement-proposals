@@ -124,14 +124,14 @@ This GIP depends on [Graph Horizon - GIP-0066](https://github.com/graphprotocol/
 
 ## Rationale and Alternatives
 
-When presenting this proposal, we often hear suggestions for alternative, and possibly simpler, approaches to payments, for instance:
+Alternative (possibly simpler) approaches have been suggested, including:
 
 - Could the Gateway just pre-pay a fixed amount per subgraph?
 - Could Indexers just charge a specific (Indexer-determined) amount for each subgraph in arrears?
 
-However, the design of The Graph protocol is, and must be, adversarial. When designing incentives, participants are generally considered rational, but the protocol must be safe against byzantine participants that may derive profit from malicious actions in ways that cannot be predicted within the protocol. The typical cryptoeconomic approach for this is to establish a cost-of-corruption, so that malicious actors are punished and participants can quantify the risk in each interaction.
+However, the design of The Graph protocol must be done with an adversarial mindset. When designing incentives, participants are often considered "rational" and choosing the strategy that maximizes their utility based on the options presented in the system. In this context, for instance, we might assume that Indexers will try to charge honestly to maximize the indexing agreements they receive in the future. But the protocol must be safe against "Byzantine" participants that may derive profit from malicious actions in ways that cannot be predicted within the protocol, and that therefore seem irrational. For example, a malicious set of Indexers might be shorting GRT while griefing several users, trying to profit from discrediting the protocol. A simpler failure mode is that they may be rational, but have a large time preference for money, so they extract the maximum payment and don't care about future agreements. The typical cryptoeconomic approach to address these risks is to establish a cost-of-corruption (through slashing), so that malicious actors are punished and participants can at least quantify the risk in each interaction.
 
-In the simple examples mentioned above, there are a few potential attack vectors to consider: the Gateway could refuse payment after the fact, or the Indexer could take the money and run, or the Indexer could try to charge a ridiculous amount after the Gateway has promised payment.
+In the suggested solutions described above (a fixed amount per subgraph, or an amount determined by the Indexer in arrears), there are a few potential attack vectors to consider: the Gateway could refuse payment after the fact, or the Indexer could take the money and run, or the Indexer could try to charge a ridiculous amount after the Gateway has promised payment.
 
 Considering this, the protocol is designed to minimize the need for trust, in two directions:
 
