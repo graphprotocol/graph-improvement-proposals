@@ -319,7 +319,7 @@ System derived properties are not serialized but they are part of the standard f
 | Name           | Type                | Description                                                                             |
 | -------------- |---------------------| --------------------------------------------------------------------------------------- |
 | Created at     | Time                | The time this entity was first seen by the indexer                                      |
-| Updated at     | Time                | The most recent type this entity was updated by the indexer                             |
+| Updated at     | Time                | The most recent time this entity was updated by the indexer                             |
 | Created by     | Text                | The blockchain address of the account that signed the transaction to create this entity |
 | Versions       | Relation \<Version> | A reference to previous versions of this entity                                         |
 
