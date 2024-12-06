@@ -1,0 +1,113 @@
+<svg viewBox="0 0 916.46094 170.5" xmlns="http://www.w3.org/2000/svg">
+<style>
+svg { background-color: #FFFFFF; }
+</style>
+<style>
+text { font-family: DejaVu Sans, sans-serif; }
+</style>
+<defs>
+<marker id="arrow_gray" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto-start-reverse" refX="5" refY="3">
+<path d="M1,1 L6,3 L1,5 z" fill="gray"/>
+</marker>
+</defs>
+<defs>
+<marker id="arrow_black" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto-start-reverse" refX="5" refY="3">
+<path d="M1,1 L6,3 L1,5 z" fill="black"/>
+</marker>
+</defs>
+<defs>
+<marker id="arrow_blue" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto-start-reverse" refX="5" refY="3">
+<path d="M1,1 L6,3 L1,5 z" fill="blue"/>
+</marker>
+</defs>
+<g>
+<rect fill="#FFFF00FF" height="71.875" rx="0" stroke="#F3F300FF" stroke-width="0.5" width="123.71094" x="16" y="49.3125"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="77.85547" y="72.16406">
+Enhance
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="77.85547" y="90.78906">
+incentive
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="77.85547" y="109.41406">
+alignment
+</text>
+</g>
+<g>
+<rect fill="#FFFF00FF" height="53.25" rx="0" stroke="#F3F300FF" stroke-width="0.5" width="268.2578" x="171.71094" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="305.83984" y="38.851563">
+Network rewards are not linked
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="305.83984" y="57.476563">
+to consumer value delivered
+</text>
+</g>
+<g>
+<rect fill="#FFFF00FF" height="53.25" rx="0" stroke="#F3F300FF" stroke-width="0.5" width="268.2578" x="171.71094" y="101.25"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="305.83984" y="124.10156">
+Limited incentives for network
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="305.83984" y="142.72656">
+contribution to consumer value
+</text>
+</g>
+<g>
+<rect fill="#FFFF00FF" height="71.875" rx="0" stroke="#F3F300FF" stroke-width="0.5" width="104.640625" x="471.96875" y="49.3125"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="524.28906" y="72.16406">
+Consumer
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="524.28906" y="90.78906">
+value
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="524.28906" y="109.41406">
+alignment
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="291.85156" x="608.6094" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="754.53516" y="38.851563">
+Sponsor incentive that optimally
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="754.53516" y="57.476563">
+matches indexing with demand
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="291.85156" x="608.6094" y="101.25"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="754.53516" y="124.10156">
+Curation as indirect Sponsor using
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="754.53516" y="142.72656">
+issuance (and providing signal)
+</text>
+</g>
+<g>
+<path d="M139.71094,85.25 L152.39723,85.25 A8,8,0,0,1,158.05408,87.59315 L171.71094,101.25" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M139.71094,85.25 L152.39723,85.25 A8,8,0,0,0,158.05408,82.90685 L171.71094,69.25" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M139.71094,85.25 L152.39723,85.25 A8,8,0,0,1,158.05408,87.59315 L171.71094,101.25" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M139.71094,85.25 L152.39723,85.25 A8,8,0,0,0,158.05408,82.90685 L171.71094,69.25" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M439.96875,69.25 L453.6256,82.90685 A8,8,0,0,0,459.28247,85.25 L471.96875,85.25" fill="none" marker-end="url(#arrow_blue)" stroke="blue" stroke-dasharray="5, 5" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M439.96875,101.25 L453.6256,87.59315 A8,8,0,0,1,459.28247,85.25 L471.96875,85.25" fill="none" marker-end="url(#arrow_blue)" stroke="blue" stroke-dasharray="5, 5" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M576.6094,85.25 L590.9525,85.25 A3.9999866,3.9999866,0,0,0,593.78094,84.07843 L594.9525,82.90685 L610.9525,66.90685" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M576.6094,85.25 L590.9525,85.25 A3.9999866,3.9999866,0,0,1,593.78094,86.42157 L594.9525,87.59315 L610.9525,103.59315" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M576.6094,85.25 L590.9525,85.25 A3.9999866,3.9999866,0,0,0,593.78094,84.07843 L594.9525,82.90685 L610.9525,66.90685" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M576.6094,85.25 L590.9525,85.25 A3.9999866,3.9999866,0,0,1,593.78094,86.42157 L594.9525,87.59315 L610.9525,103.59315" fill="none" marker-end="url(#arrow_gray)" stroke="gray" stroke-width="1.5"/>
+</g>
+</svg>

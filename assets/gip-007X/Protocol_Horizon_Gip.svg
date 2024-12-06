@@ -1,0 +1,218 @@
+<svg viewBox="0 0 1312 322.375" xmlns="http://www.w3.org/2000/svg">
+<style>
+svg { background-color: #FFFFFF; }
+</style>
+<style>
+text { font-family: DejaVu Sans, sans-serif; }
+</style>
+<defs>
+<marker id="arrow_gray" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto-start-reverse" refX="5" refY="3">
+<path d="M1,1 L6,3 L1,5 z" fill="gray"/>
+</marker>
+</defs>
+<defs>
+<marker id="arrow_black" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto-start-reverse" refX="5" refY="3">
+<path d="M1,1 L6,3 L1,5 z" fill="black"/>
+</marker>
+</defs>
+<defs>
+<marker id="arrow_blue" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto-start-reverse" refX="5" refY="3">
+<path d="M1,1 L6,3 L1,5 z" fill="blue"/>
+</marker>
+</defs>
+<g>
+<rect fill="#C8C8C8FF" height="34.625" rx="0" stroke="#BFBFBFFF" stroke-width="0.5" width="123.71094" x="159.42969" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="221.28516" y="38.851563">
+Goal
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="34.625" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="111.42969" x="16" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="71.71484" y="38.851563">
+Feature
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="34.625" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="268.2578" x="315.14063" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="449.26953" y="38.851563">
+Protocol Aspect
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="34.625" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="291.85156" x="615.39844" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="761.3242" y="38.851563">
+Proposed Mechanism
+</text>
+</g>
+<g>
+<rect fill="#E6E6E6FF" height="34.625" rx="4" stroke="#DCDCDCFF" stroke-width="0.5" width="356.75" x="939.25" y="16"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="1117.625" y="38.851563">
+Proposal (main)
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="0" stroke="#BFBFBFFF" stroke-width="0.5" width="123.71094" x="159.42969" y="167.875"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="221.28516" y="190.72656">
+Graph
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="221.28516" y="209.35156">
+Horizon
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="0" stroke="#BFBFBFFF" stroke-width="0.5" width="123.71094" x="159.42969" y="82.625"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="221.28516" y="105.47656">
+Data
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="221.28516" y="124.10156">
+Services
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="111.42969" x="16" y="167.875"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="71.71484" y="190.72656">
+Delegation
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="71.71484" y="209.35156">
+and Staking
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="111.42969" x="16" y="82.625"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="71.71484" y="114.78906">
+Subgraphs
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="111.42969" x="16" y="253.125"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="71.71484" y="285.28906">
+Curation
+</text>
+</g>
+<g>
+<rect fill="#FFFF00FF" height="53.25" rx="0" stroke="#F3F300FF" stroke-width="0.5" width="268.2578" x="315.14063" y="82.625"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="449.26953" y="105.47656">
+Network provides only one
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="449.26953" y="124.10156">
+type of data service
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="291.85156" x="615.39844" y="82.625"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="761.3242" y="105.47656">
+World of
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="761.3242" y="124.10156">
+Data Services
+</text>
+</g>
+<g>
+<rect fill="#FFFF00FF" height="53.25" rx="0" stroke="#F3F300FF" stroke-width="0.5" width="268.2578" x="315.14063" y="167.875"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="449.26953" y="190.72656">
+Delegation does not provide
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="449.26953" y="209.35156">
+sufficient economic security
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="291.85156" x="615.39844" y="167.875"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="761.3242" y="190.72656">
+Horizon Staking
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="761.3242" y="209.35156">
+and Delegation
+</text>
+</g>
+<g>
+<rect fill="#C8C8C8FF" height="53.25" rx="8" stroke="#BFBFBFFF" stroke-width="0.5" width="291.85156" x="615.39844" y="253.125"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="761.3242" y="285.28906">
+Indexing Payments
+</text>
+</g>
+<g>
+<a href="https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0042-A-World-Of-Data-Services.md" target="_blank">
+<g>
+<rect fill="#E6E6E6FF" height="53.25" rx="4" stroke="#DCDCDCFF" stroke-width="0.5" width="356.75" x="939.25" y="82.625"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="1117.625" y="114.78906">
+GIP-42: A World of Data Services
+</text>
+</g>
+</a>
+</g>
+<g>
+<a href="https://forum.thegraph.com/t/graph-horizon-explained-a-proposal-for-the-evolution-of-the-protocol/5169/1" target="_blank">
+<g>
+<rect fill="#E6E6E6FF" height="53.25" rx="4" stroke="#DCDCDCFF" stroke-width="0.5" width="356.75" x="939.25" y="167.875"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="1117.625" y="190.72656">
+[Post] Graph Horizon Explained: a
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="1117.625" y="209.35156">
+Proposal for the Evolution of the Protocol
+</text>
+</g>
+</a>
+</g>
+<g>
+<a href="https://forum.thegraph.com/t/gip-0058-replacing-bonding-curves-with-indexing-fees/4425" target="_blank">
+<g>
+<rect fill="#E6E6E6FF" height="53.25" rx="4" stroke="#DCDCDCFF" stroke-width="0.5" width="356.75" x="939.25" y="253.125"/>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="1117.625" y="275.97656">
+GIP-58: Replacing Bonding Curves
+</text>
+<text dominant-baseline="alhphabetic" font-family="DejaVu Sans, sans-serif" font-size="16" text-anchor="middle" x="1117.625" y="294.60156">
+with Indexing Fees
+</text>
+</g>
+</a>
+</g>
+<g>
+<path d="M221.28516,135.875 L221.28516,167.875" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,194.5 L315.14063,194.5" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,194.5 L159.42969,194.5" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,194.5 L315.14063,194.5" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,194.5 L159.42969,194.5" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,109.25 L315.14063,109.25" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,109.25 L159.42969,109.25" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,109.25 L315.14063,109.25" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,109.25 L159.42969,109.25" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M125.08654,255.46814 L141.08655,239.46814 L143.42871,237.12598 A8,8,0,0,1,143.43066,237.12402 L159.42969,221.125" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M127.42969,279.75 L615.39844,279.75" fill="none" marker-end="url(#arrow_blue)" stroke="blue" stroke-dasharray="5, 5" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M583.39844,109.25 L615.39844,109.25" fill="none" marker-end="url(#arrow_blue)" stroke="blue" stroke-dasharray="5, 5" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M583.39844,194.5 L615.39844,194.5" fill="none" marker-end="url(#arrow_blue)" stroke="blue" stroke-dasharray="5, 5" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M939.25,109.25 L907.25,109.25" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M939.25,194.5 L907.25,194.5" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+<g>
+<path d="M939.25,279.75 L907.25,279.75" fill="none" stroke="lightgray" stroke-dasharray="2, 2" stroke-width="1.5"/>
+</g>
+</svg>
