@@ -92,9 +92,10 @@ This command allows providers to register their service, specifying their operat
 A background process will continuously monitor DataEdge for new registrations and updates.  Upon detecting a new registration, the system will perform health checks against the provided endpoint (e.g., calling `/health`, `/head`, or `/info`) to verify the service's availability and type. Only after successful health checks will the provider be added to the `providers.json` file, which is used to populate the front-end UI.  This ensures that only active and validated providers are displayed to users.  The system will incorporate block time checks to prevent displaying stale registrations until the block height is sufficiently close to the chain tip.
 
 
-## Feature Matrix Support
+## Feature Matrix
 
-This GIP proposes enabling indexing rewards for Substreams data sources on Ethereum mainnet (`mainnet`).  This is contingent on data determinism assurances and Indexer readiness. Future GIPs may propose expanding indexing rewards support to other networks.
+This GIP does _not_ propose enabling indexing rewards for Substreams just yet. It is the first step towards rolling out all what is necessary to eventually get there.  This is contingent on data determinism assurances and Indexer readiness. Future GIPs will propose expanding indexing rewards.
+
 
 # Dependencies & Backwards Compatibility
 
