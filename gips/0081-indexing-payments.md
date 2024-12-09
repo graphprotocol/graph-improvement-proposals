@@ -107,6 +107,8 @@ Pricing between Indexer and gateway in the MVP will be based on the "amount of w
 
 The Dipper will initially set up agreements with 3 Indexers for each desired subgraph, as we estimate this is a reasonable number to achieve 99.9% uptime in most subgraphs.
 
+These agreements will be paid out as if they were query fees. This means that indexers will have to request receipts regularly from the Dipper.
+
 Once the smart contracts proposed in this GIP are deployed, we anticipate adapting the indexer and gateway components accordingly.
 
 The MVP has different trust implications than what this proposal has described so far. In particular these are:
