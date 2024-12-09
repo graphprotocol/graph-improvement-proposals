@@ -101,7 +101,7 @@ While this proposal defines a smart contracts based solution using the Subgraph 
 
 In this MVP, we will roll out a new gateway component (the “Dipper”) that will be controlled with a CLI. Gateway operators can be onboarded to this CLI and use it to add subgraphs to the list of supported subgraphs. Once a subgraph is in the list, the Dipper will take care of finding Indexers and setting up indexing agreements with them.
 
-The Indexer stack will be updated to be able to accept indexing agreements from the Dipper when the price is above the price set by the Indexer, and up to a maximum amount of subgraphs also set by the Indexer.
+The Indexer stack will be updated to be able to automatically accept indexing agreements from the Dipper when the price is above the price set by the Indexer, and up to a maximum amount of subgraphs also set by the Indexer.
 
 Pricing between Indexer and gateway in the MVP will be based on the "amount of work done" proxy detailed above.
 
