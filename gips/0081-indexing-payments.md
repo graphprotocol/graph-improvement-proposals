@@ -55,7 +55,7 @@ The described coordination mechanism is underpinned by an **Indexing Agreement**
 7. The maximum amount of time that can elapse between collections.
 8. A price per unit of work done.
 
-This agreement is upheld by protocol smart contracts, leveraging Graph Horizon primitives. This means that payers will have to escrow funds similarly to what's done for query fees. Between the smart contracts and the escrow, indexers that accept an indexing agreement are guaranteed to be compensated as per the agreement, without the need to trust the agreement's counterpart.
+This agreement is upheld by the Subgraph Service and new smart contracts, leveraging Graph Horizon primitives. This means that payers will have to escrow funds similarly to what's done for query fees. Between the smart contracts and the escrow, indexers that accept an indexing agreement are guaranteed to be compensated as per the agreement, without the need to trust the agreement's counterpart.
 
 At the same time, agreements are cancellable by either party at any time, with some limitations put in place to allow indexers to collect for all work done up to that point.
 
