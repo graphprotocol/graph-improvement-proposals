@@ -1,5 +1,5 @@
 ---
-GIP: "0080"
+GIP: "0082"
 Title: Integrate Substreams into The Graph Network
 Authors: Alexandre Bourget <alex@streamingfast.io>
 Created: 2024-10-27
@@ -14,7 +14,7 @@ Implementations: *To be added later*
 
 # Abstract
 
-This GIP proposes integrating Substreams, a streaming-first blockchain indexing technology, into The Graph Network. This integration will enable Substreams to be fully recognized on the network and eventually receive indexing rewards.
+This GIP proposes integrating Substreams, a streaming-first blockchain indexing technology, into The Graph Network. This integration will enable Substreams to be fully recognized on the network and eventually receive indexing rewards. This proposal, however, does not entail immediately enabling rewards, but consists of the first approval and direction setting.
 
 # Motivation
 
@@ -28,13 +28,13 @@ Given that there's no gateway involved with Substreams (it's direct point-to-poi
 
 ## Payments
 
-Payments for Substreams work will be on-chain. The existing `collect` function in the staking contract will be used for payment processing.  It was deemed that no TAP was required to have Substreams collect payments and honor the promises of the protocol.
+Payments for Substreams work will be on-chain. The existing `collect` function in the staking contract will be used for payment processing.  It was deemed that no TAP was required to have Substreams collect payments and honor the promises of the protocol. However, as TAP brings augmented trust minimization properties, it would be incorporated in future work.
 
 ## Economic Security and Disputes
 
 Economic security will be enforced through slashing and disputes. Indexers providing incorrect data can have their stake slashed.
 
-- **Attestations:** Substreams endpoints will provide signed attestations (optional) to verify data integrity. The command-line tools (`substreams gui --request-attestations` or `substreams run --request-attestations`) will generate and display these attestations.  To accommodate different future attestation methods, and not only an Ethereum key signature, the attestation payload will be prefixed with the protocol used (e.g., `eth:` for Ethereum). Detailed documentation will describe the attestation format and verification process.
+- **Attestations:** Substreams endpoints will provide signed attestations to verify data integrity. The command-line tools (`substreams gui`) will display these attestations.  To accommodate different future attestation methods, and not only an Ethereum key signature, the attestation payload will be prefixed with the protocol used (e.g., `eth:` for Ethereum). Detailed documentation will describe the attestation format and verification process.
 - **Detecting Faults:** Since Substreams are streaming, Proofs of Indexing (PoIs) are not applicable. Fault detection will happen at query time. Discrepancies in data returned by different providers for the same stream and block will trigger an investigation by an Arbiter. The Arbiter will use the `substreams gui` tool to inspect and compare stream data at specific block ranges, verifying data integrity and determinism.
 
 In the `SessionInit` message of the response, when requiring SignedAttestation, the server would reply with the `attestation_address string` protocol would be `eth`, and for future proofing, and `address` would be an `eth` address (indexer address or operator address, whatever is less risky)
@@ -89,11 +89,6 @@ substreams network register --operator-wallet 0x123123123 --operator-priv-key-fi
 This command allows providers to register their service, specifying their operator wallet, private key file, the service type (`substreams`), the endpoint URL, logo, name, and the supported network. The registration data is signed by the operator's key.  An update to an existing registration can be achieved by re-running the command with updated parameters.  A corresponding `unregister` or `revoke` command would be added to allow providers to take down their service from the front-end.
 
 A background process will continuously monitor DataEdge for new registrations and updates.  Upon detecting a new registration, the system will perform health checks against the provided endpoint (e.g., calling `/health`, `/head`, or `/info`) to verify the service's availability and type. Only after successful health checks will the provider be added to the `providers.json` file, which is used to populate the front-end UI.  This ensures that only active and validated providers are displayed to users.  The system will incorporate block time checks to prevent displaying stale registrations until the block height is sufficiently close to the chain tip.
-
-
-## Feature Matrix
-
-This GIP does _not_ propose enabling indexing rewards for Substreams just yet. It is the first step towards rolling out all what is necessary to eventually get there.  This is contingent on data determinism assurances and Indexer readiness. Future GIPs will propose expanding indexing rewards.
 
 
 # Dependencies & Backwards Compatibility
