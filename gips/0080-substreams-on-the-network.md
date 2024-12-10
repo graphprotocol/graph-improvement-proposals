@@ -39,7 +39,6 @@ Economic security will be enforced through slashing and disputes. Indexers provi
 
 In the `SessionInit` message of the response, when requiring SignedAttestation, the server would reply with the `attestation_address string` protocol would be `eth`, and for future proofing, and `address` would be an `eth` address (indexer address or operator address, whatever is less risky)
 
-{{REWRITTEN_CODE}}
 ### Operator keys for signing
 
 Registration will be done by the staking address. The operator key will be used for signing, and an in-memory mapping will link the operator key to the staking key.
