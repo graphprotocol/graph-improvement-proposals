@@ -17,7 +17,7 @@ This GIP describes **Indexing Payments**, a mechanism by which a protocol partic
 
 ## Motivation
 
-Curation has generally been perceived as a source of friction for Developers that may only want to have subgraphs indexed to power their decentralized applications. It requires locking up certain amounts of GRT, and the necessary amounts might vary depending on curation on other subgraphs. While the quality of service provided on the network is generally high, Indexers collect rewards for posting Proofs of Indexing independently to the query service they provide, so Developers are not guaranteed a certain level of service for the amount of curation they put into the system.
+We want to provide a convenient way for Developers to have the subgraphs they need indexed. While curation is a way to achieve that, it's not convenient and it's not always clear the amount of GRT required as it's influenced by other activity on the network. While the quality of service provided on the network is generally high, Indexers collect rewards for posting Proofs of Indexing independently to the query service they provide, so Developers are not guaranteed a certain level of service for the amount of curation they put into the system.
 
 For Indexers, there is no clear relationship between the Indexing Rewards on a subgraph and the amount of work required to index it. Attempts at defining better curation and rewards models to pay for indexing have so far been unsuccessful, which presents a need for a simpler mechanism where parties interested in indexing a subgraph can simply pay for it through the protocol. However, when building such a mechanism, it is imperative to preserve the protocol's trust-minimization and decentralization principles.
 
