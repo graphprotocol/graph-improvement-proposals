@@ -46,7 +46,7 @@ On the other hand the cost of serving a subgraph is unknown a-priori, and it dep
 
 The described coordination mechanism is underpinned by an **Indexing Agreement** to be drafted by the gateway, shared with a subset of indexers of its choosing and subsequently accepted by some of those indexers. These agreements are designed to allow indexers to work and collect payment for their work without needing to trust the payer. They are self-contained in that regard. Furthermore, they specify the following:
 
-1. The subgraph to be indexed
+1. The subgraph to be indexed.
 2. The data service that will initiate payment collection
 3. A deadline by which the agreement must be accepted
 4. An end date to the agreement
