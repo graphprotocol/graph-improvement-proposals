@@ -3,8 +3,9 @@ GIP: "0058"
 Title: Replacing Bonding Curves with Indexing Fees
 Authors: Justin Grana, Howard Heaton
 Created: 2023-08-08
-Updated: 2023-12-01
-Stage: Draft
+Updated: 2024-12-11
+Stage: Withdrawn
+Superseded-By: "0081"
 Discussions-To: https://forum.thegraph.com/t/gip-0058-replacing-bonding-curves-with-indexing-fees/4425
 Category: "Protocol Logic"
 ---
