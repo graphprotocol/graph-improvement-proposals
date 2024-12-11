@@ -49,7 +49,7 @@ The described coordination mechanism is underpinned by an **Indexing Agreement**
 1. The subgraph to be indexed.
 2. The data service that will initiate payment collection.
 3. A deadline by which the agreement must be accepted
-4. An end date to the agreement
+4. An end date to the agreement.
 5. A maximum amount payable for the initial indexing.
 6. A maximum amount payable for the ongoing indexing. The ongoing indexing is the indexing that happens between the last collection and the present.
 7. The maximum amount of time that can elapse between collections.
