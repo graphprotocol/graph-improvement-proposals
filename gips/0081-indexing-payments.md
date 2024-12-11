@@ -142,7 +142,7 @@ Considering this, the protocol is designed to minimize the need for trust, in tw
 
 The proposed payment system minimizes trust in both directions.
 
-When combined with the cryptoeconomic security from stake and appropriate fault-detection, the protocol can establish a cost-of-corruption, or a cost to faults in general. With this in place, a new participant entering the Network, for example as a Gateway or even as a Consumer running their own Gateway, can use the Network to its full potential. Any trusted relationship enshrined at the protocol level would directly jeopardize the Network's censorship-resistance and resilience, as it could require participants to interact with only a handful of trusted participants.
+When combined with the cryptoeconomic security from stake and appropriate fault-detection, the protocol can establish a cost-of-corruption, or a cost to faults in general. With this in place, a new participant entering the network, for example as a Gateway or even as a Consumer running their own Gateway, can use the network to its full potential. Any trusted relationship enshrined at the protocol level would directly jeopardize the network's censorship-resistance and resilience, as it could require participants to interact with only a handful of trusted participants.
 
 These principles are evident in the original protocol design and in the ongoing efforts to roll out the Timeline Aggregation Protocol (see GIP-0054). The design of the payments mechanism in this GIP is designed to preserve these principles, while allowing maximum flexibility for Gateways to provide alternative payment systems for data consumers or subgraph developers.
 
