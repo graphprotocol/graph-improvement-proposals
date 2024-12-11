@@ -2,8 +2,8 @@
 GIP: "0081"
 Title: A New Proposal for Indexing Payments
 Authors: "Matias <matias@edgeandnode.com>", "Pablo <pablo@edgeandnode.com>"
-Created: 2024-10-21
-Updated: 2024-10-21
+Created: 2024-12-11
+Updated: 2024-12-11
 Stage: Draft
 Discussions-To: <TODO>
 Category: "Protocol Logic"
