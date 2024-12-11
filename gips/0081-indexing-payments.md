@@ -23,7 +23,7 @@ For Indexers, there is no clear relationship between the Indexing Rewards on a s
 
 ## Prior Art
 
-[GIP-0058](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0058-Replacing-Bonding-Curves-with-Indexing-Fees.md) presents a previous version of a very similar proposal. This GIP re-introduces the same concepts, but incorporates the latest approach in Graph Horizon, and simplifies the proposal with an off-chain MVP while clarifying that the actor engaging in **Indexing Payments** is generally a Gateway running automated indexer selection.
+[GIP-0058](https://github.com/graphprotocol/graph-improvement-proposals/blob/main/gips/0058-Replacing-Bonding-Curves-with-Indexing-Fees.md) presented a similar proposal. This GIP re-introduces the same concepts, but incorporates the latest approach in Graph Horizon, and simplifies the proposal with an off-chain MVP while clarifying that the actor engaging in **Indexing Payments** is generally a Gateway running automated indexer selection.
 
 ## High-Level Description
 
