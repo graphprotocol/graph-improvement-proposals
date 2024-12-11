@@ -34,7 +34,7 @@ We are proposing a new coordination mechanism for gateways to incentivize indexe
 The mechanism works as follows:
 
 - The gateway defines the desired characteristics of the subgraph serving to meet its consumers needs. E.g. latency, uptime, freshness, etc.
-- The gateway assesses historic serving characteristics by indexers.
+- The gateway assesses historic serving characteristics of indexers.
 - Indexers set their price for serving subgraphs as a function of the amount of work required to index them.
 - The gateway chooses which indexers to incentivize based on all of the above.
 
