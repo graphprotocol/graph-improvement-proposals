@@ -31,11 +31,11 @@ The protocol also enables the Indexers to efficiently prove "on-chain" total sum
 
 
 # Prior Art
+The original payment system developed for the Graph protocol was called Scalar.
+TAP is a drop-in replacement for Scalar, covering the whole original Scalar functionaliy and offering much more, from aggregation of receipts to blacklisting malicious Gateways/senders.
 
-TAP is an add-on to Scalar, a high throughput and low-latency microtransaction system enabling pay-per-query service between the Indexers and Gateways.
-More info about Scalar can be found in [The Graph Foundation unveils Scalar: a microtransaction for every query](https://thegraph.com/blog/scalar/) blog post. We call the resulting combination Scalar TAP.
-
-More on the prior art can be found in `Rationale and Alternatives` section
+More info about Scalar can be found in [The Graph Foundation unveils Scalar: a microtransaction for every query](https://thegraph.com/blog/scalar/) blog post.
+More on the prior art can be found in [Rationale and Alternatives](#rationale-and-alternatives) section.
 
 # High Level Description
 
@@ -239,7 +239,7 @@ The systems we evaluated allocated capital to individual state channels rather t
 The systems we evaluated were designed around the happy path, with failure modes as an afterthought. In a distributed system, however, "exceptional cases" are a common occurrence. Rather than degrading safely to a reasonable state, some systems would get stuck and require human intervention due to what should have been innocuous events like network failures or race conditions.
 
 ### Trust Assumptions
-Scalar TAP reduces the amount of trust required between participants. But, even the previous, more trusted version of Scalar had lower trust requirements than the state channel systems we evaluated. The trust problem that surfaces when The Graph uses state channels is that with many small state channels, collecting the channels in a dispute can cost more than the total value locked in the channels. That means that the participants are assuming collaboration, and in the worst case, the system was effectively a fancy wrapper over asking people nicely to pay at the end.
+TAP reduces the amount of trust required between participants. But, even the previous, more trusted version of Scalar had lower trust requirements than the state channel systems we evaluated. The trust problem that surfaces when The Graph uses state channels is that with many small state channels, collecting the channels in a dispute can cost more than the total value locked in the channels. That means that the participants are assuming collaboration, and in the worst case, the system was effectively a fancy wrapper over asking people nicely to pay at the end.
 
 ### Thawing requirements
 Some systems require payees to wait before collecting their payments, even though this increases the cost of capital in the happy path.
@@ -263,7 +263,7 @@ Another consideration with SNARKs is whether you are taking on any additional tr
 ## Homomorphic Signatures
 The final alternative we considered was homomorphic signatures. This avenue seemed promising because summing signed numbers is what our aggregation requires and what homomorphic signature schemes are designed for.
 
-Unfortunately, simultaneously achieving robustness, speed, and security with these systems was impossible. The main problem we ran into was that if a receipt was signed twice, the system was insecure for the sender, but if a receipt was not received, the receiver could not collect fees. The closest match to our needs using this system relied heavily on micro-trust. The idea of keeping the micro-trust and removing the novel cryptography led us to the final design of Scalar TAP.
+Unfortunately, simultaneously achieving robustness, speed, and security with these systems was impossible. The main problem we ran into was that if a receipt was signed twice, the system was insecure for the sender, but if a receipt was not received, the receiver could not collect fees. The closest match to our needs using this system relied heavily on micro-trust. The idea of keeping the micro-trust and removing the novel cryptography led us to the final design of TAP.
 
 # Copyright Waiver
 
