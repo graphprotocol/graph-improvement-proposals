@@ -35,7 +35,7 @@ The original payment system developed for the Graph protocol was called Scalar.
 TAP is a drop-in replacement for Scalar, covering the whole original Scalar functionaliy and offering much more, from aggregation of receipts to blacklisting malicious Gateways/senders.
 
 More info about Scalar can be found in [The Graph Foundation unveils Scalar: a microtransaction for every query](https://thegraph.com/blog/scalar/) blog post.
-More on the prior art can be found in `Rationale and Alternatives` section.
+More on the prior art can be found in [Rationale and Alternatives](#rationale-and-alternatives) section.
 
 # High Level Description
 
