@@ -205,7 +205,7 @@ The [horizon staking contract](https://github.com/graphprotocol/contracts/pull/9
 
 ### **Testnet**
 
-We propose a trial period on testnet for the new Optimistic EBO implementation, with the participation of volunteer indexers running the new instances. The goal is to test as many connected chains to the system as possible.
+We propose a trial period on testnet for the new Optimistic EBO implementation, with the participation of volunteer indexers running the new instances. The goal is to test as many connected chains with the system as possible.
 
 ### **Internal Reviews**
 
