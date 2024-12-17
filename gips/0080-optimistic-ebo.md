@@ -30,7 +30,7 @@ Several approaches have been proposed to improve the oracle process within The G
 
 The EBO defines the source of truth for the block number corresponding to a new epoch in each indexed chain. It fetches the block for each epoch on each chain and records it on-chain on the protocol chain (Arbitrum One). An epoch is a period determined by the [EpochManager](https://github.com/graphprotocol/contracts/blob/main/contracts/epochs/EpochManager.sol), which lasts approximately one day but is measured in blocks.
 
-Indexers use the EBO subgraph to get the block number for each chain and use it to build the POI, which is published when closing allocations to claim rewards.
+Indexers use the EBO subgraph to get the block number for each chain and use it to build the POI (Proof Of Indexing), which is published when closing allocations to claim rewards.
 
 If a dispute arises, an indexer who publishes a POI for the wrong block may be disputed by a fisherman and penalized by the Arbitrator.
 
