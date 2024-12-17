@@ -38,7 +38,7 @@ The EBO is composed of 3 parts:
 
 - A Rust process that reads information from RPCs.
 - A [Data Edge](https://github.com/graphprotocol/block-oracle/blob/main/packages/contracts/contracts/DataEdge.sol) contract where updates get posted (compressed and encoded).
-- A [Subgraph](https://github.com/graphprotocol/block-oracle/tree/main/packages/subgraph) that indexes the Data Edge allows indexers to craft the POI easily.
+- A [Subgraph](https://github.com/graphprotocol/block-oracle/tree/main/packages/subgraph) that indexes the Data Edge allowing indexers to easily craft their POI.
 
 ### Current design
 
