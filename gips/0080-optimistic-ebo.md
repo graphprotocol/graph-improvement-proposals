@@ -73,7 +73,7 @@ Key improvements:
 
 The optimistic approach allows off-chain agents to propose updates to the Optimistic EBO, which other participants can dispute by staking tokens or using alternative resolution mechanisms to align incentives and ensure accuracy.
 
-For this, we will use [Prophet](https://github.com/defi-wonderland/prophet-modules/tree/dev), an optimistic, modular, and public-good oracle that abstracts the complexity of the proposal and dispute process while offering the flexibility to customize its functionality as needed. For more details on Prophet, refer to the documentation [here](https://docs.prophet.tech/content/modules/index.html).
+For this, we will use [Prophet](https://github.com/defi-wonderland/prophet-modules/tree/dev), an optimistic, modular, and public-good oracle that abstracts the complexity of the proposal and dispute process while offering the flexibility to customize its functionality as needed. For more details see [Prophet documentation](https://docs.prophet.tech/content/modules/).
 ~~~~
 The process would work as follows: 
 
