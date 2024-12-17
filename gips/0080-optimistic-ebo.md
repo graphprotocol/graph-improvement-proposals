@@ -1,7 +1,7 @@
 ---
 GIP: "0080"
 Title: Optimistic EBO
-Authors: mono <0xmono@defi.sucks>, shaito <shaito@defi.sucks>
+Authors: "mono <0xmono@defi.sucks>", "shaito <shaito@defi.sucks>"
 Created: 2024-10-23
 Updated: 2024-10-23
 Stage: Draft
