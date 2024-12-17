@@ -146,7 +146,7 @@ We suggest the following parameter values for the Escalation Bond system:
 - **Bond threshold**: The amount of stake that triggers a call to the Arbitrator (virtual bond in the escalation system), set at 100K GRT.
 - **Round**: The maximum number of rounds a dispute can escalate, set at 5.
 - **Min Bond**: Minimum amount required for five rounds of escalations to reach the Bond threshold, set at 11111 GRT.
-- **Dispute Window**: An indexer's maximum response time to a dispute is 30 minutes.
+- **Dispute Window**: The maximum time a proposer has to respond to a dispute, set at 30 minutes.
 
 These values are based on an economic security analysis that evaluates the potential gains from corruption across various attack scenarios. You can read the complete analysis [here](https://www.notion.so/Economic-security-considerations-1009a4c092c780b6afb1fa8bb8c266be?pvs=21).
 
