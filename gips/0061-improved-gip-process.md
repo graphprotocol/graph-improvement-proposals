@@ -41,7 +41,7 @@ To this date, no "Graph Request for Proposals" have been submitted. To simplify 
 
 ## Simplified Stages
 
-The Strawperson and Proposal stages have been removed and merged into the Draft stage. In practice, proposals evolve from a simple abstract to a full blown spec, and tend to change throughout the process, and it's hard to draw the line between different stages. Keeping the stage updated in the GIP takes time, so we believe it's simpler to just differentiate between a proposal that is in progress ("Draft"), one that is ready for acceptance/deployment ("Candidate"), and one that has been concluded ("Accepted/Deferred/Withdrawn/Living").
+The Strawperson and Proposal stages have been removed and merged into the Draft stage. In practice, proposals evolve from a simple abstract to a full blown spec, and tend to change throughout the process, and it's hard to draw the line between different stages. Keeping the stage updated in the GIP takes time, so we believe it's simpler to just differentiate between a proposal that is in progress ("Draft"), one that is ready for acceptance/deployment ("Candidate"), one that is approved by the council ("Approved"), and one that has been concluded ("Implemented/Deferred/Withdrawn/Living").
 
 ## Self-assigning GIP numbers
 
