@@ -31,7 +31,7 @@ The GIP process includes both the stages and acceptance criteria that a proposal
 
 The high-level process is captured in the diagram below.
 
-![GIP Process Flowchart](../assets/gip-0001/gip-process-flowchart.png)
+![GIP Process Flowchart](../assets/gip-0001/GIP_Process.png)
 
 ## Before a proposal is written
 
