@@ -1,13 +1,13 @@
 ---
 GIP: "0054"
 Title: Timeline Aggregation Protocol
-Authors: Bryan Cole <bryan.cole@semiotic.ai>, Severiano Sisneros <severiano@semiotic.ai>, Alexis Asseman <alexis@semiotic.ai>, Zachary Burns, <zac@edgeandnode.com>, Theo Butler <theo@edgeandnode.com>, Gokay Saldamli <gokay@semiotic.ai>, Tomasz Kornuta <tomasz@semiotic.ai>
+Authors: Bryan Cole <bryan.cole@semiotic.ai>, Severiano Sisneros <severiano@semiotic.ai>, Alexis Asseman <alexis@semiotic.ai>, Zachary Burns, <zac@edgeandnode.com>, Theo Butler <theo@edgeandnode.com>, Gokay Saldamli <gokay@semiotic.ai>, Tomasz Kornuta <tomasz@semiotic.ai>, Anirudh Patel <anirudh@semiotic.ai>
 Created: 2023-05-23
-Updated: 2023-08-10
-Stage: Candidate
+Updated: 2024-12-13
+Stage: Accepted
 Category: Protocol Logic
 Implementations: TAP <https://github.com/semiotic-ai/timeline_aggregation_protocol>, TAP Contracts <https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts>
-Audits: TOADD
+Audits: TAP Audit Report <https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts/blob/main/audit/2023.08%20-%20The%20Graph%20Timeline%20Aggregation%20Protocol%20Audit%20Report.pdf>, TAP Escrow Audit <https://github.com/semiotic-ai/timeline-aggregation-protocol-contracts/blob/main/audit/2023.12%20-%20The%20Graph%20TAP%20Escrow%20depositMany%20Incremental%20Final%20Audit%20Report.pdf>
 Discussions-To: Forum <https://forum.thegraph.com/t/timeline-aggregation-protocol/4405>
 ---
 
@@ -31,11 +31,11 @@ The protocol also enables the Indexers to efficiently prove "on-chain" total sum
 
 
 # Prior Art
+The original payment system developed for the Graph protocol was called Scalar.
+TAP is a drop-in replacement for Scalar, covering the whole original Scalar functionaliy and offering much more, from aggregation of receipts to blacklisting malicious Gateways/senders.
 
-TAP is an add-on to Scalar, a high throughput and low-latency microtransaction system enabling pay-per-query service between the Indexers and Gateways.
-More info about Scalar can be found in [The Graph Foundation unveils Scalar: a microtransaction for every query](https://thegraph.com/blog/scalar/) blog post. We call the resulting combination Scalar TAP.
-
-More on the prior art can be found in `Rationale and Alternatives` section
+More info about Scalar can be found in [The Graph Foundation unveils Scalar: a microtransaction for every query](https://thegraph.com/blog/scalar/) blog post.
+More on the prior art can be found in [Rationale and Alternatives](#rationale-and-alternatives) section.
 
 # High Level Description
 
@@ -65,7 +65,7 @@ A Gateway pays an Indexer for query serving. On the other hand, an Indexer provi
 | - |
 | <b>Fig 1: Diagram presenting the most important interactions between the core components of the protocol.</b>|
 
-Payments from Gateways to Indexers are represented as receipts, which are essentially promissory notes that signify a debt owed by the Gateway to the Indexer. Gateway continuously sends TAP receipts along with query requests to the Indexers. Indexer serves those queries and stores the associated receipts. 
+Payments from Gateways to Indexers are represented as receipts, which are essentially promissory notes that signify a debt owed by the Gateway to the Indexer. Gateway continuously sends TAP receipts along with query requests to the Indexers. Indexer serves those queries and stores the associated receipts.
 
 Once enough receipts have been collected, Indexer sends a Receipt Aggregate Voucher (RAV) request, sending a batch of receipts up to some timestamp (along with the previous RAV). Timestamp should be slightly further in past to ensure all receipts up to that timestamp have arrived.
 
@@ -125,7 +125,7 @@ Detailed documentation can be found on docs.rs:
     - [Docs](https://docs.rs/tap_aggregator/0.1.0/tap_aggregator/)
 
 
-### TAP Manager and Adapters 
+### TAP Manager and Adapters
 
 TAP Manager is a high-level abstraction for TAP protocol. It provides several methods for:
 * verification & storing of receipts
@@ -204,14 +204,14 @@ Similarly to Indexer Service, update to new stack will automatically trigger swi
 
 # Risks and Security Considerations
 
-At its core TAP relies on cryptographic protocols to ensure the integrity and authenticity of the receipts and RAVs issued by the Gateway. When building any system relying on cryptography, special care must be taken to ensure that the system is built on sound cryptographic primitives, that no assumptions are being made which might invalidate the security provided by those primitives, and that the implementation of those primitives is secure. 
+At its core TAP relies on cryptographic protocols to ensure the integrity and authenticity of the receipts and RAVs issued by the Gateway. When building any system relying on cryptography, special care must be taken to ensure that the system is built on sound cryptographic primitives, that no assumptions are being made which might invalidate the security provided by those primitives, and that the implementation of those primitives is secure.
 
-A key design feature of TAP is that it is simple; it relies on standard cryptography, does not require special assumptions about the underlying cryptographic primitives, and the reference implementation is built on top of well known open source libraries. Specifically, receipts and RAVs are signed using the deterministic variant of the standardized ECDSA signature algorithm (see IETF RFC6979) with the secp256k1 elliptic curve, the same as currently used in Ethereum for signing transactions. Receipt messages are hashed according to the EIP-712 specification. The reference TAP implementation was built in Rust using well known open source libraries for all cryptographic operations, specifically signature generation and verification; building on the contributions of the community and mitigating the risks of “rolling your own cryptography”. 
+A key design feature of TAP is that it is simple; it relies on standard cryptography, does not require special assumptions about the underlying cryptographic primitives, and the reference implementation is built on top of well known open source libraries. Specifically, receipts and RAVs are signed using the deterministic variant of the standardized ECDSA signature algorithm (see IETF RFC6979) with the secp256k1 elliptic curve, the same as currently used in Ethereum for signing transactions. Receipt messages are hashed according to the EIP-712 specification. The reference TAP implementation was built in Rust using well known open source libraries for all cryptographic operations, specifically signature generation and verification; building on the contributions of the community and mitigating the risks of “rolling your own cryptography”.
 
 Additionally, both the protocol and the implementation were assessed for security vulnerabilities internally and externally by independent teams. Findings from those assessments were incorporated into the design specified in this GIP. Detailed risks analysis can be found in:
 [2023.03 TAP security.pdf](../assets/gip-0054/2023.03_tap_security.pdf)
 
-Finally, the protocol and the reference implementations are open source. Abiding by Kerckoffs’s principle and providing the opportunity for the protocol to be further improved by the community. 
+Finally, the protocol and the reference implementations are open source. Abiding by Kerckoffs’s principle and providing the opportunity for the protocol to be further improved by the community.
 
 
 
@@ -232,14 +232,14 @@ Before creating Scalar, we attempted to integrate several pre-existing or in-dev
 ### Slow, serial channel creation
 The ability to create channels quickly is desirable when the system is starting up, cycling allocations, handling long-running requests, or experiencing unexpected load. The systems we evaluated throttled state channel creation, usually by requiring participants to update a shared data structure (such as a Merkelized root of outstanding channels). The result of high-latency, low-throughput state channel creation ranged from degraded quality of service to denial-of-service attack vulnerability.
 
-### Inefficient use of capital 
+### Inefficient use of capital
 The systems we evaluated allocated capital to individual state channels rather than the state channel pool. Resource partitioning is generally wasteful. And in our case, the wasted cost of capital increased the system's friction.
 
 ### Fragile failure modes
 The systems we evaluated were designed around the happy path, with failure modes as an afterthought. In a distributed system, however, "exceptional cases" are a common occurrence. Rather than degrading safely to a reasonable state, some systems would get stuck and require human intervention due to what should have been innocuous events like network failures or race conditions.
 
 ### Trust Assumptions
-Scalar TAP reduces the amount of trust required between participants. But, even the previous, more trusted version of Scalar had lower trust requirements than the state channel systems we evaluated. The trust problem that surfaces when The Graph uses state channels is that with many small state channels, collecting the channels in a dispute can cost more than the total value locked in the channels. That means that the participants are assuming collaboration, and in the worst case, the system was effectively a fancy wrapper over asking people nicely to pay at the end.
+TAP reduces the amount of trust required between participants. But, even the previous, more trusted version of Scalar had lower trust requirements than the state channel systems we evaluated. The trust problem that surfaces when The Graph uses state channels is that with many small state channels, collecting the channels in a dispute can cost more than the total value locked in the channels. That means that the participants are assuming collaboration, and in the worst case, the system was effectively a fancy wrapper over asking people nicely to pay at the end.
 
 ### Thawing requirements
 Some systems require payees to wait before collecting their payments, even though this increases the cost of capital in the happy path.
@@ -263,7 +263,7 @@ Another consideration with SNARKs is whether you are taking on any additional tr
 ## Homomorphic Signatures
 The final alternative we considered was homomorphic signatures. This avenue seemed promising because summing signed numbers is what our aggregation requires and what homomorphic signature schemes are designed for.
 
-Unfortunately, simultaneously achieving robustness, speed, and security with these systems was impossible. The main problem we ran into was that if a receipt was signed twice, the system was insecure for the sender, but if a receipt was not received, the receiver could not collect fees. The closest match to our needs using this system relied heavily on micro-trust. The idea of keeping the micro-trust and removing the novel cryptography led us to the final design of Scalar TAP.
+Unfortunately, simultaneously achieving robustness, speed, and security with these systems was impossible. The main problem we ran into was that if a receipt was signed twice, the system was insecure for the sender, but if a receipt was not received, the receiver could not collect fees. The closest match to our needs using this system relied heavily on micro-trust. The idea of keeping the micro-trust and removing the novel cryptography led us to the final design of TAP.
 
 # Copyright Waiver
 

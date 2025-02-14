@@ -1,12 +1,11 @@
 ---
-GIP: <The number of this GIP. To be assigned by editors. Put the number between quotes.>
+GIP: <The number of this GIP. Selected by the author and confirmed by editors (which may change numbers to resolve conflicts) Put the number between quotes.>
 Title: <The title of this GIP>
 Authors: <A list of authors. Include full name or pseudonym. At least one author must have valid contact information provided in angle brackets.>
 Created: <The date the GIP was created.>
-Updated: <The date the GIP was last updated.>
-Stage: <The current stage of the proposal. Specified by the author and confirmed by editors by virtue of a GIP being accepted into an editor's view of the repo.>
+Stage: <The current stage of the proposal. Specified by the author and confirmed by editors by virtue of a GIP being accepted into the main branch of the GitHub repo. See GIP-0001 for the possible stages and process.>
 Discussions-To: <The forum post where this proposal is discussed.>
-Category: <(Optional) The type of GIP or GRP. This field should be left blank for GRCs. Valid types are "Protocol Logic", "Protocol Interfaces", "Subgraph API", "Process", "Economic Parameters", and "Protocol Charters".>
+Category: <(Optional) The type of GIP. This field should be left blank for GRCs. Valid types are "Protocol Logic", "Protocol Interfaces", "Subgraph API", "Process", "Economic Parameters", and "Protocol Charters".>
 Depends-On: <(Optional) A list of GIPs that this GIP depends on. If some other type of dependency exists, include a reference link here and an explanation in the body of the GIP.>
 Superseded-By: <(Optional) A GIP that supersedes the current proposal. If this field is specified, the stage of the GIP should be "Withdrawn".>
 Replaces: <(Optional) A GIP that this proposal is intended to supersede.>
@@ -20,7 +19,7 @@ Audits: <(Optional) A list of URLs to audits related to this proposal.>
 
 *This is a template GIP proposal showing the layout and formatting described in GIP 0001. Italicized writing are comments and should be removed or replaced. Sections marked optional may also be removed if left empty.*
 
-*All GIPs MUST include a preamble, in RFC 822 format, preceded and followed by three dashes ("—-"). This formatting aids in compatibility with most static site generators.*
+*All GIPs MUST include a preamble, in RFC 822 format, preceded and followed by three dashes ("---"). This formatting aids in compatibility with most static site generators.*
 
 *Given the heterogeneous types of proposals this template is meant to reflect, most sections below, except "Abstract" and "Motivation," may be treated as optional. The author, however, should exercise good judgment in deviating from the template, as they are reflective of the type of information, when relevant, that editors will look for in reviewing a proposal.*
 
@@ -38,11 +37,11 @@ Audits: <(Optional) A list of URLs to audits related to this proposal.>
 
 ## High-Level Description
 
-*(Optional) Describe your specific solution at a high level. Include diagrams, math formulas, pseudocode, and any other artifacts helpful in showing how your proposal works at a conceptual level. This type of information is required for a proposal to reach the "Proposal" stage.*
+*(Optional) Describe your specific solution at a high level. Include diagrams, math formulas, pseudocode, and any other artifacts helpful in showing how your proposal works at a conceptual level.
 
 ## Detailed Specification
 
-*(Optional) Include specific APIs, semantics, data structures, code snippets, etc. related to this proposal. This type of info is required for a proposal to reach the "Draft" stage.*
+*(Optional) Include specific APIs, semantics, data structures, code snippets, etc. related to this proposal.
 
 ## Backward Compatibility
 
