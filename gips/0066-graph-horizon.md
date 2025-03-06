@@ -3,9 +3,9 @@ GIP: 0066
 Title: Introducing Graph Horizon - A data services protocol
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-05-03
-Updated: 2024-08-16
+Updated: 2025-03-06
 Stage: Candidate
-Discussions-To: https://forum.thegraph.com/t/<xxxx>
+Discussions-To: https://forum.thegraph.com/t/gip-0066-introducing-graph-horizon-a-data-services-protocol/5989
 Category: Protocol Logic, Protocol Interfaces, Economic Parameters
 Depends-On: GIP-0068
 Implementations: https://github.com/graphprotocol/contracts/pull/944
@@ -67,7 +67,7 @@ It’s important to note that, while similar, provisions are not what the curren
 
 In the context of a world of data services, a service provider will typically have several provisions, one per data service being offered. Then, each data service can leverage the provisioned stake the way they see fit. For example, the Subgraph Service might further split the provisioned stake into per-subgraph-deployment allocations; another data service might use a “stake-to-fees ratio” model to require certain amount of stake when collecting fees from them. 
 
-Different data services will likely have different ways of managing their stake, with potentially different levels of strictness around the economic security guarantees. In the permissionless landscape of data services, understanding these underlying operational mechanisms becomes increasingly important to gauge the risks associated when interacting with a data service. The Graph core dev are developing an initial set of data services and will take an active role in promoting the emergence of open community standards. The Data Service framework (covered in later sections) will be utilized to establish these standards and best practices when designing a data service, ensuring alignment with The Graph principles and interoperability with other data services and the rest of the protocol.
+Different data services will likely have different ways of managing their stake, with potentially different levels of strictness around the economic security guarantees. In the permissionless landscape of data services, understanding these underlying operational mechanisms becomes increasingly important to gauge the risks associated when interacting with a data service. The Graph core devs are developing an initial set of data services and will take an active role in promoting the emergence of open community standards. The Data Service framework (covered in later sections) will be utilized to establish these standards and best practices when designing a data service, ensuring alignment with The Graph principles and interoperability with other data services and the rest of the protocol.
 
 ### Delegation
 
@@ -104,13 +104,17 @@ Note that additional functionality can be built on top of these core mechanisms.
 
 In order for provisioned stake to be considered useful economic security it needs to be slashable. The fact that stake is at risk disincentivizes service providers from ill intentioned behavior, furthermore, the slashing mechanism uses part of the slashed stake as a reward for reporting faults. It then follows that *all stake* that is being used as economic security for a service should be slashable, not just a portion of it. Graph Horizon leaves it to the data service to decide why and when a service provider is slashed and what the slashed amount is. As far as the staking protocol is concerned a data service could slash the entire provisioned stake (both from the service provider and delegators) in a single slashing event. Graph Horizon’s guarantees that part of the slashed amount will be burnt and another part sent back to the data service as the reward. It's important to be aware that a compromised or malicious data service could potentially misuse this mechanism to access funds. Community standards and best practices such as those described by the Data Service framework should help curate and identify those that are safe to use.
 
-As described before, the slashing risk applies both to stake provisioned by the service provider and delegated stake. To mitigate the risk of service providers misappropriating delegator funds by using a malicious data service via slashing, we introduce a few protections for delegators. First, the staking contract ensures that all ****service provider stake will be slashed before the delegator’s stake is touched. Since a portion of the slashed amount is burned it greatly reduces the economic viability of an attack. Moreover, when slashing delegators the tokens can only be burned and not used as slashing reward, this means that a malicious data service cannot profit directly from slashing delegators. In general, the more stake the service provider has on a provision the safer delegators will be. This protections in combination with per data service delegation make delegators safe from these types of attacks.
+As described before, the slashing risk applies both to stake provisioned by the service provider and delegated stake. To mitigate the risk of service providers misappropriating delegator funds by using a malicious data service via slashing, we introduce a few protections for delegators. First, the staking contract ensures that all service provider stake will be slashed before the delegator’s stake is touched. Since a portion of the slashed amount is burned it greatly reduces the economic viability of an attack. Moreover, when slashing delegators the tokens can only be burned and not used as slashing reward, this means that a malicious data service cannot profit directly from slashing delegators. In general, the more stake the service provider has on a provision the safer delegators will be. These protections in combination with per data service delegation make delegators safe from these types of attacks. 
 
 The following diagram illustrates an example of the protection for delegators. In both cases the service provider was found to be at fault and is getting slashed for 200k GRT. In the first case, the service provider doesn’t have enough stake to cover the slashed amount, so the delegators are also slashed. In the second case that’s not the true however and the delegator’s funds are safe.
 
 ![slashing](../assets/gip-0066/slashing.png)
 
-This example might lead the reader into the false conclusion that delegating to the service provider with the highest amount of stake is the safest option. It’s worth noting that in the example we assumed the slashed amount is the same for both cases. In a real world scenario it’s up to each data service to establish their slashing rules that determine what the slashing amount is. The Data Service framework establishes some rules but additional policies might be implemented as well, for instance delegation ratio can be taken into consideration when choosing the slashed amount, or repeated offenses can be punished more severely. Choosing the a service provider to delegate to should be a balancing act that looks at different variables like the service provider’s stake, the delegation ratio, fee cuts for delegation, etc. We expect tools to emerge that will expose this information and provide a simple way for delegators of knowing how aligned service providers and data services are with The Graph standards. Similar tools exist already in the current version of the protocol but they are mostly aimed towards indexer operations (for example, Graphtronauts, Graphscan, Indexer Tools, etc).
+This example might lead the reader into the false conclusion that delegating to the service provider with the highest amount of stake is the safest option. It’s worth noting that in the example we assumed the slashed amount is the same for both cases.
+
+In a real world scenario it’s up to each data service to establish the slashing rules that determine what the slashing amount is, this includes the parameters that govern the delegation protections. The Data Service framework establishes some rules but data services can ignore them or implement additional policies, for instance delegation ratio can be taken into consideration when choosing the slashed amount, or repeated offenses can be punished more severely. This also means a data service could be created where service provider's slashed stake is burnt at 0%, sending 100% of it to the verifier (which could be controlled by the same service provider), greatly diminishing the usefulness of these protections.
+
+Choosing a data service and service provider to delegate to should be a balancing act that looks at different variables like the service provider’s stake, the delegation ratio, fee cuts for delegation, slashing parameters, etc. We expect tools to emerge that will expose this information and provide a simple way for delegators of knowing how aligned service providers and data services are with The Graph standards. Similar tools exist already in the current version of the protocol but they are mostly aimed towards indexer operations (for example, Graphtronauts, Graphscan, Indexer Tools, etc).
 
 ### Operators
 
@@ -132,7 +136,7 @@ The following diagram shows how the payments protocol works:
 
 ![payments-overview](../assets/gip-0066/payments-overview.png)
 
-1. First the payer needs to deposit GRT into Graph Payments contract to show the service provider that they can pay for their services. These deposits are per service provider and are used to settle payer’s debts. They are also subject to a thawing period that protects service providers from being rug pulled. If a payer starts thawing it’s expected that the service provider would immediately collect any outstanding payments and stop doing business with them.
+1. First the payer needs to deposit GRT into Graph Payments to show the service provider that they can pay for their services. These deposits are per service provider and are used to settle payer’s debts. They are also subject to a thawing period that protects service providers from being rug pulled. If a payer starts thawing it’s expected that the service provider would immediately collect any outstanding payments and stop doing business with them.
 2. Next the service provider starts providing the service to a data consumer using the payer as the intermediary. In return the service provider should get from the payer a receipt, voucher or any other evidence that demonstrates the outstanding debt. 
 3. Finally, to collect the payment, the service provider presents the evidence to the data service which in turn uses the payments protocol to verify the validity of the claim before distributing the funds.
 4. As payments are collected, payers should monitor their deposits and periodically top up their balance to ensure they can keep paying for their services.
@@ -141,17 +145,19 @@ The verification of the evidence and payment collection need to happen through �
 
 Payers are required to individually whitelist collectors since they are delegating the payment verification and collection to them. This necessitates either a high level of trust in the collector or a thorough review of it’s inner workings. We expect just a handful of collectors should be able to cover most use cases for data services reducing the burden on the payer (it’s also worth remembering that “payer” does not refer to the data consumer but the intermediary).
 
-### TAP Collector
+### Graph Tally Collector
 
-While the payments protocol allows for an arbitrary number of payment collectors we initially propose implementing a TAP based collector. This collector should be reusable for any request-response type data service looking to manage payments using a receipt based system. The TAP collector integrates with the existing TAP proposal described in [GIP-0054](https://forum.thegraph.com/t/gip-0054-timeline-aggregation-protocol/4405) with a few minor changes to the voucher definition. A RAV (Receipt Aggregate Voucher, a voucher signed by the payer) in TAP should now contain the following information:
+While the payments protocol allows for an arbitrary number of payment collectors we initially propose implementing a Graph Tally (formerly known as TAP) based collector. This collector should be reusable for any request-response type data service looking to manage payments using a receipt based system. The Graph Tally collector integrates with the existing TAP proposal described in [GIP-0054](https://forum.thegraph.com/t/gip-0054-timeline-aggregation-protocol/4405) with a few minor changes to the voucher definition. A RAV (Receipt Aggregate Voucher, a voucher signed by the payer) in Graph Tally should now contain the following information:
 
-- the data service - only the data service the RAV was issued to can collect it, this ensures RAVs can not be replayed across data services.
+- collectionId - an id used to group RAVs into "collection buckets". This is an optional feature that not all data services might need.
+- the payer - the address of the payer that issued the RAV
 - the service provider - this establishes who is the entity that is owed.
-- a timestamp - indicating the timestamp of the latest TAP receipt in the RAV (see GIP-0054 specification for clarification on TAP receipts vs RAVs).
+- the data service - only the data service the RAV was issued to can collect it, this ensures RAVs can not be replayed across data services.
+- a timestamp - indicating the timestamp of the latest Graph Tally receipt in the RAV (see GIP-0054 specification for clarification on receipts vs RAVs).
 - the value aggregate - the total amount owed to the service provider since the beginning of the payer-service provider relationship, *including* all debt that is already paid for.
-- a metadata field - allows adding arbitrary data to a RAV to extending functionality if a data service requires it. For example, in the Subgraph Service this is used to pass a unique id that groups receipts and vouchers by it’s source of debt generation, in this case this is the allocation id and it is required to correctly distribute curator fees.
+- a metadata field - allows adding arbitrary data to a RAV to extend functionality if a data service requires it.
 
-It’s worth clarifying the value aggregate in a RAV should not be reset each time a collection happens, it’s a monotonically increasing value. The TAP collector will keep track of all the payments that were already made to a service provider and compare to the RAV value aggregate to calculate the actual amount to be paid.
+It’s worth clarifying the value aggregate in a RAV should not be reset each time a collection happens, it’s a monotonically increasing value. The Graph Tally collector will keep track of all the payments that were already made to a service provider and compare to the RAV value aggregate to calculate the actual amount to be paid.
 
 ## The role of governance
 
@@ -165,7 +171,7 @@ The end state for both the staking and payments protocols is to achieve an immut
     
 - **Payments protocol**
     
-    The contracts for the payments protocol will for the most part be non-upgradeable and permissionless. Payment collectors can be deployed permissionlessly and the escrow functionality will reside on a non upgradeable contract also with no privileged roles. The funds distribution functionality however will live on an upgradeable contract under the control of the Graph Council. The reason for this is that this is an active area of research: there is ongoing work on using protocol fees as incentives for different roles, which will likely require upgrading the contracts in the payments protocol.
+    The contracts for the payments protocol will for the most part be permissionless with no privileged roles. Payment collectors can be deployed permissionlessly and integrated with the payments protocol. The funds escrow and distribution functionality however will live on an upgradeable contract under the control of the Graph Council. The reason for this is that this is an active area of research: there is ongoing work on using protocol fees as incentives for different roles, which will likely require upgrading the contracts to support new mechanism.
     
 
 Note that for all cases, the upgradeability of a contract can always be renounced to, there is already precedent for this in The Graph ecosystem with the `L2GraphToken` contract which was initially upgradeable but it’s now not.
@@ -187,22 +193,15 @@ We will describe the main flows between the core Graph Horizon components and a 
 
 This specification covers the following interactions which should roughly happen in this order:
 
-- Payer sets up payments for a new payments collector
 - Service provider sets up a new data service
 - Payer sets up a new service provider
 - Service provider starts/stops providing a service
 - Service provider redeems fees
 - Service provider is slashed by the data service
 
-**Payer sets up payments for a payments collector**
-
-The payments protocol allows service provider payments to be committed in advance by using an escrow contract. The only entities allowed to access those funds are payment collectors. Payers need to individually approve collector contracts similar to how ERC20 allowances work. After approving, the payer can start intermediating with data services that use the collector in question by issuing the relevant debt evidence to service providers.
-
-![payments](../assets/gip-0066/payments.png)
-
 **Service provider sets up a new data service**
 
-Before registering itself on a new data service, the service provider must first stake and create a provision in the Horizon staking contract. By registering to a data service the service provider manifests it’s intention of providing that type of service to data consumers. During the registration, the data service should validate that the associated provision is within the data service’s spec. For example, the data service might require a minimum amount of provisioned tokens or a minimum thawing period. It’s crucial that the data service validates the provision parameters and accepts the in the staking contract (this is done via an internal call), otherwise the data service will not be able to provide economic security guarantees for the data consumer. Once the registration is complete the service provider is ready to start providing the service.
+Before registering itself on a new data service, the service provider must first stake and create a provision in the Horizon staking contract. By registering to a data service the service provider manifests it’s intention of providing that type of service to data consumers. During the registration, the data service should validate that the associated provision is within the data service’s spec. For example, the data service might require a minimum amount of provisioned tokens or a minimum thawing period. It’s crucial that the data service validates the provision parameters and rejects the registration if they are not what is expected, otherwise the data service will not be able to provide economic security guarantees for the data consumer. Once the registration is complete the service provider is ready to start providing the service.
 
 A few notes on the diagram below:
 
@@ -223,9 +222,9 @@ The initial registration is a mandatory step to ensure the staking protocol can 
 
 ![ds-start](../assets/gip-0066/ds-start.png)
 
-**Service provider redeems fees**
+**Service provider collects payment**
 
-Collecting fees for a service provided is one of the main features a data service should enable. The Data Service framework requires the data service implementation to use the payments protocol for that. Collection is initiated by presenting the debt evidence on the data service (note the call takes again an arbitrary bytes argument) which should run any validations and checks it requires, this includes ensuring the payment being collected is properly backed by the provisioned stake. Once validated, the service initiates the payment collection on the payments protocol by interacting with the appropriate collector. Note that a data service might allow collecting different types of fees by means of different collectors. Fees are then distributed to all relevant parties according to the payment type rules and execution returns to the data service for any additional accounting, cleanup or further re-distribution of it’s own cut.
+Collecting payment for a service provided is one of the main features a data service should enable. The Data Service framework requires the data service implementation to use the payments protocol for that. Collection is initiated by presenting the debt evidence on the data service (note the call takes again an arbitrary bytes argument) which should run any validations and checks it requires, this includes ensuring the payment being collected is properly backed by the provisioned stake. Once validated, the service initiates the payment collection on the payments protocol by interacting with the appropriate collector. Note that a data service might allow collecting different types of payments by means of different collectors. Fees are then distributed to all relevant parties according to the payment type rules and execution returns to the data service for any additional accounting, cleanup or further re-distribution of it’s own cut.
 
 ![ds-collect](../assets/gip-0066/ds-collect.png)
 
@@ -260,7 +259,7 @@ The following contracts add specific functionality, they can be combined togethe
 
 # Detailed specification
 
-A full specification for the Graph Horizon contracts can be found here: [Graph Horizon technical specification](https://edgeandnode.notion.site/Graph-Horizon-technical-specification-v2-1-16b83bfebc734062bd32af478617eaed)
+A full specification for the Graph Horizon contracts can be found here: [Graph Horizon technical specification](https://edgeandnode.notion.site/Graph-Horizon-technical-specification-v2-2-1208686fc7c28022b9edd6437a57f4fe)
 
 It's worth noting this specification is a living document containing implementation details that can slightly change during the course of the development and auditing cycles. Once a finalized version is available it will be added to this GIP.
 
@@ -276,6 +275,7 @@ Much of the complexity with this proposal relies on how we safely transition fro
 - delegation
 - operators
 - transfer tools
+- slashing
 
 This proposal *has breaking changes* in all categories, but the most significant one is on the allocation management side. Allocations will no longer exist on the `HorizonStaking` contract but rather on the `SubgraphService` data service. After the upgrade, service providers can set up shop in the `SubgraphService` and start operating allocations in there. However this raises the question of what happens with existing allocations and how do we migrate those. Fortunately allocations in the current protocol usually only exist for approximately 28 epochs. This provides service providers a natural “migration” window. Once the upgrade hits, they can keep their existing allocations on the `Staking` contract, close them when they are ready, and then re-open new allocations on the `SubgraphService` as needed. Going further we will refer to allocations that exist on the `Staking` contract as “legacy allocations”, while the term “allocation” will be used exclusively for `SubgraphService` allocations.
 
@@ -313,6 +313,18 @@ Operators are special accounts that have the ability to perform actions on behal
 
 The current protocol allows service providers to use tokens that are locked in vesting contracts to participate in the protocol. Horizon will support this feature as well, vesting contracts will be able to create provisions for data services however to prevent them from using this feature to bypass the vesting schedule participation on arbitrary data services will not be allowed. The Graph Council will maintain a list of data services that have been approved for vesting contract participation.
 
+**Slashing**
+
+Stake locked in legacy allocations should remain slashable to ensure economic security. This means `HorizonStaking` contract needs to expose a legacy slashing function that follows the original slashing mechanism design. Once the last legacy allocations are closed and following the statute of limitations in the Arbitration Charter this legacy slashing alternative can be removed from the protocol.
+
+## Data service restrictions during transition period
+
+The transition period will be a critical time when two versions of the protocol coexist. Ensuring that all possible state transitions during this period are safe and do not violate any protocol invariants can be challenging.
+
+A good example of this is the stake-locking mechanism. Before Horizon, stake becomes locked the moment it is added to the protocol. In Horizon, however, stake only becomes locked when it is assigned to a provision. As described in the previous **Stake Management** section, this change requires restricting immediate idle stake withdrawal during the transition period.
+
+This restriction can be enforced in the contract code. However, there are other similar cases where ensuring there are no exploitable paths would be significantly more complex. For this reason, we propose that during the transition period, provisions can only be created for the Subgraph Service. Other data services will become available immediately after the transition period ends.
+
 ## Summary of changes
 
 Here is a summary of the changes proposed in this GIP. Note that some changes related to the Subgraph Service are covered in detail in the companion GIP.
@@ -339,7 +351,7 @@ The following is a list of all contracts in The Graph and how they will evolve w
 | Staking | Upgraded to support the staking protocol and remove subgraph functionality. Renamed to HorizonStaking |
 | GraphPayments | New contract to support the payments protocol. |
 | PaymentsEscrow | New contract to support the payments protocol. |
-| TAPCollector | New contract to support the payments protocol. |
+| GraphTallyCollector | New contract to support the payments protocol. |
 | RewardsManager | Upgraded to allow issuing rewards from the SubgraphService |
 |BridgeEscrow<br>GraphTokenGateway<br>EpochManager<br>GraphProxyAdmin<br>Controller | No changes. |
 | SubgraphService<br>DisputeManager | New contracts to support subgraph indexing. See companion GIP. |
