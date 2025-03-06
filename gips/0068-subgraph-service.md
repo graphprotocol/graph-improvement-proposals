@@ -3,9 +3,9 @@ GIP: 0068
 Title: Subgraph Service - A subgraph data service in Graph Horizon
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-06-02
-Updated: 2024-08-16
+Updated: 2025-03-06
 Stage: Candidate
-Discussions-To: https://forum.thegraph.com/t/<xxxx>
+Discussions-To: https://forum.thegraph.com/t/gip-0068-subgraph-service-a-subgraph-data-service-in-graph-horizon/5990
 Category: Protocol Logic, Protocol Interfaces, Economic Parameters
 Depends-On: GIP-0066
 Implementations: https://github.com/graphprotocol/contracts/pull/944
@@ -28,7 +28,7 @@ The design of the Subgraph Service is based on the original implementation of su
 
 The main purpose of the Subgraph Service contract is to allow indexers to collect payment for the service they provide which is indexing subgraphs and serving subgraph queries. In order to do so indexers need to provide stake as collateral in the form of a Graph Horizon provision; funds in this provision are subject to being slashed by a dispute mechanism in the event the work they provided is found to be incorrect or fraudulent. A quick note on terminology, the term “indexer” has historically been used to refer to the entity providing subgraph indexing services. In the context of the Subgraph Service this term is used interchangeably with “service provider” which is the generic term used by Graph Horizon.
 
-The Subgraph Service’s main purpose is to facilitate on chain coordination of subgraph indexing and serving operations in accordance with the flows described by the Data Service framework. These can be summarized as:
+The Subgraph Service’s main purpose is to facilitate on chain coordination of subgraph indexing and query serving operations in accordance with the flows described by the Data Service framework. These can be summarized as:
 
 - Allow indexers to register in the Subgraph Service as service providers
 - Allow indexers to signal their intent of starting (or stopping) indexing a subgraph
@@ -52,7 +52,7 @@ The following are the requirements for the provision:
 
 ### Indexing a subgraph
 
-Next, an indexer would want to signal the network they are indexing a subgraph. For that they need to “allocate” a portion of their available stake to the subgraph the intend to index (thawing stake does not count as available). The allocated amount is used to calculate indexing rewards. However, same as with the current version of the protocol, the entire provisioned stake will act as economic security for the indexing work (it will be slashable).
+Next, an indexer would want to signal the network they are indexing a subgraph. For that they need to “allocate” a portion of their available stake to the subgraph they intend to index (thawing stake does not count as available). The allocated amount is used to calculate indexing rewards. However, same as with the current version of the protocol, the entire provisioned stake will act as economic security for the indexing work (it will be slashable).
 
 **Allocation management**
 
@@ -83,7 +83,7 @@ A key change introduced by the Subgraph Service is that any form of payment that
 
 **Query Fees**
 
-Once queries start flowing the indexer starts generating query fees. The Subgraph Service uses Graph Horizon’s payment protocol, in particular the TAP Collector, to process query fee payments. This ensures interactions between Indexers and payers (gateways) are trust-minimized, which is essential to preserving the decentralized nature of the protocol in the long term. Indexers receive TAP vouchers (RAVs) from a gateway and present them on the Subgraph Service to collect payment. The collected payment is then distributed to the following parties, essentially in the same way as in the current protocol:
+Once queries start flowing the indexer starts generating query fees. The Subgraph Service uses Graph Horizon’s payment protocol, in particular the Graph Tally Collector, to process query fee payments. This ensures interactions between Indexers and payers (gateways) are trust-minimized, which is essential to preserving the decentralized nature of the protocol in the long term. Indexers receive Graph Tally vouchers (RAVs) from a gateway and present them on the Subgraph Service to collect payment. The collected payment is then distributed to the following parties, essentially in the same way as in the current protocol:
 
 - Protocol tax: a small percentage is burnt by Graph Horizon’s payment protocol (1% as in the current protocol).
 - Delegator cut: delegators receive a share of the query fees for providing stake to the indexer. This is set by the indexer.
@@ -136,7 +136,7 @@ We propose letting arbitrators decide what the slash amount is when accepting a 
 
 # Detailed specification
 
-A full specification for the Subgraph Service contracts can be found here: [Subgraph Service technical specification](https://edgeandnode.notion.site/Subgraph-Service-technical-specification-v1-0-WIP-fae5361e50bd4d8fa27684ba703062dd?pvs=25)
+A full specification for the Subgraph Service contracts can be found here: [Subgraph Service technical specification](https://edgeandnode.notion.site/Subgraph-Service-technical-specification-v1-1-1288686fc7c28006a978ce2758bb2cd8)
 
 It's worth noting this specification is a living document containing implementation details that can slightly change during the course of the development and auditing cycles. Once a finalized version is available it will be added to this GIP.
 
@@ -150,13 +150,13 @@ Allocations are originally managed on the staking contract. As described by GIP-
 
 **Legacy allocations migration**
 
-Allocations in the protocol are unique, they represent a stake commitment from an indexer on a given subgraph at a given time. With the introduction of the Subgraph Service the allocation space becomes fragmented: legacy allocations will exist in the staking contract, and new allocations on the Subgraph Service. Re-using legacy allocation ids on the Subgraph Service might lead to unexpected behavior on offchain components. To prevent this from happening the Subgraph Service will allow a governance role to import a list of allocation ids which will be checked whenever a new allocation is created. 
+Allocations in the protocol are unique, they represent a stake commitment from an indexer on a given subgraph at a given time. With the introduction of the Subgraph Service the allocation space becomes fragmented: legacy allocations will exist in the staking contract, and new allocations on the Subgraph Service. Re-using legacy allocation ids on the Subgraph Service might lead to unexpected behavior on offchain components. To prevent this from happening the Subgraph Service will allow a governance role to import a list of allocation ids which will be checked whenever a new allocation is created. This bulk import will be performed after the transition period ends to ensure all legacy allocation ids are migrated. In the meantime, the Subgraph Service will check for id collisions in both it's internal and the staking contract's storage.
 
 **Service Registry and Dispute Manager deprecation**
 
 As stated before, the Subgraph Service includes an internal registry which previously was a separate contract. This registry contains the information necessary for offchain components to find indexers in the network (most notably a URL). The Service Registry contract will be deprecated at the end of the transition period, it should act as the source of truth for this information until that time or until an indexer registers in the Subgraph Service, whichever happens first. It’s worth noting that there are ongoing efforts to create a service registry that can be used by any data service. This will be described in detail in another GIP.
 
-The old Dispute Manager in turn can also be deprecated once it’s no longer needed. Allocations can be closed right up until the transition period ends, so it makes sense to hold the deprecation until after the statute of limitations period passes (which means 56 epochs after the transition period).
+The old Dispute Manager in turn can also be deprecated once it’s no longer needed. Legacy allocations can be closed right up until the transition period ends and we need to be able to slash those, so it makes sense to hold the deprecation until after the statute of limitations period passes (which means 56 epochs after the transition period).
 
 **Curation**
 
