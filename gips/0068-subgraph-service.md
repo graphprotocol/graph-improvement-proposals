@@ -221,8 +221,8 @@ $$
 ROI  = \frac{1}{R} \Rightarrow R=\frac{S}{I_R}
 $$
 
-Solving for current values, $S= 2492134415.56$ (roughly 0.7B GRT from indexers plus 1.8B GRT from delegators) and $I_R= 13219971.0579$ (approximately 317M GRT issued yearly):
+Solving for current values, $S= 2144776079.61$ (roughly 0.55B GRT from indexers plus 1.6B GRT from delegators) and $I_R= 26439942.11$ (approximately 317M GRT issued yearly):
 
 $$
-R=\frac{S}{I_R}=\frac{2492134415.56}{13219971.0579}=188.51
+R=\frac{S}{I_R}=\frac{2144776079.61}{26439942.11}=81.12
 $$
