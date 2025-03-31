@@ -204,7 +204,7 @@ $$
 ROI \geq CoC \Rightarrow\frac{1}{R} \geq r \Rightarrow \frac{1}{r} \geq R
 $$
 
-If we take $T=14 days$ and assume a 1% monthly cost of capital (~12% annual), then $r=0.05$ and $R<=200$.
+If we take $T=28 days$ and assume a 1% monthly cost of capital (~12% annual), then $r=0.1$ and $R<=100$.
 
 ### Appendix B: Current protocol estimation
 
