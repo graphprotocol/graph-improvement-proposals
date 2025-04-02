@@ -177,13 +177,20 @@ Time is represented as an ISO-8601 format string. A time value can be used to de
 
 Options: `format`
 
-A format string using the Unicode Technical Standard #35.
+A format string using the [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
 
 Examples:
-* "MMMM do, yyyy" - July 4th, 2024
-* "M/d/yyyy" - 7/4/2024
-* "h:mma" - 4:45pm
-* "EEEE h:mma" - Friday 5:00pm
+* `h:mmaaa, EEEE, MMMM d, yyyy` - 4:45pm, Thursday, July 4, 2024
+* `h:mmaaa, MMMM d, yyyy` - 4:45pm, July 4, 2024
+* `h:mmaaa, MMM d, yyyy` - 4:45pm, Jul 4, 2024
+* `h:mmaaa, MMM d, yy` - 4:45pm, Jul 4, 24
+* `EEEE, MMMM d, yyyy` - Thursday, July 4, 2024
+* `MMMM d, yyyy` - July 4, 2024
+* `MMM d, yyyy` - Jul 4, 2024
+* `MMM d, yy` - Jul 4, 24
+* `MM/dd/yyyy` - 07/04/2024
+* `MM/dd/yy` - 07/04/24
+* `h:mmaaa` - 4:45pm
 
 #### 5.6 Point
 
