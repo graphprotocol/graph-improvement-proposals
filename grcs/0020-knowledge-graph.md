@@ -26,14 +26,14 @@ This document specifies the serialization format for knowledge. Using this stand
 
 Knowledge graphs are the most flexible way of representing information. Knowledge is highly interconnected across applications and domains, so flexibility is important to ensure that different groups and individuals can independently extend and consume knowledge in an interoperable format. Most apps define their own schemas. Those schemas work for a specific application but getting apps to coordinate on shared schemas is difficult. Once data is produced by an app, custom code has to be written to integrate with each app. Migrations, versioning and interpreting data from different apps becomes even more difficult as schemas evolve. These are some of the reasons that instant composability and interoperability across apps is still a mostly unsolved problem. The original architects of the web understood this and tried to build the semantic web which was called Web 3.0 twenty years ago. Blockchains and decentralized networks give us the tools we need to build open and verifiable information systems. Solving the remaining composability challenges will enable an interoperable web3.
 
-Early efforts like the Semantic Web (Web 3.0) leveraged RDF tiples for sharing knowledge across organizational boundaries. RDF is the W3C standard for triples data. A new standard is necessary for web3 for several reasons: IDs in RDF are URIs which typically point to servers that are controlled by corporations or individuals using https. This breaks the web3 requirement of not having to depend on specific server operators. Additionally, RDF doesn't support the property graph model, which is needed to describe facts about relationships between entities. Some of RDF's concepts are unnecessarily complex which has hindered its adoption beyond academic and niche enterprise settings. For these reasons, a new standard is being proposed that is web3 native, benefits from the latest advancements in graph databases and can be easily picked up by anyone who wants to build the decentralized web.
+Early efforts like the Semantic Web leveraged RDF tiples for sharing knowledge across organizational boundaries. RDF is the W3C standard for triples data. A new standard is necessary for web3 for several reasons: IDs in RDF are URIs which typically point to servers that are controlled by corporations or individuals using https. This breaks the web3 requirement of not having to depend on specific server operators. Additionally, RDF doesn't support the property graph model, which is needed to describe facts about relationships between entities. Some of RDF's concepts are unnecessarily complex which has hindered its adoption beyond academic and niche enterprise settings. For these reasons, a new standard is being proposed that is web3 native, benefits from the latest advancements in graph databases and can be easily picked up by anyone who wants to build the decentralized web.
 
 #### Scope
 
 This specification covers:
 
 * **Core data model:** Entities, Relations, Types, Properties
-* **Native value types:** Text, Number, Checkbox, URL, Time, Point
+* **Native value types:** Text, Number, Checkbox, Time, Point, Relation
 * **Identifier conventions:** UUID guidelines
 * **Serialization & encoding:** Protobuf schemas and JSON examples
 * **Operations & versioning:** Ops, Edits, Imports
@@ -104,7 +104,7 @@ By separating payload storage from onchain anchoring, we minimize gas costs whil
 
 ### 3.5 Cross-Space Interoperability
 
-* Any entity in one space can reference entities in another by including their UUIDs along with optional space IDs in relations.
+* Any entity in one space can reference entities in another by including their IDs along with optional space IDs in relations.
 * This design forms a **global unified graph**, where independent communities can interlink information without centralized coordination.
 
 ## 4. Core Data Model
@@ -139,7 +139,6 @@ message Options {
   oneof value {
     TextOptions   text   = 1;
     NumberOptions number = 2;
-    TimeOptions   time   = 3;
   }
 }
 
@@ -155,21 +154,12 @@ message TextOptions {
 }
 
 message NumberOptions {
-  optional string format = 1;
-  optional bytes unit = 2;
-}
-
-message TimeOptions {
-  optional string format = 1;
-  optional bytes timezone = 2;
-  optional bool has_date = 3;
-  optional bool has_time = 4;
+  optional bytes unit = 1;
 }
 ```
 
 * **TextOptions** (e.g. language entity ID)
-* **NumberOptions** (format string, unit ID)
-* **TimeOptions** (format, timezone, date/time flags)
+* **NumberOptions** (unit ID)
 
 ---
 
@@ -253,7 +243,7 @@ A **Property** is itself an entity that defines an attribute name, its value typ
 | **Value type**   | Relation‹Type› | Entity ID indicating the native value type       |
 | **Unit**         | Relation‹Unit› | Optional unit (e.g., currency)                   |
 | **Format**       | Text           | Optional formatting string (ICU-style)           |
-| **Has language** | Checkbox       | If true, Text values must include a language tag |
+| **Has language** | Checkbox       | Whether this property value is linguistic        |
 
 | Property Type Name | Type | UUID                                   |
 | ------------------ | ---- | -------------------------------------- |
@@ -282,10 +272,9 @@ The GRC-20 standard defines six built-in “native” value types. Each is encod
 | Text     | `9edb6fcc-e454-4aa5-8611-39d7f024c010` | A sequence of Unicode characters                      |
 | Number   | `9b597aae-c31c-46c8-8565-a370da0c2a65` | A decimal numeric value                               |
 | Checkbox | `7aa4792e-eacd-4186-8272-fa7fc18298ac` | A boolean flag (`true` or `false`)                    |
-| URL      | `283127c9-6142-4684-92ed-90b0ebc7f29a` | A URI with protocol identifier (e.g. `https`, `ipfs`) |
 | Time     | `167664f6-68f8-40e1-976b-20bd16ed8d47` | An ISO-8601 timestamp or interval                     |
 | Point    | `df250d17-e364-413d-9779-2ddaae841e34` | One or more comma-separated coordinates               |
-
+| Relation | `4b6d9fc1-fbfe-474c-861c-83398e1b50d9` | One or more comma-separated coordinates               |
 ---
 
 ### 5.1 Text
@@ -394,6 +383,10 @@ A `Point` is a coordinate or vector encoded as comma-separated decimal numbers.
   ```json
   "12.554564, 11.323474"
   ```
+
+### 5.7 Renderable types
+
+In addition to the native types, renderable types are defined at the knowledge layer to describe to clients how to render certain properties. For example URLs are stored as Text datatypes but rendered as URLs.
 
 ## 6. Identifiers
 
@@ -541,7 +534,6 @@ message Value {
   oneof options {
     TextOptions   text_options   = 3;
     NumberOptions number_options = 4;
-    TimeOptions   time_options   = 5;
   }
 }
 
@@ -559,30 +551,52 @@ message Relation {
   optional bool   verified    = 11;
 }
 
+message RelationUpdate {
+  bytes id = 1;
+  optional bytes from_space = 2;
+  optional bytes from_version = 3;
+  optional bytes to_space = 4;
+  optional bytes to_version = 5;
+  optional string position = 6;
+  optional bool verified = 7;
+}
+
+message UnsetRelationFields {
+  bytes id = 1;
+  optional bool from_space = 2;
+  optional bool from_version = 3;
+  optional bool to_space = 4;
+  optional bool to_version = 5;
+  optional bool position = 6;
+  optional bool verified = 7;
+}
+
+enum DataType {
+    TEXT = 0;
+    NUMBER = 1;
+    CHECKBOX = 2;
+    TIME = 3;
+    POINT = 4;
+    RELATION = 5;
+}
 
 message Property {
-  bytes id   = 1;   // property UUID
-  bytes type = 2;   // must equal the Property-type UUID
+    bytes id = 1;   // property UUID
+    DataType data_type = 2;
 }
 
 // --- Operations & Versioning ---
 
-enum OpType {
-  UPDATE_ENTITY       = 1;
-  CREATE_RELATION     = 2;
-  UPDATE_RELATION     = 3;
-  DELETE_RELATION     = 4;
-  UNSET_ENTITY_VALUES = 5;
-  MOVE_ENTITY         = 6;
-  MERGE_ENTITIES      = 7;
-  BRANCH_ENTITY       = 8;
-}
-
 message Op {
-  OpType    type     = 1;
-  Entity    entity   = 2;
-  Relation  relation = 3;
-  Property  property = 4;
+  oneof payload {
+    Entity               update_entity = 1;
+    Relation             create_relation = 2;
+    RelationUpdate       update_relation = 3;
+    bytes                delete_relation = 4;
+    Property             create_property = 5;
+    UnsetEntityValues    unset_entity_values = 6;
+    UnsetRelationFields  unset_relation_fields = 7;
+  }
 }
 
 message Edit {
@@ -1047,7 +1061,6 @@ message Options {
   oneof value {
     TextOptions   text   = 1;
     NumberOptions number = 2;
-    TimeOptions   time   = 3;
   }
 }
 
@@ -1058,13 +1071,6 @@ message TextOptions {
 message NumberOptions {
   optional string format = 1;
   optional bytes unit = 2;
-}
-
-message TimeOptions {
-  optional string format = 1;
-  optional bytes timezone = 2;
-  optional bool has_date = 3;
-  optional bool has_time = 4;
 }
 
 // --- Core Graph Objects ---
@@ -1096,28 +1102,55 @@ message Relation {
 
 message Property {
   bytes id   = 1;   // property UUID4
-  bytes type = 2;   // must equal Property-Type UUID4
-  string name = 3;  // human-friendly property name
+  DataType data_type = 2;
+}
+
+enum DataType {
+    TEXT = 0;
+    NUMBER = 1;
+    CHECKBOX = 2;
+    TIME = 3;
+    POINT = 4;
+    RELATION = 5;
 }
 
 // --- Operations & Versioning ---
 
-enum OpType {
-  UPDATE_ENTITY       = 1;
-  CREATE_RELATION     = 2;
-  UPDATE_RELATION     = 3;
-  DELETE_RELATION     = 4;
-  UNSET_ENTITY_VALUES = 5;
-  MOVE_ENTITY         = 6;
-  MERGE_ENTITIES      = 7;
-  BRANCH_ENTITY       = 8;
+message Op {
+  oneof payload {
+    Entity             update_entity = 1;
+    Relation           create_relation = 2;
+    RelationUpdate     update_relation = 3;
+    bytes              delete_relation = 4;
+    Property           create_property = 5;
+    UnsetEntityValues        unset_entity_values = 6;
+    UnsetRelationFields      unset_relation_fields = 7;
+  }
 }
 
-message Op {
-  OpType   type     = 1;
-  Entity   entity   = 2;
-  Relation relation = 3;
-  Property property = 4;
+message RelationUpdate {
+  bytes id = 1;
+  optional bytes from_space = 2;
+  optional bytes from_version = 3;
+  optional bytes to_space = 4;
+  optional bytes to_version = 5;
+  optional string position = 6;
+  optional bool verified = 7;
+}
+
+message UnsetRelationFields {
+  bytes id = 1;
+  optional bool from_space = 2;
+  optional bool from_version = 3;
+  optional bool to_space = 4;
+  optional bool to_version = 5;
+  optional bool position = 6;
+  optional bool verified = 7;
+}
+
+message UnsetEntityValues {
+  bytes id = 1;
+  repeated bytes properties = 2;
 }
 
 enum ActionType {
