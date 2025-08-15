@@ -1,0 +1,15 @@
+services:
+  dev-gip:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - /opt/configs/graphprotocol/gip.env
+    working_dir: /work
+    user: "vscode"
+    volumes:
+      # Workspace
+      - ../:/work
+
+      # Git repo root
+      - /git:/git
