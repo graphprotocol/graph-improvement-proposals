@@ -1,6 +1,6 @@
 ---
 GIP: "0085"
-Title: Arbitration Charter
+Title: Graph Horizon: Arbitration Charter
 Authors: Tomás Migone <tomas@edgeandnode.com>
 Created: 2025-08-20
 Updated: 2025-08-20
