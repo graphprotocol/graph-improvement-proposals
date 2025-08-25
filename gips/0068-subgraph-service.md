@@ -1,5 +1,5 @@
 ---
-GIP: 0068
+GIP: "0068"
 Title: Subgraph Service - A subgraph data service in Graph Horizon
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-06-02
