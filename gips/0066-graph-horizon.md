@@ -145,19 +145,19 @@ The verification of the evidence and payment collection need to happen through �
 
 Payers are required to individually whitelist collectors since they are delegating the payment verification and collection to them. This necessitates either a high level of trust in the collector or a thorough review of it’s inner workings. We expect just a handful of collectors should be able to cover most use cases for data services reducing the burden on the payer (it’s also worth remembering that “payer” does not refer to the data consumer but the intermediary).
 
-### Graph Tally Collector
+### GraphTally Collector
 
-While the payments protocol allows for an arbitrary number of payment collectors we initially propose implementing a Graph Tally (formerly known as TAP) based collector. This collector should be reusable for any request-response type data service looking to manage payments using a receipt based system. The Graph Tally collector integrates with the existing TAP proposal described in [GIP-0054](https://forum.thegraph.com/t/gip-0054-timeline-aggregation-protocol/4405) with a few minor changes to the voucher definition. A RAV (Receipt Aggregate Voucher, a voucher signed by the payer) in Graph Tally should now contain the following information:
+While the payments protocol allows for an arbitrary number of payment collectors we initially propose implementing a GraphTally (formerly known as TAP) based collector. This collector should be reusable for any request-response type data service looking to manage payments using a receipt based system. The GraphTally collector integrates with the existing TAP proposal described in [GIP-0054](https://forum.thegraph.com/t/gip-0054-timeline-aggregation-protocol/4405) with a few minor changes to the voucher definition. A RAV (Receipt Aggregate Voucher, a voucher signed by the payer) in GraphTally should now contain the following information:
 
 - collectionId - an id used to group RAVs into "collection buckets". This is an optional feature that not all data services might need.
 - the payer - the address of the payer that issued the RAV
 - the service provider - this establishes who is the entity that is owed.
 - the data service - only the data service the RAV was issued to can collect it, this ensures RAVs can not be replayed across data services.
-- a timestamp - indicating the timestamp of the latest Graph Tally receipt in the RAV (see GIP-0054 specification for clarification on receipts vs RAVs).
+- a timestamp - indicating the timestamp of the latest GraphTally receipt in the RAV (see GIP-0054 specification for clarification on receipts vs RAVs).
 - the value aggregate - the total amount owed to the service provider since the beginning of the payer-service provider relationship, *including* all debt that is already paid for.
 - a metadata field - allows adding arbitrary data to a RAV to extend functionality if a data service requires it.
 
-It’s worth clarifying the value aggregate in a RAV should not be reset each time a collection happens, it’s a monotonically increasing value. The Graph Tally collector will keep track of all the payments that were already made to a service provider and compare to the RAV value aggregate to calculate the actual amount to be paid.
+It’s worth clarifying the value aggregate in a RAV should not be reset each time a collection happens, it’s a monotonically increasing value. The GraphTally collector will keep track of all the payments that were already made to a service provider and compare to the RAV value aggregate to calculate the actual amount to be paid.
 
 ## The role of governance
 
