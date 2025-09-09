@@ -83,7 +83,7 @@ A key change introduced by the Subgraph Service is that any form of payment that
 
 **Query Fees**
 
-Once queries start flowing the indexer starts generating query fees. The Subgraph Service uses Graph Horizon’s payment protocol, in particular the Graph Tally Collector, to process query fee payments. This ensures interactions between Indexers and payers (gateways) are trust-minimized, which is essential to preserving the decentralized nature of the protocol in the long term. Indexers receive Graph Tally vouchers (RAVs) from a gateway and present them on the Subgraph Service to collect payment. The collected payment is then distributed to the following parties, essentially in the same way as in the current protocol:
+Once queries start flowing the indexer starts generating query fees. The Subgraph Service uses Graph Horizon’s payment protocol, in particular the GraphTally Collector, to process query fee payments. This ensures interactions between Indexers and payers (gateways) are trust-minimized, which is essential to preserving the decentralized nature of the protocol in the long term. Indexers receive GraphTally vouchers (RAVs) from a gateway and present them on the Subgraph Service to collect payment. The collected payment is then distributed to the following parties, essentially in the same way as in the current protocol:
 
 - Protocol tax: a small percentage is burnt by Graph Horizon’s payment protocol (1% as in the current protocol).
 - Delegator cut: delegators receive a share of the query fees for providing stake to the indexer. This is set by the indexer.

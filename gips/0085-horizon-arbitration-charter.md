@@ -128,7 +128,13 @@ Incorrect Proofs of Indexing or query Attestations may be produced due to softwa
 
 The Arbitrator is encouraged to resolve disputes as a Draw if they believe an incorrect POI or Attestation to be the result of a determinism bug.
 
-## 9. Double Jeopardy
+## 9. Data Edge & Epoch Block Oracle malfunction
+
+The Data Edge contract and the Epoch Block Oracle components are the source of truth for determining epoch block numbers across the networks supported by the protocol.
+
+In a dispute, if the discrepancy is found to be the result of a bug or malfunction in the Data Edge or the Epoch Block Oracle, then the Arbitrator should settle the dispute as a Draw.
+
+## 10a. Double Jeopardy
 
 Indexers should only be slashed once for a given indexing or query fault. Any duplicate disputes for the same disputable element must be settled as a Draw. In the event that multiple Fishermen raise simultaneous disputes for the same disputable elements, only the first Fisherman to log a dispute will be considered. The remaining disputes will be settled as a Draw.
 
@@ -139,30 +145,7 @@ A disputable element is:
 
 In the event a dispute is raised where the block number specified by the Fisherman does not include the associated POI submission the recommendation is to resolve the dispute as a Draw.
 
-## 10. Statute of Limitations
-
-Indexers should not be slashed for faults that occurred more than two thawing periods prior unless two thawing periods is less than seven (7) days. For example, if the thawing period is set to 28 epochs, then an Indexer should not be slashed for any fault that occurred more than 56 epochs prior. Note that for the **Subgraph Service** the thawing period is defined as equal to the `disputePeriod` global variable in the `DisputeManager` contract. The Arbitrator must decide any such dispute that is outside this statute of limitations as a Draw.
-
-If a POI or query attestation discrepancy is raised for dispute, leveraging historical Indexer activity beyond the statute of limitation to assist in making a determination by the arbitration council is still acceptable.
-
-## 11. Data Availability
-
-In order for an Arbitrator to settle a dispute correctly, they must have access to the following data, which is not stored on-chain:
-
-- The subgraph manifest, schema and mappings.
-- The query body (for query disputes).
-
-If the Arbitrator cannot access any of this data via the IPFS network, then they must resolve the dispute as a Draw.
-
-## 12. Indexing data integrity
-
-The Graph Node software indexes data from blockchain inputs. If the input data is inaccurate, the resulting subgraph and any derived POI will also be incorrect. Depending on the subgraph code, indexing bad data may even cause subgraph failures which could be misinterpreted as determinism bugs. Upholding the quality of the data is essential for the network's overall health and reliability. Indexers are responsible for ensuring the integrity and chain of custody of the data they serve, which includes sourcing blockchain data from reputable sources.
-
-The Arbitrator is encouraged to resolve disputes as a Draw if they believe an incorrect POI to be the result of a blockchain client malfunction (RPC/firehose).
-
-However, upon a discrepancy being noticed the Indexer should take reasonable measures to rectify the issue or submit a zero POI for any subsequent allocations. Note that the Indexer must be notified by the Arbitrator by posting in the forum; the Indexer will then be given a seven (7) day period to work with the Arbitrator and the community on addressing the problem after which any new disputes against a non zero POI can be resolved at the discretion of the Arbitrator.
-
-## 13. Maximum allowable slashing for query disputes
+## 10b. Maximum allowable slashing for query disputes
 
 Indexers should only be slashed for a maximum of once per epoch per allocation.
 
@@ -172,15 +155,46 @@ Any dispute that would result in an Indexer being slashed in excess of this numb
 
 Multiple slashes should only take place in exceedingly exceptional circumstances where malicious intent or serious risk to the network is determined beyond a reasonable doubt.
 
+## 11. Statute of Limitations
+
+Indexers should not be slashed for faults that occurred more than two thawing periods prior unless two thawing periods is less than seven (7) days. For example, if the thawing period is set to 28 epochs, then an Indexer should not be slashed for any fault that occurred more than 56 epochs prior. Note that for the **Subgraph Service** the thawing period is defined as equal to the `disputePeriod` global variable in the `DisputeManager` contract. The Arbitrator must decide any such dispute that is outside this statute of limitations as a Draw.
+
+If a POI or query attestation discrepancy is raised for dispute, leveraging historical Indexer activity beyond the statute of limitation to assist in making a determination by the arbitration council is still acceptable.
+
+## 12. Data Availability
+
+In order for an Arbitrator to settle a dispute correctly, they must have access to the following data, which is not stored on-chain:
+
+- The subgraph manifest, schema and mappings.
+- The query body (for query disputes).
+
+If the Arbitrator cannot access any of this data, then they must resolve the dispute as a Draw.
+
+## 13. Indexing data integrity
+
+The Graph Node software indexes data from blockchain inputs. If the input data is inaccurate, the resulting subgraph and any derived POI will also be incorrect. Depending on the subgraph code, indexing bad data may even cause subgraph failures which could be misinterpreted as determinism bugs. Upholding the quality of the data is essential for the network's overall health and reliability. Indexers are responsible for ensuring the integrity and chain of custody of the data they serve, which includes sourcing blockchain data from reputable sources.
+
+The Arbitrator is encouraged to resolve disputes as a Draw if they believe an incorrect POI to be the result of a blockchain client malfunction (RPC/firehose).
+
+However, upon a discrepancy being noticed the Indexer should take reasonable measures to rectify the issue or submit a zero POI for any subsequent allocations. Note that the Indexer must be notified by the Arbitrator by posting in the forum; the Indexer will then be given a seven (7) day period to work with the Arbitrator and the community on addressing the problem after which any new disputes against a non zero POI can be resolved at the discretion of the Arbitrator.
+
 ## 14a. Valid Proofs of Indexing for a given epoch
 
 When closing an allocation during an epoch, an Indexer must submit a valid POI as of the first block of that epoch. In a dispute, if a POI is invalid for the epoch in which the allocation was closed, but valid as of the first block of the preceding epoch, then the Arbitrator should settle the dispute as a Draw.
 
-If the Indexer is unable to produce a valid POI for whatever reason, then they must close the allocation with a so-called "zero POI," which is a POI comprising all zeros. For example, if a subgraph has a bug that prevents indexing up until the current epoch, then a zero POI should be submitted and indexing rewards must not be collected for that subgraph. An exception to this rule is if the allocation being closed was opened before the subgraph bug occurred. In this case, the Indexer may submit the last valid POI they produced for the subgraph and collect indexing rewards for the allocation.
+If the Indexer is unable to produce a valid POI for whatever reason, then they must close the allocation with a so-called "zero POI," which is a POI comprising all zeros. 
 
 ## 14b. Matching POIs
 
-When posting a POI to the **Subgraph Service** Indexers are required to post both the calculated POI (raw POI hashed with their address) plus the public POI (raw POI hashed with zero address). It’s expected that both POI “match”, that is that they were both generated from the same base raw POI. This can be easily verified by any other entity indexing the related subgraph. In case there is a POI mismatch, an indexing dispute can be created against the Indexer, the recommendation is to accept the dispute and slash the Indexer. 
+When posting a POI to the **Subgraph Service** Indexers are required to post both the calculated POI (raw POI hashed with their address) plus the public POI (raw POI hashed with zero address). It’s expected that both POI “match”, that is that they were both generated from the same base raw POI. This can be easily verified by any other entity indexing the related subgraph. In case there is a POI mismatch, an indexing dispute can be created against the Indexer, the recommendation is to accept the dispute and slash the Indexer.
+
+## 14c. Subgraph indexing errors
+
+If a subgraph encounters an error that prevents it from being synced up to a the first block of the epoch, then an Indexer should submit the last valid PoI for the block before the error occured. Indexers may continue to collect indexing rewards on a broken subgraph until the market indicates it is no longer useful to index that subgraph and removes all signal from the subgraph.
+
+## 14d. Grafting parent indexing errors
+
+If a subgraph fails to index due to an error in the grafting parent any POI submitted for the subgraph deployment will be accepted as valid. Any disputes in these cases should be settled as a Draw.
 
 ## 15. Subgraph API and Indexer software versioning
 
