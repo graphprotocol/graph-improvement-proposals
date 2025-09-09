@@ -145,9 +145,13 @@ The verification of the evidence and payment collection need to happen through �
 
 Payers are required to individually whitelist collectors since they are delegating the payment verification and collection to them. This necessitates either a high level of trust in the collector or a thorough review of it’s inner workings. We expect just a handful of collectors should be able to cover most use cases for data services reducing the burden on the payer (it’s also worth remembering that “payer” does not refer to the data consumer but the intermediary).
 
+While the payments protocol allows for an arbitrary number of payment collectors we initially propose implementing a GraphTally (formerly known as TAP) based collector. This collector should be reusable for any request-response type data service looking to manage payments using a receipt based system. In the future new collectors can be developed to meet different needs that data services might have. For example for streaming-based flows, a collector based on DIPs might be more suitable. 
+
+As of posting this GIP, only the GraphTally collector will be available. Data service developers are advised to check out future GIPs for additional payment solutions as they are introduced. 
+
 ### GraphTally Collector
 
-While the payments protocol allows for an arbitrary number of payment collectors we initially propose implementing a GraphTally (formerly known as TAP) based collector. This collector should be reusable for any request-response type data service looking to manage payments using a receipt based system. The GraphTally collector integrates with the existing TAP proposal described in [GIP-0054](https://forum.thegraph.com/t/gip-0054-timeline-aggregation-protocol/4405) with a few minor changes to the voucher definition. A RAV (Receipt Aggregate Voucher, a voucher signed by the payer) in GraphTally should now contain the following information:
+ The GraphTally collector integrates with the existing TAP proposal described in [GIP-0054](https://forum.thegraph.com/t/gip-0054-timeline-aggregation-protocol/4405) with a few minor changes to the voucher definition. A RAV (Receipt Aggregate Voucher, a voucher signed by the payer) in GraphTally should now contain the following information:
 
 - collectionId - an id used to group RAVs into "collection buckets". This is an optional feature that not all data services might need.
 - the payer - the address of the payer that issued the RAV
