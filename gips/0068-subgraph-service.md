@@ -1,11 +1,11 @@
 ---
-GIP: 0068
+GIP: "0068"
 Title: Subgraph Service - A subgraph data service in Graph Horizon
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-06-02
-Updated: 2024-08-16
+Updated: 2025-03-06
 Stage: Candidate
-Discussions-To: https://forum.thegraph.com/t/<xxxx>
+Discussions-To: https://forum.thegraph.com/t/gip-0068-subgraph-service-a-subgraph-data-service-in-graph-horizon/5990
 Category: Protocol Logic, Protocol Interfaces, Economic Parameters
 Depends-On: GIP-0066
 Implementations: https://github.com/graphprotocol/contracts/pull/944
@@ -28,7 +28,7 @@ The design of the Subgraph Service is based on the original implementation of su
 
 The main purpose of the Subgraph Service contract is to allow indexers to collect payment for the service they provide which is indexing subgraphs and serving subgraph queries. In order to do so indexers need to provide stake as collateral in the form of a Graph Horizon provision; funds in this provision are subject to being slashed by a dispute mechanism in the event the work they provided is found to be incorrect or fraudulent. A quick note on terminology, the term “indexer” has historically been used to refer to the entity providing subgraph indexing services. In the context of the Subgraph Service this term is used interchangeably with “service provider” which is the generic term used by Graph Horizon.
 
-The Subgraph Service’s main purpose is to facilitate on chain coordination of subgraph indexing and serving operations in accordance with the flows described by the Data Service framework. These can be summarized as:
+The Subgraph Service’s main purpose is to facilitate on chain coordination of subgraph indexing and query serving operations in accordance with the flows described by the Data Service framework. These can be summarized as:
 
 - Allow indexers to register in the Subgraph Service as service providers
 - Allow indexers to signal their intent of starting (or stopping) indexing a subgraph
@@ -52,7 +52,7 @@ The following are the requirements for the provision:
 
 ### Indexing a subgraph
 
-Next, an indexer would want to signal the network they are indexing a subgraph. For that they need to “allocate” a portion of their available stake to the subgraph the intend to index (thawing stake does not count as available). The allocated amount is used to calculate indexing rewards. However, same as with the current version of the protocol, the entire provisioned stake will act as economic security for the indexing work (it will be slashable).
+Next, an indexer would want to signal the network they are indexing a subgraph. For that they need to “allocate” a portion of their available stake to the subgraph they intend to index (thawing stake does not count as available). The allocated amount is used to calculate indexing rewards. However, same as with the current version of the protocol, the entire provisioned stake will act as economic security for the indexing work (it will be slashable).
 
 **Allocation management**
 
@@ -83,7 +83,7 @@ A key change introduced by the Subgraph Service is that any form of payment that
 
 **Query Fees**
 
-Once queries start flowing the indexer starts generating query fees. The Subgraph Service uses Graph Horizon’s payment protocol, in particular the TAP Collector, to process query fee payments. This ensures interactions between Indexers and payers (gateways) are trust-minimized, which is essential to preserving the decentralized nature of the protocol in the long term. Indexers receive TAP vouchers (RAVs) from a gateway and present them on the Subgraph Service to collect payment. The collected payment is then distributed to the following parties, essentially in the same way as in the current protocol:
+Once queries start flowing the indexer starts generating query fees. The Subgraph Service uses Graph Horizon’s payment protocol, in particular the GraphTally Collector, to process query fee payments. This ensures interactions between Indexers and payers (gateways) are trust-minimized, which is essential to preserving the decentralized nature of the protocol in the long term. Indexers receive GraphTally vouchers (RAVs) from a gateway and present them on the Subgraph Service to collect payment. The collected payment is then distributed to the following parties, essentially in the same way as in the current protocol:
 
 - Protocol tax: a small percentage is burnt by Graph Horizon’s payment protocol (1% as in the current protocol).
 - Delegator cut: delegators receive a share of the query fees for providing stake to the indexer. This is set by the indexer.
@@ -95,8 +95,8 @@ Note that there is no rebate mechanism in the query fee collection process. Inst
 - Locked stake cannot be used for further query fee collection until released thus ensuring at all times that there is stake backing every collection. A corollary of this is that the amount of available tokens in the provision dictate how much the indexer can collect.
 - Stake claims have a duration equal to the Subgraph Service’s dispute resolution window to allow enough time for disputes to be raised and settled before the indexer can remove stake from the protocol. This is designed so that if an indexer collects fees and starts thawing at the same time, the funds are guaranteed to be available for slashing for the time the claim is locked. As a reminder the Subgraph Service requires the thawing period on its provisions to be equal to the dispute resolution window.
 - The amount of stake that gets locked for a given amount of fees being collected is determined by the “stake-to-fees” ratio, a parameter which can be set by governance. For example, collecting 10 GRT with a stake-to-fees ratio of 5 will result in 50 GRT being locked. The higher the ratio the higher the economic security behind the query is as locked stake risks being slashed. However the maximum stake-to-fees ratio is limited by the locked stake cost of capital and the length of the dispute period:
-    - This limitation is quite aggressive. e.g. with a dispute period of 14 days and assuming a ~1% monthly cost of capital (~12% annual), the maximum stake to fees ratio is 200 (see Appendix A), and this means the fees are just enough to cover the cost of capital - so in practice, a realistic max stake-to-fees ratio should be lower, e.g. 100.
-    - We propose setting an initial value based on the current total stake and delegation, and the amount of indexing rewards that are distributed, which would produce an approximate value of 188 (see Appendix B). More economic research could allow proposing a different value in future GIPs.
+    - This limitation is quite aggressive. e.g. with a dispute period of 28 days and assuming a ~1% monthly cost of capital (~12% annual), the maximum stake to fees ratio is 100 (see Appendix A), and this means the fees are just enough to cover the cost of capital - so in practice, a realistic max stake-to-fees ratio should be lower, e.g. 50.
+    - We propose setting an initial value based on the current total stake and delegation, and the amount of indexing rewards that are distributed, which would produce an approximate value of 81 (see Appendix B). More economic research could allow proposing a different value in future GIPs.
 - Whenever query fees are collected, previously expired stake claims will be automatically released.
 
 ### Provisioned stake usage
@@ -132,11 +132,11 @@ The main change introduced by the new Dispute Manager is how the slashed amount 
 
 It’s not easy however to find a solution that works for all cases. If we take query fees for example, we could use the stake-to-fees ratio to determine the slash amount (i.e. slash the entire stake claim), but this produces a very bad economic security, as for example slashing 0.1 GRT for a 0.01 GRT query is likely a very lousy deterrent for an attacker that is profiting from giving bad data. A multiplier could be added on top but that would require fine tuning the parameter and it’s likely a dynamic/variable multiplier would give much better and more fair results. 
 
-We propose letting arbitrators decide what the slash amount is when accepting a dispute. The Arbitration Charter will recommend using a fixed percentage of the indexer’s stake at the moment of the dispute creation as a starting point (we propose 2.5% of total stake, including delegated stake), but arbitrators will have the flexibility to adjust this amount based on the context of the dispute. The only limitation enforced by the contracts is that the amount slashed must be within the bounds of the provisioned stake. Arbitrators are well versed in the protocol’s inner workings and are able to gather and understand context to make an informed and fair decision.
+We propose letting arbitrators decide what the slash amount is when accepting a dispute. The Arbitration Charter will recommend using a fixed percentage of the indexer’s stake at the moment of the dispute creation as a starting point (we propose 2.5% of total stake, including delegated stake), but arbitrators will have the flexibility to adjust this amount based on the dispute. Arbitrators are well versed in the protocol’s inner workings and are able to gather and understand context to make an informed and fair decision. As a safeguard the contract will enforce a maximum slashing cut, defined as a percentage of the provisioned stake (we propose setting it to 10%).
 
 # Detailed specification
 
-A full specification for the Subgraph Service contracts can be found here: [Subgraph Service technical specification](https://edgeandnode.notion.site/Subgraph-Service-technical-specification-v1-0-WIP-fae5361e50bd4d8fa27684ba703062dd?pvs=25)
+A full specification for the Subgraph Service contracts can be found here: [Subgraph Service technical specification](https://edgeandnode.notion.site/Subgraph-Service-technical-specification-v1-1-1288686fc7c28006a978ce2758bb2cd8)
 
 It's worth noting this specification is a living document containing implementation details that can slightly change during the course of the development and auditing cycles. Once a finalized version is available it will be added to this GIP.
 
@@ -150,13 +150,13 @@ Allocations are originally managed on the staking contract. As described by GIP-
 
 **Legacy allocations migration**
 
-Allocations in the protocol are unique, they represent a stake commitment from an indexer on a given subgraph at a given time. With the introduction of the Subgraph Service the allocation space becomes fragmented: legacy allocations will exist in the staking contract, and new allocations on the Subgraph Service. Re-using legacy allocation ids on the Subgraph Service might lead to unexpected behavior on offchain components. To prevent this from happening the Subgraph Service will allow a governance role to import a list of allocation ids which will be checked whenever a new allocation is created. 
+Allocations in the protocol are unique, they represent a stake commitment from an indexer on a given subgraph at a given time. With the introduction of the Subgraph Service the allocation space becomes fragmented: legacy allocations will exist in the staking contract, and new allocations on the Subgraph Service. Re-using legacy allocation ids on the Subgraph Service might lead to unexpected behavior on offchain components. To prevent this from happening the Subgraph Service will allow a governance role to import a list of allocation ids which will be checked whenever a new allocation is created. This bulk import will be performed after the transition period ends to ensure all legacy allocation ids are migrated. In the meantime, the Subgraph Service will check for id collisions in both it's internal and the staking contract's storage.
 
 **Service Registry and Dispute Manager deprecation**
 
 As stated before, the Subgraph Service includes an internal registry which previously was a separate contract. This registry contains the information necessary for offchain components to find indexers in the network (most notably a URL). The Service Registry contract will be deprecated at the end of the transition period, it should act as the source of truth for this information until that time or until an indexer registers in the Subgraph Service, whichever happens first. It’s worth noting that there are ongoing efforts to create a service registry that can be used by any data service. This will be described in detail in another GIP.
 
-The old Dispute Manager in turn can also be deprecated once it’s no longer needed. Allocations can be closed right up until the transition period ends, so it makes sense to hold the deprecation until after the statute of limitations period passes (which means 56 epochs after the transition period).
+The old Dispute Manager in turn can also be deprecated once it’s no longer needed. Legacy allocations can be closed right up until the transition period ends and we need to be able to slash those, so it makes sense to hold the deprecation until after the statute of limitations period passes (which means 56 epochs after the transition period).
 
 **Curation**
 
@@ -204,7 +204,7 @@ $$
 ROI \geq CoC \Rightarrow\frac{1}{R} \geq r \Rightarrow \frac{1}{r} \geq R
 $$
 
-If we take $T=14 days$ and assume a 1% monthly cost of capital (~12% annual), then $r=0.05$ and $R<=200$.
+If we take $T=28 days$ and assume a 1% cost of capital for that period (~13.8% annual), then $r=0.01$ and $R<=100$.
 
 ### Appendix B: Current protocol estimation
 
@@ -221,8 +221,8 @@ $$
 ROI  = \frac{1}{R} \Rightarrow R=\frac{S}{I_R}
 $$
 
-Solving for current values, $S= 2492134415.56$ (roughly 0.7B GRT from indexers plus 1.8B GRT from delegators) and $I_R= 13219971.0579$ (approximately 317M GRT issued yearly):
+Solving for current values, $S= 2144776079.61$ (roughly 0.55B GRT from indexers plus 1.6B GRT from delegators) and $I_R= 26439942.11$ (approximately 317M GRT issued yearly):
 
 $$
-R=\frac{S}{I_R}=\frac{2492134415.56}{13219971.0579}=188.51
+R=\frac{S}{I_R}=\frac{2144776079.61}{26439942.11}=81.12
 $$
