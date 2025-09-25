@@ -1,0 +1,41 @@
+{
+  "name": "GIP",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "dev-gip",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "configureGitHubCLI": true,
+      "gitCredentialHelper": "cache"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2.5.3": {}
+  },
+  "postCreateCommand": ".devcontainer/project-setup.sh",
+  "remoteUser": "vscode",
+  "workspaceFolder": "/work",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.cwd": "/work"
+      },
+      "extensions": [
+        "tamasfe.even-better-toml",
+        "usernamehw.errorlens",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "shd101wyy.markdown-preview-enhanced",
+        "bierner.markdown-preview-github-styles",
+        "Gruntfuggly.todo-tree",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "fill-labs.dependi",
+        "streetsidesoftware.code-spell-checker",
+        "Augment.vscode-augment",
+        "foundry-rs.foundry-vscode",
+        "BlueGlassBlock.better-json5"
+      ]
+    }
+  }
+}
