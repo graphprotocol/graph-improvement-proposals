@@ -1,11 +1,11 @@
 ---
 GIP: "0080"
 Title: Optimistic EBO
-Authors: "mono <0xmono@defi.sucks>", "shaito <shaito@defi.sucks>"
+Authors: "mono 0xmono@defi.sucks", "shaito shaito@defi.sucks"
 Created: 2024-10-23
-Updated: 2024-10-23
+Updated: 2025-10-17
 Stage: Draft
-Discussions-To: 
+Discussions-To:
 ---
 
 # **Abstract**
@@ -58,12 +58,13 @@ The current system is run by a single Operator, which is the largest trust assum
 
 The goal of this solution is to decentralize the EBO while keeping the structure open for future modifications.
 
-Key improvements:
+**Key improvements:**
 
-- **Optimistic operators**: Implementing an optimistic oracle will allow EBO operations to be open and permissionless, improving decentralization, redundancy, and scalability.
-- **Timestamp comparison**: Instead of querying each RPC when detecting a new epoch, a delay is introduced to compare timestamps, reducing time sensitivity and improving the precision of fork selection.
-- **Escalating bond mechanism**: The modularity of the optimistic oracle allows for an escalating bond dispute system, reducing Arbitrator intervention and enabling lower initial stakes without compromising security.
-    - The Arbitrator multisig will act as the ultimate source of truth in the case of disputes in this initial phase, with potential future improvements.
+- **Optimistic operators:** Adopting an open and permissionless model will improve decentralization, redundancy, and scalability
+- **Timestamp comparison:** Instead of querying each RPC when detecting a new epoch, a delay is introduced to compare timestamps, reducing time sensitivity and improving the precision of fork selection
+- **Escalating bond mechanism:** An escalating bond dispute system is introduced to reduce Arbitrator intervention and enable lower initial stakes without compromising security
+- **Secure Source of Truth:** The Council-owned multisig is kept as the source of truth for dispute resolution, ensuring security in the initial phase while allowing for future upgrades
+
 
 ### Optimistic Design
 
@@ -71,20 +72,22 @@ Key improvements:
 
 ### **Optimistic operators**
 
-The optimistic approach allows off-chain agents to propose updates to the Optimistic EBO, which other participants can dispute by staking tokens or using alternative resolution mechanisms to align incentives and ensure accuracy.
+The optimistic approach allows off-chain agents to propose updates to the Optimistic EBO. Other participants can dispute these updates, which triggers an escalation period during which votes can be cast for or against the dispute. If a maximum number of escalations is reached, the dispute is resolved by an arbitrator appointed by The Graph's Council.
 
-For this, we will use [Prophet](https://github.com/defi-wonderland/prophet-modules/tree/dev), an optimistic, modular, and public-good oracle that abstracts the complexity of the proposal and dispute process while offering the flexibility to customize its functionality as needed. For more details see [Prophet documentation](https://docs.prophet.tech/content/modules/).
+The process works as follows:
 
-The process would work as follows: 
+- Any bonded actor can submit a proposal, which remains open for disputes for a set period. If no disputes are raised within that window, the proposal can be finalized
+- If a bonded actor believes the proposal is incorrect, they can start a dispute, which automatically discards the original proposal. Disputers are incentivized to submit a corrected proposal
+- Once a dispute starts, bonded actors can vote `for` or `against` it by pledging their support. The winning side is determined by having more votes, surpassing the opposing side by a configurable margin. Each vote resets the voting time window
+- In the event of a dispute, the resolution mechanism is triggered. The winning side's voters are rewarded with the bonds from the losing side. If both sides reach the maximum number of escalations, the dispute is escalated to an arbitrator
+- Once the dispute is resolved, the valid proposal is finalized
 
-- Any staked actor can propose an update for the EBO, which is published in a contract and remains open for a set period to allow for potential disputes.
-- Any staked actor can also challenge the proposed update. If a dispute arises, the initial proposal is discarded, and a new one can be submitted.
-- If a dispute occurs, the resolution mechanism is triggered, and the winner of the dispute will receive the counterparty’s bond as a reward.
-- If no disputes are raised within the designated time window, or if the dispute is resolved in favor of the proposer, the update is considered valid.
+<aside>
+📌
 
 Operators can update the block number of one chain at a time, allowing for ongoing disputes and resolutions for each updated chain. This improves the system's scalability.
 
-The detailed Specification section will provide further details on how contracts and off-chain agents interact.
+</aside>
 
 ### Timestamp Comparison
 
@@ -113,6 +116,13 @@ The “overtake” mechanism improves resolution time and reduces Arbitrator cal
 
 ![EBO Dispute Escalation.png](../assets/gip-0080/Optimistic-EBO-Dispute-Escalation.png)
 
+<aside>
+📌
+
+The escalating bond mechanism functions similarly to the justice system's appeal process, with the Council taking on the role of the Supreme Court.
+
+</aside>
+
 **Source of Truth**
 
 If the escalating bond mechanism cannot resolve a dispute, the Arbitrator will be the final instance and ultimate source of truth, though this could change in the future.
@@ -128,71 +138,420 @@ There are other possible sources of truth for the protocol to verify the timesta
 > Using an Arbitrator (a Council of qualified individuals selected by the governance) is the simplest way to launch the system at this early stage and manage all the chains with a single resolution mechanism. This approach allows for greater decentralization in the future, as the source of truth can be easily migrated.
 > 
 
+<aside>
+📌
+
+Using an Arbitrator (a Council of qualified individuals selected by the governance) is the simplest way to launch the system at this early stage and manage all the chains with a single resolution mechanism. This approach allows for greater decentralization in the future, as the source of truth can be easily migrated.
+
+</aside>
+
 **Some considerations**:
 
 - Implementing multiple resolution systems by chain or type (rollups, L1s, etc) adds complexity.
 - The Council should upgrade the system to accommodate future improvements.
 - Disputes should be managed per-chain to prevent a single dispute from impacting the entire system.
 
-## **Economic Security considerations**
+**Some considerations**:
 
-We recognize that economic security in The Graph presents complex challenges, which various teams are researching. The ideas discussed here are preliminary and may adapt to future protocol developments.
+- Implementing multiple resolution systems by chain or type (rollups, L1s, etc) adds complexity.
+- The Council should upgrade the system to accommodate future improvements.
+- Disputes should be managed per-chain to prevent a single dispute from impacting the entire system.
 
-### Parameters
+# **Detailed Specification and Parameters**
 
-We suggest the following parameter values for the Escalation Bond system:
+## **Contract Architecture**
 
-- **Bond threshold**: The amount of stake that triggers a call to the Arbitrator (virtual bond in the escalation system), set at 100K GRT.
-- **Round**: The maximum number of rounds a dispute can escalate, set at 5.
-- **Min Bond**: Minimum amount required for five rounds of escalations to reach the Bond threshold, set at 11111 GRT.
-- **Dispute Window**: The maximum time a proposer has to respond to a dispute, set at 30 minutes.
+```mermaid
+classDiagram
+    %% Interfaces
+    class IEBOStorage {
+        <<interface>>
+        enums
+        structs
+        views()
+    }
+    class EBOStorage {
+        <<abstract>>
+        storage layout
+    }
+    IEBOStorage <|-- EBOStorage
 
-**The Arbitrator has the authority to modify these parameters.**
+    class IAccessManager {
+        <<interface>>
+        errors
+    }
+    IAccessManager <|-- AccessManager
 
-# **Detailed Specification**
+    class IBondManager {
+        <<interface>>
+        errors
+    }
+    class AccessManager {
+        <<abstract>>
+        modifier onlyOperator()
+        modifier onlyArbitrator()
+        modifier onlyCouncil()
+        modifier onlyPendingCouncil()
+    }
+    class BondManager {
+        <<abstract>>
+        _bond()
+        _unbond()
+    }
+    IBondManager <|-- BondManager
 
-## Prophet modules
+    class IResolutionManager {
+        <<interface>>
+        structs
+        events
+    }
+    class ResolutionManager {
+        <<abstract>>
+        _resolve()
+        _disputeWindowHasPassed()
+    }
+    IResolutionManager <|-- ResolutionManager
 
-Interaction with Prophet requires the following modules that we will use/build to support the EBO:
+    class IEBOConfig {
+        <<interface>>
+        events
+        errors
+        setArbitrator()
+        setPendingCouncil()
+        confirmCouncil()
+        setGRT()
+        setHorizonStaking()
+        setEpochManager()
+        addChainIds()
+        removeChainIds()
+        setParameters()
+     }
+    class EBOConfig {
+        <<abstract>>
+        method implementations
+    }
+    IEBOConfig <|-- EBOConfig
 
-- **RequestModule**: Used to request data in prophet. We will build the EBORequestModule which will allow users to create epoch-block requests to the oracle with the needed data for it. Compatible with partial requests (a subset of all the chains) and will contain the epoch number and the chain to fetch for that epoch.
-- **ResponseModule**: Used by data providers to answer requests.
-- **DisputeModule**: Provides the framework to automatically solve disputes before going into the resolution module. The [BondEscalationModule](https://github.com/defi-wonderland/prophet-modules/blob/dev/solidity/contracts/modules/dispute/BondEscalationModule.sol) manages disputes by allowing users to bond tokens to vote for the user that is telling the truth.
-- **ResolutionModule**: Used as the last resort to solve disputes and the ultimate source of truth. In our case we will be using the [ArbitratorModule](https://github.com/defi-wonderland/prophet-modules/blob/dev/solidity/contracts/modules/resolution/ArbitratorModule.sol) (Council) with a custom periphery contract so that the Arbitrator can resolve escalated disputes.
-- **FinalityModule**: Executes code when a request is fully finished. We will be forking the [CallbackModule](https://github.com/defi-wonderland/prophet-modules/blob/dev/solidity/contracts/modules/finality/CallbackModule.sol) to add the events and functions necessary to be able to index it into the subgraph. This new FinalityModule will behave like the previous DataEdge contract. It will receive finalized requests for each chainId-block and emit events for them for the subgraph to index. Gated functions will also be included to allow the Arbitrator to amend any errors or publish data needed in case of emergency.
-- **AccountingExtension**: Provides an interface to bond the user's tokens. We will support bonding in the Horizon Staking smart contract that is being developed by The Graph. We will be using and modifying the [BondEscalationAccounting](https://github.com/defi-wonderland/prophet-modules/blob/dev/solidity/contracts/extensions/BondEscalationAccounting.sol) module for this because it integrates fully with the BondEscalationModule on disputes.
+    class IEBOPledge {
+        <<interface>>
+        events
+        errors
+        claimPledgeReward()
+        pledgeForDispute()
+        pledgeAgainstDispute()
+    }
+    IEBOPledge <|-- EBOPledge
 
-### **Subgraph**
+    class IEBOCore {
+        <<interface>>
+        events
+        errors
+        propose()
+        dispute()
+        resolve()
+        resolve()
+        finalize()
+        amendEpochBlock()
+    }
+    class EBOPledge {
+        <<abstract>>
+        method implementations
+    }
+    IEBOCore <|-- EBOCore
 
-- The EBO subgraph will contain the indexed data generated by the FinalityModule. It will register new data published from prophet and also amendments pushed by the Council.
+    class IEBO {
+        <<interface>>
+        structs
+        initialize()
+    }
+    class EBOCore {
+        <<abstract>>
+        method implementations
+    }
+    class EBO {
+        <<implementation>>
+        entry point
+    }
+    IEBO <|-- EBO
 
-### **Periphery**
+    %% Storage hierarchy
+    EBOStorage <|-- AccessManager
+    EBOStorage <|-- BondManager
+    EBOStorage <|-- ResolutionManager
 
-- **EBORequestCreator**: Will simplify and validate the creation of requests and also allow adding future rewards to data providers. Also, it checks that the requested epoch hasn’t been requested before and has already started. The EBORequestCreator will also include the accepted chains. The Arbitrator will have the ability to add or remove them.
-- **CouncilArbitrator**: Will be called by the Arbitrator with the result of a dispute to solve it so that it can be closed.
+    %% BondManager hierarchy
+    BondManager <|-- ResolutionManager
+
+    %% Access management relationships
+    AccessManager <|-- EBOConfig
+    AccessManager <|-- EBOPledge
+    AccessManager <|-- EBOCore
+
+    %% Resolution management relationships
+    ResolutionManager <|-- EBOPledge
+    ResolutionManager <|-- EBOCore
+
+    %% Interface relationships with IEBO
+    IEBOConfig <|-- IEBO
+    IEBOPledge <|-- IEBO
+    IEBOCore <|-- IEBO
+
+    %% Final implementation in EBO
+    EBOCore <|-- EBO
+    EBOPledge <|-- EBO
+    EBOConfig <|-- EBO
+    IEBO <|-- EBO
+    class UUPSUpgradeable {
+      <<abstract>>
+      proxy
+    }
+    UUPSUpgradeable <|-- EBO
+    
+   style IEBOStorage fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IBondManager fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IAccessManager fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IResolutionManager fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IEBOPledge fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IEBOCore fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IEBOConfig fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style IEBO fill:#556B2F,stroke:#006400,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   
+   style EBOStorage fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style BondManager fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style AccessManager fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style ResolutionManager fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style EBOConfig fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style EBOPledge fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style EBOCore fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style EBOStorage fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+   style UUPSUpgradeable fill:#4682B4,stroke:#191970,stroke-width:6,stroke-dasharray: 8,8,color:white;
+
+   style EBO fill:#4682B4,stroke:#191970,,stroke-width:6,stroke-dasharray: none,color:white;
+
+```
+
+<aside>
+📌
+
+EBO will be a single proxy contract that inherits all interfaces and modules, and it will be deployed on Arbitrum.
+
+</aside>
+
+## **Contracts Description**
+
+### **Abstract contracts for Common Functionality**
+
+- **`EBOStorage`**: Provides the storage layout data and constants for `EBO`.
+- **`AccessManager`**: Provides access control modifiers for the `operator`, `arbitrator`, `council`, and `pending council`.
+- **`BondManager`**: Contains reusable logic for bond functionality and interacts with the `HorizonStaking` contract.
+- **`ResolutionManager`**: Contains the logic for dispute resolution functionality.
+
+### **Abstract Modules**
+
+- **`EBOConfig`**: Contains the EBO configuration logic, with functions for setting variables required by the arbitrator and council.
+- **`EBOPledge`**: Contains the logic for dispute resolution functionality (pledging).
+- **`EBOCore`**: Contains the core logic for EBO (proposing, disputing, resolving, etc.).
+
+### **Main Contract**
+
+- **`EBO`**: It’s the only non-abstract contract and the entry point. It’s a proxy that contains all the EBO logic.
+
+## **Subgraph**
+
+The EBO subgraph will contain the indexed data generated by the events emitted in the EBO contract. It includes an `amendEpochBlock` function for the arbitrator to correct errors.
+
+## **Main Flows**
+
+<aside>
+📌
+
+The following sequence diagrams represent, at a high level of abstraction, the most critical aspects of the contract's work during flow execution. However, they do not capture all the steps performed, so they should be considered a general overview.
+
+</aside>
+
+### Propose Flow
+
+```mermaid
+sequenceDiagram
+  actor Proposer
+  participant EBO
+  participant HorizonStaking
+  participant EpochManager
+  Proposer ->> HorizonStaking: stake + provision
+  Proposer ->> EBO: propose()
+  EBO ->> EpochManager: currentEpoch()
+  EBO ->> HorizonStaking: isAuthorized
+  EBO ->> HorizonStaking: getProvision
+  EBO ->> EBO: bond proposer
+  EBO ->> EBO: create proposal
+```
+
+### **Dispute Flow**
+
+```mermaid
+sequenceDiagram
+  actor Disputer
+	participant EBO
+	participant HorizonStaking
+	Disputer ->> HorizonStaking: stake + provision
+	Disputer ->> EBO: dispute()
+	EBO ->> HorizonStaking: isAuthorized
+	EBO ->> HorizonStaking: getProvision
+	EBO ->> EBO: bond disputer
+	EBO ->> EBO: discard proposal
+	EBO ->> EBO: create dispute
+
+```
+
+### **Pledge Flow**
+
+```mermaid
+sequenceDiagram
+	actor Pledger
+	participant EBO
+	participant HorizonStaking
+	Pledger ->> HorizonStaking: stake + provision
+    Pledger ->> EBO: pledgeForDispute() / pledgeAgainstDispute()
+    EBO ->> HorizonStaking: getProvision
+    EBO ->> EBO: bond Pledger
+  	EBO ->> EBO: add pledge
+```
+
+### **Resolve Flow (Arbitrator)**
+
+```mermaid
+sequenceDiagram
+  actor Arbitrator
+  participant EBO
+  participant HorizonStaking
+  actor Receiver(Dispute winner)
+  Arbitrator ->> EBO: resolve
+  EBO ->> HorizonStaking: slash(payer)
+  HorizonStaking ->> Receiver(Dispute winner): transfer reward
+  EBO ->> HorizonStaking: slash(losing pledgers)
+  HorizonStaking ->> EBO: transfer rewards
+  EBO ->> EBO: unbond all
+```
+
+### Resolve Flow (Permissionless)
+
+```mermaid
+sequenceDiagram
+  actor Caller
+  participant EBO
+  participant HorizonStaking
+  actor Receiver(Dispute winner)
+  Caller ->> EBO: resolve
+  EBO ->> HorizonStaking: slash(payer)
+  HorizonStaking ->> Receiver(Dispute winner): transfer reward
+  EBO ->> HorizonStaking: slash(losing pledgers)
+  HorizonStaking ->> EBO: transfer rewards
+  EBO ->> EBO: unbond all
+
+```
+
+## Proposal Lifecycle
+
+### **Definitions**
+
+- **Proposal bond size**: the amount staked and provisioned in `HorizonStaking` needed to create or dispute a proposal.
+- **Pledge Bond Size:** The amount staked in `HorizonStaking` that represents a single pledge. One pledge is required when calling the pledge function for the **`first`** time. Subsequent calls will require exactly **`two`** pledges to surpass the opposing party, unless the maximum **`maxPledgesNumber`** is reached with the last pledge.
+- **Proposal Creation**: The block timestamp when a proposal is created.
+- **Dispute Window**: The period users can challenge a proposal before it is finalized and deemed valid.
+- **Pledge Window**: If a proposal is disputed, this represents the minimum duration during which users can pledge either in support of or against the dispute (provided that the maximum number of pledges for both sides has not been reached beforehand).
+- **Max Number of Pledges:** The maximum number of pledges permitted per side in a dispute.
+- **Pledge Refresh Window:** This window opens after a user places a pledge, allowing others to pledge on the opposing side. It operates independently of the pledge time window and can remain open as long as the previous Pledge Refresh Window is active, up to the maximum number of pledges.
+- **Arbitrator Resolution Window**: The time required for the arbitrator to resolve an escalated dispute.
+- **Min Thawing Period**: The minimum duration a user must wait to thaw their tokens in the `HorizonStaking` contract, ensuring compatibility with EBO's most extended possible proposal life cycle scenario.
+
+### **Parameters, Formulas, and Recommendations**
+
+**Minimum Thawing Period Calculation**
+
+To determine the `Minimum Thawing Period` (`minThawingPeriod`), the maximum possible duration of a proposal's lifecycle is calculated. This calculation is based on the longest-case scenario, which assumes every action (disputing, pledging) is taken at the last possible moment.
+
+The `maxProposalLifecycleDuration` is the sum of `disputeWindow`, `pledgeWindow`, `maxCumulativePledgeRefreshWindow` (the sum of all pledge refresh windows), and `arbitratorResolutionWindow`. The `minThawingPeriod` must always be greater than or equal to this maximum duration
+
+**Recommendation Values and Example**
+
+The following initial parameter values are suggested:
+
+- **Dispute Window**: 12 hours
+- **Pledge Window**: 2 days
+- **Pledge Refresh Window**: 1 day
+- **Proposal Bond Size**: 15K GRT
+- **Pledge Bond Size**: 15K GRT
+- **Max Number of Pledges**: 4
+
+<aside>
+📌
+
+**Goal:** We are aiming for approximately five rounds (pledge calls). Applying these values to the calculation, the total `_maxProposalLifecycleDuration` is `12h + 48h + 96h (4*24h) + 168h (7*24h) = 324h`, which equals 13.5 days. Therefore, the `_minThawingPeriod` must be greater than or equal to 13.5 days.
+
+</aside>
+
+**Bond Flow Recommendations**
+
+The following table details the bond flow and cumulative time for a full dispute scenario with the suggested values.
+
+| Calls | Proposerbond per call | Disputer bond per call | Max duration | Description | Proposerpledges numberby call | Disputer pledges Numberby call | State after call | CumulativeProposercompromised stake | CumulativeDisputercompromisedstake | Cumulative time |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Proposal bond | 15K GRT |  | 12hs | The dispute window opens |  |  |  | 15K |  | 12hs |
+| Dispute call |  | 15K GRT | 2 days | The current state is (0-0) No resolution |  |  | No Resolution |  | 15k | 60hs |
+| Pledge call  1 |  | 15K GRT | 1 day | The first pledge call is always the cheapest since there is no existing pledge to surpass |  | 1 | Disputer Won |  | 30k | 84hs |
+| Pledge call 2 | 30K GRT |  | 1 day | The counterparty must exceed the total pledges of the opposite side by one pledge | 2 |  | Disputer Lost | 45K |  | 108hs |
+| Pledge call 3 |  | 30K GRT | 1 day |  |  | 2 | Disputer Won |  | 60k | 132hs |
+| Pledge call 4 | 30K GRT |  | 1 day |  | 2 |  | Disputer Lost | 75k |  | 156hs |
+| Pledge call 5 |  | 15K GRT | Call Arbitrator | The maximum number of pledges has been reached by both parties, and the arbitrator is called |  | 1 | Dispute Escalated |  | 75k | - |
+| Arbitrator resolution |  |  | 7 Days |  |  |  |  |  |  | 324hs |
+| Totals | 75K GRT | 75k GRT | 13 days and 6-12hs |  | 4 pledges | 4 pledges |  |  |  |  |
+
+<aside>
+📌
+
+The total bond at stake (75k GRT) represents 75% of the minimum stake required by The Graph for Indexers
+
+</aside>
 
 ## Off-Chain Agents
 
-Optimistic EBO allows any off-chain agent to interact with it by creating requests, proposing responses, or disputing responses in a permissionless manner.
+### **Architecture and Role**
 
-### Architecture
+The EBO Agent is a standalone process that monitors events on the protocol chain (Arbitrum) and responds to them to automate EBO workflows. Its primary responsibility is to interact with the EBO smart contracts and perform the necessary block calculations to propose, validate, or dispute responses on the chains supported by The Graph.
 
-The EBO Agent will be implemented as a single and standalone process that runs on a dedicated instance. The primary responsibility of this process is to poll events from the relevant on-chain smart contracts on the Protocol chain (Arbitrum) and respond to these events with specific actions tailored to the flow requirements. Additionally, the agent will interface with blockchains supported by The Graph and perform block computations for each epoch as necessary.
- 
+### **Capabilities**
 
-> When ready, we will suggest that the Indexers run the instances. There is an intrinsic incentive for them to post EBO updates as they use them to collect indexing rewards. Future changes to issuance and incentives could include other ways to incentivize EBO operation.
-> 
+- Create requests for new epochs.
+- Propose responses (block numbers).
+- Dispute incorrect proposals.
+- Participate in the dispute escalation process (pledging).
+- Finalize proposals that do not escalate to the arbitrator.
 
-### System limitations
+### **Modular Design**
 
-The system will not handle requests that escalate to the Arbitrator for final resolution, as this isn’t automated by the off-chain agent and the Arbitrator must resolve the dispute manually. Additionally, once an epoch concludes, the system will not manage any pending requests.
+The agent consists of two main modules to separate concerns:
 
-![EBO-high-level.jpeg](../assets/gip-0080/Optimistic-EBO-high-level.jpeg)
+- **DisputeModule**: Manages all dispute-related activities, operating reactively to on-chain events.
+- **BlockNumberModule**: Is exclusively responsible for computing the block number corresponding to a specific timestamp for any supported chain.
 
-The development of the EBO Agent will consist of two modules: 
+### **Limitations**
 
-- **DisputeModule**: The DisputeModule will handle all dispute-related activities and will operate in a fully reactive manner based on incoming events. It is important to note that all dispute logic will occur on the protocol chain. Hence, the DisputeModule will interact exclusively with the protocol chain, which in this case is Arbitrum.
-- **BlockNumberModule**: The BlockNumberModule will be responsible solely for computing blocks based on timestamps on the blockchains supported by The Graph, including both EVM and non-EVM chains. For EVM chains, RPC calls will be utilized to extract the necessary data. For non-EVM chains, a third-party service.
+The system is not designed to handle disputes that escalate to the Arbitrator for final resolution, as this process is handled directly by The Graph's Arbitrator.
+
+## **External Contracts Integration**
+
+EBO's integration focuses on two main external contracts: `HorizonStaking` and `EpochManager`. In the context of EBO, the `service provider` is the actor posting a bond (proposer, disputer), while the `verifier` is always the EBO contract itself.
+
+### **`HorizonStaking` Integration**
+
+- **Funding Provision**: Before interacting with EBO, participants must stake and provision GRT tokens in the `HorizonStaking` contract, specifying the EBO contract as the `verifier`.
+- **Provision Verification**: EBO uses the `getProvision` function from `HorizonStaking` to verify that an actor's provision meets the minimum requirements, such as the `minThawingPeriod` and a `maxVerifierCut` of 100%.
+- **Bond Validation**: To secure funds, EBO validates that an actor's committed bonds do not exceed their locked tokens that are not in the process of being thawed (`_tokensNotThawing`). The EBO contract internally tracks bonds to prevent double-spending of the same funds.
+- **Slashing**: EBO calls the `slash` function on `HorizonStaking` to penalize actors who lose a dispute. The funds are transferred from the penalized actor to the corresponding winners.
+
+### **`EpochManager` Integration**
+
+EBO interacts with the `EpochManager` to validate epochs. When creating a proposal, it calls the `currentEpoch` function to ensure that the proposal corresponds to a valid (current or past) epoch and not a future one.
 
 # **Dependencies**
 
@@ -200,15 +559,11 @@ The [horizon staking contract](https://github.com/graphprotocol/contracts/pull/9
 
 # Who is Wonderland?
 
-We’re a group of developers, researchers, and data scientists with one thing in common: we all love building cool sh*t. [DeFi sucks](https://defi.sucks/), but we are here to make it better.
+We’re a group of developers, researchers, and data scientists with one thing in common: we all love building cool sh*t. [DeFi sucks](https://wonderland.xyz/), but we are here to make it better.
 
-Our mission is to discover, partner, and empower innovators in the creation of open, permissionless, and decentralized financial solutions. Our pledge is to stand by our partners, supporting them in every way we can.
+Our mission is to discover, partner with, and empower innovators to create open, permissionless, decentralized financial solutions. We pledge to stand by our partners, working with and supporting them in every way possible.
 
 We have partnered with some of the most successful and promising protocols in Web3 – including [Aztec](https://aztec.network/), [Optimism](https://www.optimism.io/), [Everclear](https://www.everclear.org/), [Safe](https://safe.global/), [Sky](https://sky.money/), [Gitcoin](https://www.gitcoin.co/), [Layer 3](https://layer3.xyz/), [Eigen Layer](https://www.eigenlayer.xyz/), [Keep3r](https://keep3r.network/), [Reflexer](https://app.reflexer.finance/#/), and [Yearn](https://yearn.fi/) – to find solutions to complex engineering challenges and help them reach their full potential.
-
-### What will we do?
-
-The [Wonderland](https://defi.sucks/) team will implement the new version of EBO in close collaboration with The Graph's core development teams.
 
 # **Copyright Waiver**
 
