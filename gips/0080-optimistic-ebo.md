@@ -1,7 +1,7 @@
 ---
 GIP: "0080"
 Title: Optimistic EBO
-Authors: "mono 0xmono@defi.sucks", "shaito shaito@defi.sucks"
+Authors: "mono mono@wonderland.xyz", "shaito shaito@wonderland.xyz"
 Created: 2024-10-23
 Updated: 2025-10-17
 Stage: Draft
@@ -83,7 +83,6 @@ The process works as follows:
 - Once the dispute is resolved, the valid proposal is finalized
 
 <aside>
-📌
 
 Operators can update the block number of one chain at a time, allowing for ongoing disputes and resolutions for each updated chain. This improves the system's scalability.
 
@@ -101,23 +100,30 @@ The following methods can be used to prove that a specific block number correspo
 - Check the timestamps of two consecutive blocks $t_N$ and $t_{N+1}$. If the timestamp value from the protocol chain $t_0$ lives in the range $[t_N,t_{N+1}]$, then $N$ is the first block corresponding to the new epoch.
 - Check a single block timestamp $t_N$ and an average block measure defined per chain $\Delta_i$. If the timestamp value from the protocol chain $t_0$ lives in the range $[t_N,t_N+\Delta_i]$, then $N$ is the first block corresponding to the new epoch.
 
-### Escalating bond
+### Escalating Bonds System
 
-To reduce the number of calls to the Arbitrator, we will implement an escalating bond system:
+To reduce the number of calls to The Graph's Arbitrator, we propose implementing an escalating bond system.
 
-- Anyone can dispute while the dispute window is open and if staked. To dispute, you need to post a bond.
-    - The resolution system is triggered once the participants have completed the maximum number of rounds.
-    - If the disputant “overtakes” the Min Bond, the answer is considered incorrect until the proposer responds. The proposer must overtake the disputant's Bond to escalate the answer further. This process can be repeated up to N times.
-- After each dispute, the original update gets deleted and can be answered again, even before resolution. This option makes the process quicker for the requester. This answer can be disputed using the same method as described above.
-    - An honest proposer will be rewarded more for the won resolution than the original update.
-    - Disputers are incentivized to post the new answer, as they have already computed the query.
+- Any bonded actor can create a proposal.
+- A proposal can only have one dispute.
+- Any bonded actor can create a dispute if they believe the proposal value is incorrect. Once disputed, the proposal will be automatically discarded, and any bonded actor can submit a new one. The disputing party must stake sufficient funds in the - HorizonStaking contract to cover the bondSize.
+- Disputing parties are incentivized to submit a new proposal since they have already computed the query.
+- The winner of the resolution will receive the loser's bond. The Council should be incentivized to participate to support the protocol's integrity.
+- Any bonded actor can vote for or against a dispute by calling the pledge function.
+- The side with more pledges will win the dispute.
+- Pledgers on the winning side will be proportionally rewarded with the bonds from the losing side.
+- The contract is designed to minimize draws, thereby reducing the need for arbitrator intervention. When executing the pledge function, the total number of votes on one side must exceed the opposing side by an amount equal to the pledgeBondSize value. This parameter is configurable and updatable by the protocol.
+- Each dispute has a refreshable time window during which votes can be cast for or against. Calling the pledge function refreshes the time window, allowing the opposing side to submit additional votes.
+- If no disputes are raised within the predefined dispute window, the proposal is considered valid, and the finalize function can be invoked.
+- The system supports a maximum number of escalations (maxNumberOfEscalations) representing the highest number of pledges allowed for either the for or against side.
+- A draw can only occur when both the for and against sides reach the maximum number of escalations.
+- If a draw occurs, the dispute will escalate, and the arbitrator will decide the final outcome.
+- A proposal is considered valid once the finalize method is called for its ID, and the Finalize event is emitted.
 
-The “overtake” mechanism improves resolution time and reduces Arbitrator calls, while the second answer (before resolution) improves the answering time to the request. 
 
 ![EBO Dispute Escalation.png](../assets/gip-0080/Optimistic-EBO-Dispute-Escalation.png)
 
 <aside>
-📌
 
 The escalating bond mechanism functions similarly to the justice system's appeal process, with the Council taking on the role of the Supreme Court.
 
@@ -137,13 +143,6 @@ There are other possible sources of truth for the protocol to verify the timesta
 
 > Using an Arbitrator (a Council of qualified individuals selected by the governance) is the simplest way to launch the system at this early stage and manage all the chains with a single resolution mechanism. This approach allows for greater decentralization in the future, as the source of truth can be easily migrated.
 > 
-
-<aside>
-📌
-
-Using an Arbitrator (a Council of qualified individuals selected by the governance) is the simplest way to launch the system at this early stage and manage all the chains with a single resolution mechanism. This approach allows for greater decentralization in the future, as the source of truth can be easily migrated.
-
-</aside>
 
 **Some considerations**:
 
@@ -331,7 +330,6 @@ classDiagram
 ```
 
 <aside>
-📌
 
 EBO will be a single proxy contract that inherits all interfaces and modules, and it will be deployed on Arbitrum.
 
@@ -363,7 +361,6 @@ The EBO subgraph will contain the indexed data generated by the events emitted i
 ## **Main Flows**
 
 <aside>
-📌
 
 The following sequence diagrams represent, at a high level of abstraction, the most critical aspects of the contract's work during flow execution. However, they do not capture all the steps performed, so they should be considered a general overview.
 
@@ -484,7 +481,6 @@ The following initial parameter values are suggested:
 - **Max Number of Pledges**: 4
 
 <aside>
-📌
 
 **Goal:** We are aiming for approximately five rounds (pledge calls). Applying these values to the calculation, the total `_maxProposalLifecycleDuration` is `12h + 48h + 96h (4*24h) + 168h (7*24h) = 324h`, which equals 13.5 days. Therefore, the `_minThawingPeriod` must be greater than or equal to 13.5 days.
 
@@ -507,7 +503,6 @@ The following table details the bond flow and cumulative time for a full dispute
 | Totals | 75K GRT | 75k GRT | 13 days and 6-12hs |  | 4 pledges | 4 pledges |  |  |  |  |
 
 <aside>
-📌
 
 The total bond at stake (75k GRT) represents 75% of the minimum stake required by The Graph for Indexers
 
