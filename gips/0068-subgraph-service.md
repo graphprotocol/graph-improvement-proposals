@@ -4,7 +4,7 @@ Title: Subgraph Service - A subgraph data service in Graph Horizon
 Authors: Tomás Migone <tomas@edgeandnode.com>, Pablo Carranza Vélez <pablo@edgeandnode.com>, Miguel de Elias <miguel@edgeandnode.com>
 Created: 2024-06-02
 Updated: 2025-03-06
-Stage: Candidate
+Stage: Approved
 Discussions-To: https://forum.thegraph.com/t/gip-0068-subgraph-service-a-subgraph-data-service-in-graph-horizon/5990
 Category: Protocol Logic, Protocol Interfaces, Economic Parameters
 Depends-On: GIP-0066
