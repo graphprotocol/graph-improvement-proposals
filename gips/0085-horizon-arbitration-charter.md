@@ -4,7 +4,7 @@ Title: "Graph Horizon: Arbitration Charter"
 Authors: Tomás Migone <tomas@edgeandnode.com>
 Created: 2025-08-20
 Updated: 2025-08-20
-Stage: Candidate
+Stage: Approved
 Discussions-To:
 Category: Protocol Charters
 Depends-On: GIP-0066, GIP-0068
