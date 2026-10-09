@@ -7,7 +7,7 @@ Stage: Draft
 Discussions-To: <https://forum.thegraph.com/t/gip-0090-community-allocation-of-0-1-of-issuance-to-the-nights-watch/7083>
 Category: Protocol Logic
 Depends-On: GIP-0076, GIP-0088, GIP-0089
-Implementations: https://github.com/nightswatchhq
+Implementations: https://github.com/nuthatch-org
 ---
 
 ## Abstract
