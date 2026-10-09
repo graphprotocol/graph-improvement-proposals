@@ -1,7 +1,7 @@
 ---
 GIP: "0090"
-Title: Community Allocation of 0.1% of issuance to The Night's Watch
-Authors: Petko Pavlovski <petkopavlovski@gmail.com>, The Night's Watch
+Title: Community Allocation of 0.1% of issuance to Nuthatch
+Authors: Petko Pavlovski <petkopavlovski@gmail.com>, Nuthatch
 Created: 2026-09-23
 Stage: Draft
 Discussions-To: <https://forum.thegraph.com/t/gip-0090-community-allocation-of-0-1-of-issuance-to-the-nights-watch/7083>
@@ -12,7 +12,7 @@ Implementations: https://github.com/nuthatch-org
 
 ## Abstract
 
-This proposes allocating 0.1% of protocol issuance, 0.12073 GRT per block, to The Night's Watch through the same mechanism GIP-0089 used for the Innovation Allocation: a new instance of the audited DirectAllocation contract, added as an allocator-minting target on the Issuance Allocator. It funds work that is already running on zero budget and will keep running either way: Lodestar, the community's research and engineering against the Catalyst roadmap, daily indexer and subgraph developer support through graph-support and the Discord, and the nuthatch and Graph integration. The allocation is time-boxed to twelve months, reported quarterly on this forum, and removable by governance in one transaction. At 2025's block count it is about 315,000 GRT a year. At today's price that is under eight thousand dollars. It is a symbolic amount, and the point of it is the symbol: the network paying, for the first time, for community infrastructure it already depends on.
+This proposes allocating 0.1% of protocol issuance, 0.12073 GRT per block, to Nuthatch through the same mechanism GIP-0089 used for the Innovation Allocation: a new instance of the audited DirectAllocation contract, added as an allocator-minting target on the Issuance Allocator. It funds work that is already running on zero budget and will keep running either way: Lodestar, the community's research and engineering against the Catalyst roadmap, daily indexer and subgraph developer support through graph-support and the Discord, and the nuthatch and Graph integration. The allocation is time-boxed to twelve months, reported quarterly on this forum, and removable by governance in one transaction. At 2025's block count it is about 315,000 GRT a year. At today's price that is under eight thousand dollars. It is a symbolic amount, and the point of it is the symbol: the network paying, for the first time, for community infrastructure it already depends on.
 
 ## Motivation
 
@@ -32,7 +32,7 @@ GIP-0076 introduced the Issuance Allocator and DirectAllocation. GIP-0088 deploy
 
 ## High-Level Description
 
-No new smart contract code. One new deployment of the existing, audited DirectAllocation contract, with a Night's Watch multisig as operator, added as an allocator-minting target at 0.12073 GRT per block. The Rewards Manager's allocation is reduced by the same amount. Total issuance stays at 120.73 GRT per block.
+No new smart contract code. One new deployment of the existing, audited DirectAllocation contract, with a Nuthatch multisig as operator, added as an allocator-minting target at 0.12073 GRT per block. The Rewards Manager's allocation is reduced by the same amount. Total issuance stays at 120.73 GRT per block.
 
 ## Detailed Specification
 
@@ -70,12 +70,12 @@ At this size nothing goes to salaries. If a quarter's spend is below the quarter
 ### 4. Governance and monitoring
 
 - The Graph Council approves the allocation.
-- The Night's Watch posts a report on this forum every quarter: what was delivered, what was spent, every withdrawal by transaction hash.
+- Nuthatch posts a report on this forum every quarter: what was delivered, what was spent, every withdrawal by transaction hash.
 - The allocation expires twelve months after activation unless the Council renews it. A missed quarterly report is grounds for immediate removal, and removal is one governance transaction on the allocator.
 
 ## Implementation
 
-1. Deploy a DirectAllocation instance with the Night's Watch multisig as operator.
+1. Deploy a DirectAllocation instance with the Nuthatch multisig as operator.
 2. Governance adds it as an allocator-minting target and sets the split: Rewards Manager 96.46327, Community Allocation 0.12073, Innovation Allocation unchanged at 24.146.
 3. Verify that the targets sum to 120.73 GRT per block and that the first distribution mints to the new contract.
 
